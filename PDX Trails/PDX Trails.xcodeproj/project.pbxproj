@@ -48,6 +48,9 @@
 		48E8CEBC193A66C000370D72 /* PDX TrailsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PDX TrailsTests-Info.plist"; sourceTree = "<group>"; };
 		48E8CEBE193A66C000370D72 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		48E8CEC0193A66C000370D72 /* PDX_TrailsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDX_TrailsTests.m; sourceTree = "<group>"; };
+		48E8CECB193A699100370D72 /* NBPD_Trail_Counts_2008_2009_2010_2011_2012_2013.xls */ = {isa = PBXFileReference; lastKnownFileType = file; path = NBPD_Trail_Counts_2008_2009_2010_2011_2012_2013.xls; sourceTree = "<group>"; };
+		48E8CECC193A699100370D72 /* Trail_Count_Sites.kmz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trail_Count_Sites.kmz; sourceTree = "<group>"; };
+		48E8CECD193A699100370D72 /* trails.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = trails.zip; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,7 @@
 		48E8CEA2193A66C000370D72 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				48E8CECA193A693900370D72 /* Data Files */,
 				48E8CEA3193A66C000370D72 /* PDX Trails-Info.plist */,
 				48E8CEA4193A66C000370D72 /* InfoPlist.strings */,
 				48E8CEA7193A66C000370D72 /* main.m */,
@@ -142,6 +146,16 @@
 				48E8CEBD193A66C000370D72 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		48E8CECA193A693900370D72 /* Data Files */ = {
+			isa = PBXGroup;
+			children = (
+				48E8CECB193A699100370D72 /* NBPD_Trail_Counts_2008_2009_2010_2011_2012_2013.xls */,
+				48E8CECC193A699100370D72 /* Trail_Count_Sites.kmz */,
+				48E8CECD193A699100370D72 /* trails.zip */,
+			);
+			path = "Data Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
