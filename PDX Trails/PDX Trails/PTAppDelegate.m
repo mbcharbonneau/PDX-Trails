@@ -7,15 +7,26 @@
 //
 
 #import "PTAppDelegate.h"
+#import "PTRootMapViewController.h"
+
+@interface PTAppDelegate()
+
+@property (strong, nonatomic) PTRootMapViewController *rootViewController;
+
+@end
 
 @implementation PTAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 {
+    self.rootViewController = [[PTRootMapViewController alloc] init];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = self.rootViewController;
+    
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

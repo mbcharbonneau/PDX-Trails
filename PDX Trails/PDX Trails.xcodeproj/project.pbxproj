@@ -19,6 +19,9 @@
 		48E8CEB7193A66C000370D72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E8CE9F193A66C000370D72 /* UIKit.framework */; };
 		48E8CEBF193A66C000370D72 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48E8CEBD193A66C000370D72 /* InfoPlist.strings */; };
 		48E8CEC1193A66C000370D72 /* PDX_TrailsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEC0193A66C000370D72 /* PDX_TrailsTests.m */; };
+		48E8CED0193A772100370D72 /* PTRootMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CECF193A772100370D72 /* PTRootMapViewController.m */; };
+		48E8CED3193A773700370D72 /* PTTrailInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CED2193A773700370D72 /* PTTrailInfoViewController.m */; };
+		48E8CED6193A810200370D72 /* PTUserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CED5193A810200370D72 /* PTUserDetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,12 @@
 		48E8CECB193A699100370D72 /* NBPD_Trail_Counts_2008_2009_2010_2011_2012_2013.xls */ = {isa = PBXFileReference; lastKnownFileType = file; path = NBPD_Trail_Counts_2008_2009_2010_2011_2012_2013.xls; sourceTree = "<group>"; };
 		48E8CECC193A699100370D72 /* Trail_Count_Sites.kmz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Trail_Count_Sites.kmz; sourceTree = "<group>"; };
 		48E8CECD193A699100370D72 /* trails.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = trails.zip; sourceTree = "<group>"; };
+		48E8CECE193A772100370D72 /* PTRootMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTRootMapViewController.h; sourceTree = "<group>"; };
+		48E8CECF193A772100370D72 /* PTRootMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTRootMapViewController.m; sourceTree = "<group>"; };
+		48E8CED1193A773700370D72 /* PTTrailInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTrailInfoViewController.h; sourceTree = "<group>"; };
+		48E8CED2193A773700370D72 /* PTTrailInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTrailInfoViewController.m; sourceTree = "<group>"; };
+		48E8CED4193A810200370D72 /* PTUserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTUserDetailsViewController.h; sourceTree = "<group>"; };
+		48E8CED5193A810200370D72 /* PTUserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTUserDetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +121,12 @@
 			children = (
 				48E8CEAA193A66C000370D72 /* PTAppDelegate.h */,
 				48E8CEAB193A66C000370D72 /* PTAppDelegate.m */,
-				48E8CEAD193A66C000370D72 /* Images.xcassets */,
+				48E8CECE193A772100370D72 /* PTRootMapViewController.h */,
+				48E8CECF193A772100370D72 /* PTRootMapViewController.m */,
+				48E8CED1193A773700370D72 /* PTTrailInfoViewController.h */,
+				48E8CED2193A773700370D72 /* PTTrailInfoViewController.m */,
+				48E8CED4193A810200370D72 /* PTUserDetailsViewController.h */,
+				48E8CED5193A810200370D72 /* PTUserDetailsViewController.m */,
 				48E8CEA2193A66C000370D72 /* Supporting Files */,
 			);
 			path = "PDX Trails";
@@ -121,6 +135,7 @@
 		48E8CEA2193A66C000370D72 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				48E8CEAD193A66C000370D72 /* Images.xcassets */,
 				48E8CECA193A693900370D72 /* Data Files */,
 				48E8CEA3193A66C000370D72 /* PDX Trails-Info.plist */,
 				48E8CEA4193A66C000370D72 /* InfoPlist.strings */,
@@ -255,6 +270,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				48E8CEAC193A66C000370D72 /* PTAppDelegate.m in Sources */,
+				48E8CED3193A773700370D72 /* PTTrailInfoViewController.m in Sources */,
+				48E8CED6193A810200370D72 /* PTUserDetailsViewController.m in Sources */,
+				48E8CED0193A772100370D72 /* PTRootMapViewController.m in Sources */,
 				48E8CEA8193A66C000370D72 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
