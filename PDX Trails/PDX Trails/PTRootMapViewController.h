@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 Code for Portland. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+@import MapKit;
 
-@interface PTRootMapViewController : UIViewController
+@interface PTRootMapViewController : UIViewController <MKMapViewDelegate>
 
 @end

@@ -8,49 +8,66 @@
 
 #import "PTRootMapViewController.h"
 
+#define METERS_PER_MILE 1609.344
+
 @interface PTRootMapViewController ()
+
+@property (strong, nonatomic) MKMapView *mapView;
+
+- (IBAction)zoomToCurrentLocation:(id)sender;
+- (IBAction)zoomToPortland:(id)sender;
 
 @end
 
 @implementation PTRootMapViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+#pragma mark PTRootMapViewController
+
+- (IBAction)zoomToCurrentLocation:(id)sender;
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+
+}
+    
+- (IBAction)zoomToPortland:(id)sender;
+{
+    CLLocationCoordinate2D zoomLocation = CLLocationCoordinate2DMake( 45.5424364, -122.654422 );
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance( zoomLocation, 3.0 * METERS_PER_MILE, 3.0 * METERS_PER_MILE );
+    
+    [self.mapView setRegion:viewRegion animated:YES];
 }
 
-- (void)viewDidLoad
+#pragma mark UIViewController
+
+- (void)viewDidLoad;
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.mapView = [MKMapView new];
+    self.mapView.delegate = self;
+    self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.view addSubview:self.mapView];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings( _mapView );
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mapView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView]|" options:0 metrics:nil views:views]];
+    
+    [self zoomToPortland:nil];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark NSObject
 
 - (instancetype)init;
 {
     return [self initWithNibName:nil bundle:nil];
+}
+
+#pragma mark MKMapViewDelegate
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation;
+{
+    self.mapView.centerCoordinate = userLocation.location.coordinate;
 }
 
 @end
