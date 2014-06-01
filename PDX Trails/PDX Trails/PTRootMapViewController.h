@@ -9,6 +9,6 @@
 @import UIKit;
 @import MapKit;
 
-@interface PTRootMapViewController : UIViewController <MKMapViewDelegate>
+@interface PTRootMapViewController : UIViewController <MKMapViewDelegate, UITextFieldDelegate>
 
 @end

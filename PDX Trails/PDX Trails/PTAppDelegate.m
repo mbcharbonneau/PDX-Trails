@@ -8,10 +8,12 @@
 
 #import "PTAppDelegate.h"
 #import "PTRootMapViewController.h"
+#import "SWRevealViewController.h"
+#import "PTUserDetailsViewController.h"
 
 @interface PTAppDelegate()
 
-@property (strong, nonatomic) PTRootMapViewController *rootViewController;
+@property (strong, nonatomic) SWRevealViewController *rootViewController;
 
 @end
 
@@ -19,7 +21,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 {
-    self.rootViewController = [[PTRootMapViewController alloc] init];
+    UIViewController *mapViewController = [[PTRootMapViewController alloc] init];
+    UIViewController *userDetailsViewController = [[PTUserDetailsViewController alloc] init];
+    
+    self.rootViewController = [[SWRevealViewController alloc] init];
+    self.rootViewController.delegate = self;
+    self.rootViewController.frontViewController = mapViewController;
+    self.rootViewController.rightViewController = userDetailsViewController;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
