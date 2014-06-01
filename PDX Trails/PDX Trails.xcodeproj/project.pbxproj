@@ -24,6 +24,8 @@
 		48E8CED6193A810200370D72 /* PTUserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CED5193A810200370D72 /* PTUserDetailsViewController.m */; };
 		48E8CEDA193A9FA600370D72 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CED9193A9FA600370D72 /* SWRevealViewController.m */; };
 		48E8CEDD193AADBC00370D72 /* PTConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEDC193AADBC00370D72 /* PTConstants.m */; };
+		48E8CEE4193AB70600370D72 /* PTCyclingTrailFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEE3193AB70600370D72 /* PTCyclingTrailFinderViewController.m */; };
+		48E8CEE7193AC1AA00370D72 /* PTWalkingTrailFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEE6193AC1AA00370D72 /* PTWalkingTrailFinderViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,11 @@
 		48E8CED9193A9FA600370D72 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		48E8CEDB193AADBC00370D72 /* PTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTConstants.h; sourceTree = "<group>"; };
 		48E8CEDC193AADBC00370D72 /* PTConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTConstants.m; sourceTree = "<group>"; };
+		48E8CEE1193AB69100370D72 /* PTTrailFinderViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTrailFinderViewControllerProtocol.h; sourceTree = "<group>"; };
+		48E8CEE2193AB70600370D72 /* PTCyclingTrailFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTCyclingTrailFinderViewController.h; sourceTree = "<group>"; };
+		48E8CEE3193AB70600370D72 /* PTCyclingTrailFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCyclingTrailFinderViewController.m; sourceTree = "<group>"; };
+		48E8CEE5193AC1AA00370D72 /* PTWalkingTrailFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTWalkingTrailFinderViewController.h; sourceTree = "<group>"; };
+		48E8CEE6193AC1AA00370D72 /* PTWalkingTrailFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTWalkingTrailFinderViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,17 +132,10 @@
 		48E8CEA1193A66C000370D72 /* PDX Trails */ = {
 			isa = PBXGroup;
 			children = (
-				48E8CED7193A9F9C00370D72 /* Open Source */,
-				48E8CEAA193A66C000370D72 /* PTAppDelegate.h */,
-				48E8CEAB193A66C000370D72 /* PTAppDelegate.m */,
-				48E8CECE193A772100370D72 /* PTRootMapViewController.h */,
-				48E8CECF193A772100370D72 /* PTRootMapViewController.m */,
-				48E8CED1193A773700370D72 /* PTTrailInfoViewController.h */,
-				48E8CED2193A773700370D72 /* PTTrailInfoViewController.m */,
-				48E8CED4193A810200370D72 /* PTUserDetailsViewController.h */,
-				48E8CED5193A810200370D72 /* PTUserDetailsViewController.m */,
-				48E8CEDB193AADBC00370D72 /* PTConstants.h */,
-				48E8CEDC193AADBC00370D72 /* PTConstants.m */,
+				48E8CED7193A9F9C00370D72 /* OSS External Libraries */,
+				48E8CEDE193AB59500370D72 /* App Global */,
+				48E8CEDF193AB5A700370D72 /* Primary View Controllers */,
+				48E8CEE0193AB5B800370D72 /* Child View Controllers */,
 				48E8CEA2193A66C000370D72 /* Supporting Files */,
 			);
 			path = "PDX Trails";
@@ -182,13 +182,49 @@
 			path = "Data Files";
 			sourceTree = "<group>";
 		};
-		48E8CED7193A9F9C00370D72 /* Open Source */ = {
+		48E8CED7193A9F9C00370D72 /* OSS External Libraries */ = {
 			isa = PBXGroup;
 			children = (
 				48E8CED8193A9FA600370D72 /* SWRevealViewController.h */,
 				48E8CED9193A9FA600370D72 /* SWRevealViewController.m */,
 			);
-			name = "Open Source";
+			name = "OSS External Libraries";
+			sourceTree = "<group>";
+		};
+		48E8CEDE193AB59500370D72 /* App Global */ = {
+			isa = PBXGroup;
+			children = (
+				48E8CEAA193A66C000370D72 /* PTAppDelegate.h */,
+				48E8CEAB193A66C000370D72 /* PTAppDelegate.m */,
+				48E8CEDB193AADBC00370D72 /* PTConstants.h */,
+				48E8CEDC193AADBC00370D72 /* PTConstants.m */,
+			);
+			name = "App Global";
+			sourceTree = "<group>";
+		};
+		48E8CEDF193AB5A700370D72 /* Primary View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				48E8CECE193A772100370D72 /* PTRootMapViewController.h */,
+				48E8CECF193A772100370D72 /* PTRootMapViewController.m */,
+				48E8CED1193A773700370D72 /* PTTrailInfoViewController.h */,
+				48E8CED2193A773700370D72 /* PTTrailInfoViewController.m */,
+				48E8CED4193A810200370D72 /* PTUserDetailsViewController.h */,
+				48E8CED5193A810200370D72 /* PTUserDetailsViewController.m */,
+			);
+			name = "Primary View Controllers";
+			sourceTree = "<group>";
+		};
+		48E8CEE0193AB5B800370D72 /* Child View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				48E8CEE1193AB69100370D72 /* PTTrailFinderViewControllerProtocol.h */,
+				48E8CEE2193AB70600370D72 /* PTCyclingTrailFinderViewController.h */,
+				48E8CEE3193AB70600370D72 /* PTCyclingTrailFinderViewController.m */,
+				48E8CEE5193AC1AA00370D72 /* PTWalkingTrailFinderViewController.h */,
+				48E8CEE6193AC1AA00370D72 /* PTWalkingTrailFinderViewController.m */,
+			);
+			name = "Child View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,8 +328,10 @@
 				48E8CED6193A810200370D72 /* PTUserDetailsViewController.m in Sources */,
 				48E8CEDD193AADBC00370D72 /* PTConstants.m in Sources */,
 				48E8CED0193A772100370D72 /* PTRootMapViewController.m in Sources */,
+				48E8CEE7193AC1AA00370D72 /* PTWalkingTrailFinderViewController.m in Sources */,
 				48E8CEA8193A66C000370D72 /* main.m in Sources */,
 				48E8CEDA193A9FA600370D72 /* SWRevealViewController.m in Sources */,
+				48E8CEE4193AB70600370D72 /* PTCyclingTrailFinderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
