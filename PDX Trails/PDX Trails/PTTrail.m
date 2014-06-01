@@ -10,4 +10,16 @@
 
 @implementation PTTrail
 
+#pragma mark MKOverlay
+
+- (MKMapRect)boundingMapRect;
+{
+    return self.polyline.boundingMapRect;
+}
+
+- (CLLocationCoordinate2D)coordinate;
+{
+    return self.polyline.coordinate;
+}
+
 @end

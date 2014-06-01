@@ -8,6 +8,8 @@
 
 #import "PTRootMapViewController.h"
 #import "SWRevealViewController.h"
+#import "PTTrail.h"
+#import "PTTrailDataProvider.h"
 
 #define METERS_PER_MILE 1609.344
 #define ADDRESS_OVERLAY_ALPHA 0.4f
@@ -35,7 +37,7 @@
     
 - (IBAction)zoomToPortland:(id)sender;
 {
-    CLLocationCoordinate2D zoomLocation = CLLocationCoordinate2DMake( 45.5424364, -122.654422 );
+    CLLocationCoordinate2D zoomLocation = CLLocationCoordinate2DMake( 45.517106, -122.671848 );
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance( zoomLocation, 3.0 * METERS_PER_MILE, 3.0 * METERS_PER_MILE );
     
     [self.mapView setRegion:viewRegion animated:YES];
@@ -50,6 +52,12 @@
     self.mapView = [MKMapView new];
     self.mapView.delegate = self;
     self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    MKCoordinateRegion region;
+    NSArray *trails = [[PTTrailDataProvider sharedDataProvider] trailsForRegion:region];
+    
+    for ( PTTrail *trail in trails )
+        [self.mapView addOverlay:trail];
     
     self.mapOverlayView = [UIView new];
     self.mapOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -120,6 +128,15 @@
 {
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance( userLocation.location.coordinate, 3.0 * METERS_PER_MILE, 3.0 * METERS_PER_MILE );
     [self.mapView setRegion:viewRegion animated:YES];
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay;
+{
+    PTTrail *trail = overlay;
+    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:trail.polyline];
+    renderer.strokeColor = [UIColor redColor];
+    renderer.lineWidth = 6.0;
+    return renderer;
 }
 
 #pragma mark UITextFieldDelegate

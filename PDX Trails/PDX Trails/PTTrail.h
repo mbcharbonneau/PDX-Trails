@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 Code for Portland. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import MapKit;
 
-@interface PTTrail : NSObject
+@interface PTTrail : NSObject <MKOverlay>
 
-@property (strong) NSArray *segments;
-@property (strong) NSString *name;
 @property (strong) NSString *identifier;
+@property (strong) NSString *name;
 @property (strong) NSString *description;
+@property (strong) MKPolyline *polyline;
 
 @end
