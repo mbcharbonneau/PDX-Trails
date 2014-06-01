@@ -10,6 +10,8 @@
 
 @interface PTUserDetailsViewController ()
 
+@property (strong, nonatomic) UIScrollView *modeSelectionScrollView;
+
 @end
 
 @implementation PTUserDetailsViewController
@@ -21,6 +23,15 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor greenColor];
+    
+    self.modeSelectionScrollView = [UIScrollView new];
+    self.modeSelectionScrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSArray *items = @[NSLocalizedString( @"Hiking", @"" ), NSLocalizedString( @"Cycling", @"" ), NSLocalizedString( @"Accessible", @"" ), NSLocalizedString( @"Running", @"" )];
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
+    
+    [self.view addSubview:segmentedControl];
+    
 }
 
 #pragma mark NSObject

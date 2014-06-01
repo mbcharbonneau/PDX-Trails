@@ -28,6 +28,7 @@
     self.rootViewController.delegate = self;
     self.rootViewController.frontViewController = mapViewController;
     self.rootViewController.rightViewController = userDetailsViewController;
+    self.rootViewController.rightViewRevealWidth = 400.0f;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];

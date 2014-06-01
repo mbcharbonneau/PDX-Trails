@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic) UIView *addressOverlayView;
+@property (strong, nonatomic) UIButton *currentLocationButton;
 
 - (IBAction)zoomToCurrentLocation:(id)sender;
 - (IBAction)zoomToPortland:(id)sender;
@@ -66,21 +67,29 @@
     UIButton *button = [UIButton new];
     button.translatesAutoresizingMaskIntoConstraints = NO;
     button.backgroundColor = [UIColor redColor];
-    
     [button addTarget:revealController action:@selector(rightRevealToggle:) forControlEvents:UIControlEventTouchUpInside];
     
+    self.currentLocationButton = [UIButton new];
+    self.currentLocationButton.translatesAutoresizingMaskIntoConstraints = NO;
+    self.currentLocationButton.backgroundColor = [UIColor redColor];
+    [self.currentLocationButton addTarget:self action:@selector(zoomToCurrentLocation:) forControlEvents:UIControlEventTouchUpInside];
+
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.addressOverlayView];
+    [self.view addSubview:self.currentLocationButton];
     [self.addressOverlayView addSubview:textField];
     [self.addressOverlayView addSubview:button];
 
-    NSDictionary *views = NSDictionaryOfVariableBindings( _mapView, _addressOverlayView, textField, button );
+    NSDictionary *views = NSDictionaryOfVariableBindings( _mapView, _addressOverlayView, textField, button, _currentLocationButton );
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mapView]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView]|" options:0 metrics:nil views:views]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_addressOverlayView]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_addressOverlayView(84.0)]" options:0 metrics:nil views:views]];
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_currentLocationButton(44.0)]" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_currentLocationButton(44.0)]-(20)-|" options:0 metrics:nil views:views]];
 
     [self.addressOverlayView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-160.0-[textField]-96.0-[button(44.0)]-20.0-|" options:0 metrics:nil views:views]];
     [self.addressOverlayView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20.0-[textField(44.0)]" options:0 metrics:nil views:views]];
