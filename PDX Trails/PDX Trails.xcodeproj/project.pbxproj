@@ -23,6 +23,7 @@
 		48E8CED3193A773700370D72 /* PTTrailInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CED2193A773700370D72 /* PTTrailInfoViewController.m */; };
 		48E8CED6193A810200370D72 /* PTUserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CED5193A810200370D72 /* PTUserDetailsViewController.m */; };
 		48E8CEDA193A9FA600370D72 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CED9193A9FA600370D72 /* SWRevealViewController.m */; };
+		48E8CEDD193AADBC00370D72 /* PTConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEDC193AADBC00370D72 /* PTConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		48E8CED5193A810200370D72 /* PTUserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTUserDetailsViewController.m; sourceTree = "<group>"; };
 		48E8CED8193A9FA600370D72 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		48E8CED9193A9FA600370D72 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		48E8CEDB193AADBC00370D72 /* PTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTConstants.h; sourceTree = "<group>"; };
+		48E8CEDC193AADBC00370D72 /* PTConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,8 @@
 				48E8CED2193A773700370D72 /* PTTrailInfoViewController.m */,
 				48E8CED4193A810200370D72 /* PTUserDetailsViewController.h */,
 				48E8CED5193A810200370D72 /* PTUserDetailsViewController.m */,
+				48E8CEDB193AADBC00370D72 /* PTConstants.h */,
+				48E8CEDC193AADBC00370D72 /* PTConstants.m */,
 				48E8CEA2193A66C000370D72 /* Supporting Files */,
 			);
 			path = "PDX Trails";
@@ -285,6 +290,7 @@
 				48E8CEAC193A66C000370D72 /* PTAppDelegate.m in Sources */,
 				48E8CED3193A773700370D72 /* PTTrailInfoViewController.m in Sources */,
 				48E8CED6193A810200370D72 /* PTUserDetailsViewController.m in Sources */,
+				48E8CEDD193AADBC00370D72 /* PTConstants.m in Sources */,
 				48E8CED0193A772100370D72 /* PTRootMapViewController.m in Sources */,
 				48E8CEA8193A66C000370D72 /* main.m in Sources */,
 				48E8CEDA193A9FA600370D72 /* SWRevealViewController.m in Sources */,
