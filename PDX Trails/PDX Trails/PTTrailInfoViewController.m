@@ -14,19 +14,24 @@
 
 @implementation PTTrailInfoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(instancetype)initWithTrail:(PTTrail *)trail;
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    NSParameterAssert( trail != nil );
+    
+    if ( self = [super initWithNibName:nil bundle:nil] ) {
+        
+        
     }
+    
     return self;
 }
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning

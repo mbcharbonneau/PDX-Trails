@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class PTTrail;
+
 @interface PTTrailInfoViewController : UIViewController
+
+-(instancetype)initWithTrail:(PTTrail *)trail;
 
 @end
