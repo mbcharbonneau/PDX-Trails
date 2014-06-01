@@ -54,6 +54,7 @@
 - (IBAction)trailInfo:(id)sender;
 {
     PTTrailInfoViewController *controller = [[PTTrailInfoViewController alloc] initWithTrail:self.selectedTrail];
+    controller.modalPresentationStyle = UIModalPresentationPageSheet;
     [self presentViewController:controller animated:YES completion:^{}];
 }
 

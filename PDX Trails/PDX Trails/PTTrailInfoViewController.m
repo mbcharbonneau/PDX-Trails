@@ -7,12 +7,20 @@
 //
 
 #import "PTTrailInfoViewController.h"
+#import "PTTrail.h"
 
 @interface PTTrailInfoViewController ()
+
+@property (strong, nonatomic) PTTrail *trail;
+@property (strong, nonatomic) UITapGestureRecognizer *backgroundTapRecognizer;
+
+- (void)backgroundTap:(UITapGestureRecognizer *)recognizer;
 
 @end
 
 @implementation PTTrailInfoViewController
+
+#pragma mark PTTrailInfoViewController
 
 -(instancetype)initWithTrail:(PTTrail *)trail;
 {
@@ -20,24 +28,59 @@
     
     if ( self = [super initWithNibName:nil bundle:nil] ) {
         
-        
+        _trail = trail;
     }
     
     return self;
 }
 
+#pragma mark PTTrailInfoViewController Private
 
-- (void)viewDidLoad
+- (void)backgroundTap:(UITapGestureRecognizer *)recognizer;
+{
+    if ( recognizer.state != UIGestureRecognizerStateEnded )
+        return;
+    
+    [self dismissViewControllerAnimated:YES completion:^{}];
+}
+
+#pragma mark UIViewController
+
+- (void)viewDidLoad;
 {
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = self.trail.name;
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    titleLabel.font = [UIFont systemFontOfSize:24.0f];
+    
+    [self.view addSubview:titleLabel];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel );
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[titleLabel]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[titleLabel]" options:0 metrics:nil views:views]];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidAppear:(BOOL)animated;
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidAppear:animated];
+    
+    self.backgroundTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTap:)];
+    self.backgroundTapRecognizer.cancelsTouchesInView = NO;
+    
+    [self.view.window addGestureRecognizer:self.backgroundTapRecognizer];
+}
+
+#pragma mark NSObject
+
+- (void)dealloc;
+{
+    [self.backgroundTapRecognizer.view removeGestureRecognizer:self.backgroundTapRecognizer];
+    self.backgroundTapRecognizer = nil;
 }
 
 /*
