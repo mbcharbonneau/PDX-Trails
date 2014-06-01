@@ -15,6 +15,7 @@
 @interface PTRootMapViewController ()
 
 @property (strong, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) UIView *mapOverlayView;
 @property (strong, nonatomic) UIView *addressOverlayView;
 @property (strong, nonatomic) UIButton *currentLocationButton;
 
@@ -50,6 +51,11 @@
     self.mapView.delegate = self;
     self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
     
+    self.mapOverlayView = [UIView new];
+    self.mapOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.mapOverlayView.userInteractionEnabled = NO;
+    self.mapOverlayView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5f];
+    
     self.addressOverlayView = [UIView new];
     self.addressOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
     self.addressOverlayView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
@@ -75,16 +81,19 @@
     [self.currentLocationButton addTarget:self action:@selector(zoomToCurrentLocation:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:self.mapView];
+    [self.view addSubview:self.mapOverlayView];
     [self.view addSubview:self.addressOverlayView];
     [self.view addSubview:self.currentLocationButton];
     [self.addressOverlayView addSubview:textField];
     [self.addressOverlayView addSubview:button];
-
-    NSDictionary *views = NSDictionaryOfVariableBindings( _mapView, _addressOverlayView, textField, button, _currentLocationButton );
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings( _mapView, _mapOverlayView, _addressOverlayView, textField, button, _currentLocationButton );
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mapView]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView]|" options:0 metrics:nil views:views]];
-    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mapOverlayView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapOverlayView]|" options:0 metrics:nil views:views]];
+
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_addressOverlayView]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_addressOverlayView(84.0)]" options:0 metrics:nil views:views]];
 

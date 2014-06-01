@@ -12,6 +12,8 @@
 #import "PTTrailFinderViewControllerProtocol.h"
 #import "PTCyclingTrailFinderViewController.h"
 #import "PTWalkingTrailFinderViewController.h"
+#import "PTADATrailFinderViewController.h"
+#import "PTHikingTrailFinderViewController.h"
 
 @interface PTUserDetailsViewController ()
 
@@ -42,6 +44,12 @@
     switch ( mode ) {
         case PTUserModeCycling:
             self.childViewController = [[PTCyclingTrailFinderViewController alloc] init];
+            break;
+        case PTUserModeAccessible:
+            self.childViewController = [[PTADATrailFinderViewController alloc] init];
+            break;
+        case PTUserModeHiking:
+            self.childViewController = [[PTHikingTrailFinderViewController alloc] init];
             break;
         default:
             self.childViewController = [[PTWalkingTrailFinderViewController alloc] init];
@@ -75,7 +83,7 @@
     self.modeSelectionScrollView = [UIScrollView new];
     self.modeSelectionScrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    NSArray *items = @[PTNameForMode( PTUserModeWalking ), PTNameForMode( PTUserModeHiking ), PTNameForMode( PTUserModeCycling ), PTNameForMode( PTUserModeAccessible ), PTNameForMode( PTUserModeRunning )];
+    NSArray *items = @[PTNameForMode( PTUserModeCycling ), PTNameForMode( PTUserModeWalking ), PTNameForMode( PTUserModeHiking ), PTNameForMode( PTUserModeAccessible ), PTNameForMode( PTUserModeRunning )];
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
     
     segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;

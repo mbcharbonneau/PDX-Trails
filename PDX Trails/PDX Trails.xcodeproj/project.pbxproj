@@ -26,6 +26,11 @@
 		48E8CEDD193AADBC00370D72 /* PTConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEDC193AADBC00370D72 /* PTConstants.m */; };
 		48E8CEE4193AB70600370D72 /* PTCyclingTrailFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEE3193AB70600370D72 /* PTCyclingTrailFinderViewController.m */; };
 		48E8CEE7193AC1AA00370D72 /* PTWalkingTrailFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEE6193AC1AA00370D72 /* PTWalkingTrailFinderViewController.m */; };
+		48E8CEEA193AE98600370D72 /* PTADATrailFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEE9193AE98600370D72 /* PTADATrailFinderViewController.m */; };
+		48E8CEED193AE9A800370D72 /* PTHikingTrailFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEEC193AE9A800370D72 /* PTHikingTrailFinderViewController.m */; };
+		48E8CEF3193B92C200370D72 /* PTCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEF2193B92C200370D72 /* PTCoordinate.m */; };
+		48E8CEF6193B930C00370D72 /* PTTrailSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEF5193B930C00370D72 /* PTTrailSegment.m */; };
+		48E8CEF9193B937D00370D72 /* PTTrail.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEF8193B937D00370D72 /* PTTrail.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +78,16 @@
 		48E8CEE3193AB70600370D72 /* PTCyclingTrailFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCyclingTrailFinderViewController.m; sourceTree = "<group>"; };
 		48E8CEE5193AC1AA00370D72 /* PTWalkingTrailFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTWalkingTrailFinderViewController.h; sourceTree = "<group>"; };
 		48E8CEE6193AC1AA00370D72 /* PTWalkingTrailFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTWalkingTrailFinderViewController.m; sourceTree = "<group>"; };
+		48E8CEE8193AE98600370D72 /* PTADATrailFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTADATrailFinderViewController.h; sourceTree = "<group>"; };
+		48E8CEE9193AE98600370D72 /* PTADATrailFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTADATrailFinderViewController.m; sourceTree = "<group>"; };
+		48E8CEEB193AE9A800370D72 /* PTHikingTrailFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTHikingTrailFinderViewController.h; sourceTree = "<group>"; };
+		48E8CEEC193AE9A800370D72 /* PTHikingTrailFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTHikingTrailFinderViewController.m; sourceTree = "<group>"; };
+		48E8CEF1193B92C200370D72 /* PTCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTCoordinate.h; sourceTree = "<group>"; };
+		48E8CEF2193B92C200370D72 /* PTCoordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCoordinate.m; sourceTree = "<group>"; };
+		48E8CEF4193B930C00370D72 /* PTTrailSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTrailSegment.h; sourceTree = "<group>"; };
+		48E8CEF5193B930C00370D72 /* PTTrailSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTrailSegment.m; sourceTree = "<group>"; };
+		48E8CEF7193B937D00370D72 /* PTTrail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTrail.h; sourceTree = "<group>"; };
+		48E8CEF8193B937D00370D72 /* PTTrail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTrail.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +151,8 @@
 				48E8CEDE193AB59500370D72 /* App Global */,
 				48E8CEDF193AB5A700370D72 /* Primary View Controllers */,
 				48E8CEE0193AB5B800370D72 /* Child View Controllers */,
+				48E8CEEF193B8EC400370D72 /* Data Model */,
+				48E8CEEE193AEF9200370D72 /* User Interface */,
 				48E8CEA2193A66C000370D72 /* Supporting Files */,
 			);
 			path = "PDX Trails";
@@ -185,8 +202,7 @@
 		48E8CED7193A9F9C00370D72 /* OSS External Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				48E8CED8193A9FA600370D72 /* SWRevealViewController.h */,
-				48E8CED9193A9FA600370D72 /* SWRevealViewController.m */,
+				48E8CEF0193B8EC900370D72 /* SWRevealViewController */,
 			);
 			name = "OSS External Libraries";
 			sourceTree = "<group>";
@@ -223,8 +239,41 @@
 				48E8CEE3193AB70600370D72 /* PTCyclingTrailFinderViewController.m */,
 				48E8CEE5193AC1AA00370D72 /* PTWalkingTrailFinderViewController.h */,
 				48E8CEE6193AC1AA00370D72 /* PTWalkingTrailFinderViewController.m */,
+				48E8CEE8193AE98600370D72 /* PTADATrailFinderViewController.h */,
+				48E8CEE9193AE98600370D72 /* PTADATrailFinderViewController.m */,
+				48E8CEEB193AE9A800370D72 /* PTHikingTrailFinderViewController.h */,
+				48E8CEEC193AE9A800370D72 /* PTHikingTrailFinderViewController.m */,
 			);
 			name = "Child View Controllers";
+			sourceTree = "<group>";
+		};
+		48E8CEEE193AEF9200370D72 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		48E8CEEF193B8EC400370D72 /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				48E8CEF1193B92C200370D72 /* PTCoordinate.h */,
+				48E8CEF2193B92C200370D72 /* PTCoordinate.m */,
+				48E8CEF4193B930C00370D72 /* PTTrailSegment.h */,
+				48E8CEF5193B930C00370D72 /* PTTrailSegment.m */,
+				48E8CEF7193B937D00370D72 /* PTTrail.h */,
+				48E8CEF8193B937D00370D72 /* PTTrail.m */,
+			);
+			name = "Data Model";
+			sourceTree = "<group>";
+		};
+		48E8CEF0193B8EC900370D72 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				48E8CED8193A9FA600370D72 /* SWRevealViewController.h */,
+				48E8CED9193A9FA600370D72 /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,13 +372,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48E8CEF6193B930C00370D72 /* PTTrailSegment.m in Sources */,
+				48E8CEED193AE9A800370D72 /* PTHikingTrailFinderViewController.m in Sources */,
 				48E8CEAC193A66C000370D72 /* PTAppDelegate.m in Sources */,
 				48E8CED3193A773700370D72 /* PTTrailInfoViewController.m in Sources */,
+				48E8CEF9193B937D00370D72 /* PTTrail.m in Sources */,
 				48E8CED6193A810200370D72 /* PTUserDetailsViewController.m in Sources */,
 				48E8CEDD193AADBC00370D72 /* PTConstants.m in Sources */,
 				48E8CED0193A772100370D72 /* PTRootMapViewController.m in Sources */,
+				48E8CEEA193AE98600370D72 /* PTADATrailFinderViewController.m in Sources */,
 				48E8CEE7193AC1AA00370D72 /* PTWalkingTrailFinderViewController.m in Sources */,
 				48E8CEA8193A66C000370D72 /* main.m in Sources */,
+				48E8CEF3193B92C200370D72 /* PTCoordinate.m in Sources */,
 				48E8CEDA193A9FA600370D72 /* SWRevealViewController.m in Sources */,
 				48E8CEE4193AB70600370D72 /* PTCyclingTrailFinderViewController.m in Sources */,
 			);

@@ -1,5 +1,5 @@
 //
-//  PTCyclingTrailFinderViewController.h
+//  PTADAViewController.h
 //  PDX Trails
 //
 //  Created by Marc Charbonneau on 5/31/14.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "PTTrailFinderViewControllerProtocol.h"
 
-@interface PTCyclingTrailFinderViewController : UITableViewController <PTTrailFinderViewControllerProtocol>
+@interface PTADATrailFinderViewController : UIViewController <PTTrailFinderViewControllerProtocol>
 
 @end
