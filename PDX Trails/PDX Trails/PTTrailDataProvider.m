@@ -8,6 +8,15 @@
 
 #import "PTTrailDataProvider.h"
 #import "PTTrail.h"
+#import "PTTrailSegment.h"
+
+@interface PTTrailDataProvider()
+
+@property (strong, nonatomic) NSOperationQueue *operationQueue;
+
+- (void)beginAsyncImport;
+
+@end
 
 @implementation PTTrailDataProvider
 
@@ -30,13 +39,13 @@
     coords[1] = CLLocationCoordinate2DMake(45.517106, -122.671848);
     coords[2] = CLLocationCoordinate2DMake(45.511847, -122.674679);
     
+    PTTrailSegment *segment = [[PTTrailSegment alloc] initWithCoordinates:coords count:3];
     PTTrail *trail = [PTTrail new];
-    MKPolyline *segment = [MKPolyline polylineWithCoordinates:coords count:3];
     
     trail.name = @"West Side Test Trail";
     trail.identifier = @"1";
     trail.description = @"TEST DATA";
-    trail.polyline = segment;
+    trail.segments = @[segment];
     
     
     
@@ -46,16 +55,33 @@
     
     
     PTTrail *trail2 = [PTTrail new];
-    MKPolyline *segment2 = [MKPolyline polylineWithCoordinates:coords count:3];
-    
+    PTTrailSegment *segment2 = [[PTTrailSegment alloc] initWithCoordinates:coords count:3];
+
     trail2.name = @"East Side Test Trail";
     trail2.identifier = @"1";
     trail2.description = @"TEST DATA";
-    trail2.polyline = segment2;
+    trail2.segments = @[segment2];
 
 
     
     return @[trail, trail2];
+}
+
+#pragma mark PTTrailDataProvider Private
+
+- (void)beginAsyncImport;
+{
+    NSBlockOperation *import = [NSBlockOperation blockOperationWithBlock:^{
+        
+        
+    }];
+    
+    import.completionBlock = ^{
+        
+        
+    };
+    
+    [self.operationQueue addOperation:import];
 }
 
 @end

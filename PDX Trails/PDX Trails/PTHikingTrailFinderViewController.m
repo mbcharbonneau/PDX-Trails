@@ -7,6 +7,7 @@
 //
 
 #import "PTHikingTrailFinderViewController.h"
+#import "PTFilterCell.h"
 
 @interface PTHikingTrailFinderViewController ()
 
@@ -14,37 +15,57 @@
 
 @implementation PTHikingTrailFinderViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
+- (void)viewDidLoad;
 {
     [super viewDidLoad];
-
-    self.view.backgroundColor = [UIColor purpleColor];
+    
+    [self.tableView registerClass:[PTFilterCell class] forCellReuseIdentifier:NSStringFromClass( [self class] )];
+    self.tableView.tableFooterView = [UIView new];
 }
 
-- (void)didReceiveMemoryWarning
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return 1;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    return 5;
 }
-*/
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass( [self class] ) forIndexPath:indexPath];
+    
+    switch ( indexPath.row )
+    {
+        case 0:
+            cell.textLabel.text = NSLocalizedString( @"Length of trail:", @"" );
+            cell.detailTextLabel.text = NSLocalizedString( @"5mi - 10mi", @"" );
+            break;
+        case 1:
+            cell.textLabel.text = NSLocalizedString( @"Hills:", @"" );
+            cell.detailTextLabel.text = NSLocalizedString( @"okay", @"" );
+            break;
+        case 2:
+            cell.textLabel.text = NSLocalizedString( @"Popularity:", @"" );
+            cell.detailTextLabel.text = NSLocalizedString( @"low-use", @"" );
+            break;
+        case 3:
+            cell.textLabel.text = NSLocalizedString( @"Scenic:", @"" );
+            cell.detailTextLabel.text = NSLocalizedString( @"important", @"" );
+            break;
+        case 4:
+            cell.textLabel.text = NSLocalizedString( @"Surrounding area:", @"" );
+            cell.detailTextLabel.text = NSLocalizedString( @"rural / farmland", @"" );
+            break;
+        default:
+            break;
+    }
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    return cell;
+}
 
 @end

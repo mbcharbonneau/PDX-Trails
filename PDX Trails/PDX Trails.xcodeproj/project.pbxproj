@@ -30,6 +30,8 @@
 		48E8CEED193AE9A800370D72 /* PTHikingTrailFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEEC193AE9A800370D72 /* PTHikingTrailFinderViewController.m */; };
 		48E8CEF9193B937D00370D72 /* PTTrail.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEF8193B937D00370D72 /* PTTrail.m */; };
 		48E8CEFF193B9F6200370D72 /* PTTrailDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CEFE193B9F6200370D72 /* PTTrailDataProvider.m */; };
+		48E8CF03193BE05400370D72 /* PTFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CF02193BE05400370D72 /* PTFilterCell.m */; };
+		48E8CF06193C0D1E00370D72 /* PTTrailSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CF05193C0D1E00370D72 /* PTTrailSegment.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,10 @@
 		48E8CEF8193B937D00370D72 /* PTTrail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTrail.m; sourceTree = "<group>"; };
 		48E8CEFD193B9F6200370D72 /* PTTrailDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTrailDataProvider.h; sourceTree = "<group>"; };
 		48E8CEFE193B9F6200370D72 /* PTTrailDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTrailDataProvider.m; sourceTree = "<group>"; };
+		48E8CF01193BE05400370D72 /* PTFilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTFilterCell.h; sourceTree = "<group>"; };
+		48E8CF02193BE05400370D72 /* PTFilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTFilterCell.m; sourceTree = "<group>"; };
+		48E8CF04193C0D1E00370D72 /* PTTrailSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTrailSegment.h; sourceTree = "<group>"; };
+		48E8CF05193C0D1E00370D72 /* PTTrailSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTrailSegment.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,10 +215,10 @@
 			children = (
 				48E8CEAA193A66C000370D72 /* PTAppDelegate.h */,
 				48E8CEAB193A66C000370D72 /* PTAppDelegate.m */,
-				48E8CEDB193AADBC00370D72 /* PTConstants.h */,
-				48E8CEDC193AADBC00370D72 /* PTConstants.m */,
 				48E8CEFD193B9F6200370D72 /* PTTrailDataProvider.h */,
 				48E8CEFE193B9F6200370D72 /* PTTrailDataProvider.m */,
+				48E8CEDB193AADBC00370D72 /* PTConstants.h */,
+				48E8CEDC193AADBC00370D72 /* PTConstants.m */,
 			);
 			name = "App Global";
 			sourceTree = "<group>";
@@ -249,6 +255,8 @@
 		48E8CEEE193AEF9200370D72 /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
+				48E8CF01193BE05400370D72 /* PTFilterCell.h */,
+				48E8CF02193BE05400370D72 /* PTFilterCell.m */,
 			);
 			name = "User Interface";
 			sourceTree = "<group>";
@@ -258,6 +266,8 @@
 			children = (
 				48E8CEF7193B937D00370D72 /* PTTrail.h */,
 				48E8CEF8193B937D00370D72 /* PTTrail.m */,
+				48E8CF04193C0D1E00370D72 /* PTTrailSegment.h */,
+				48E8CF05193C0D1E00370D72 /* PTTrailSegment.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -370,8 +380,10 @@
 				48E8CEED193AE9A800370D72 /* PTHikingTrailFinderViewController.m in Sources */,
 				48E8CEAC193A66C000370D72 /* PTAppDelegate.m in Sources */,
 				48E8CED3193A773700370D72 /* PTTrailInfoViewController.m in Sources */,
+				48E8CF03193BE05400370D72 /* PTFilterCell.m in Sources */,
 				48E8CEF9193B937D00370D72 /* PTTrail.m in Sources */,
 				48E8CED6193A810200370D72 /* PTUserDetailsViewController.m in Sources */,
+				48E8CF06193C0D1E00370D72 /* PTTrailSegment.m in Sources */,
 				48E8CEFF193B9F6200370D72 /* PTTrailDataProvider.m in Sources */,
 				48E8CEDD193AADBC00370D72 /* PTConstants.m in Sources */,
 				48E8CED0193A772100370D72 /* PTRootMapViewController.m in Sources */,

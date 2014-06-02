@@ -7,6 +7,7 @@
 //
 
 #import "PTCyclingTrailFinderViewController.h"
+#import "PTFilterCell.h"
 
 @interface PTCyclingTrailFinderViewController ()
 
@@ -14,22 +15,12 @@
 
 @implementation PTCyclingTrailFinderViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
+- (void)viewDidLoad;
 {
     [super viewDidLoad];
-
-    self.view.backgroundColor = [UIColor blueColor];
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass( [self class] )];
+    [self.tableView registerClass:[PTFilterCell class] forCellReuseIdentifier:NSStringFromClass( [self class] )];
+    self.tableView.tableFooterView = [UIView new];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
@@ -39,7 +30,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    return 2;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -49,12 +40,28 @@
     switch ( indexPath.row )
     {
         case 0:
-            cell.textLabel.text = NSLocalizedString( @"I am a:", @"" );
+            cell.textLabel.text = NSLocalizedString( @"I describe myself as a:", @"" );
             cell.detailTextLabel.text = NSLocalizedString( @"bike commuter", @"" );
             break;
         case 1:
             cell.textLabel.text = NSLocalizedString( @"I like trails that are:", @"" );
-            cell.detailTextLabel.text = NSLocalizedString( @"quiet", @"" );
+            cell.detailTextLabel.text = NSLocalizedString( @"popular", @"" );
+            break;
+        case 2:
+            cell.textLabel.text = NSLocalizedString( @"Unpaved paths:", @"" );
+            cell.detailTextLabel.text = NSLocalizedString( @"avoid", @"" );
+            break;
+        case 3:
+            cell.textLabel.text = NSLocalizedString( @"Traffic:", @"" );
+            cell.detailTextLabel.text = NSLocalizedString( @"avoid high speed limits", @"" );
+            break;
+        case 4:
+            cell.textLabel.text = NSLocalizedString( @"Hills:", @"" );
+            cell.detailTextLabel.text = NSLocalizedString( @"avoid steep hills", @"" );
+            break;
+        case 5:
+            cell.textLabel.text = NSLocalizedString( @"Protected crossings:", @"" );
+            cell.detailTextLabel.text = NSLocalizedString( @"preferred", @"" );
             break;
         default:
             break;
@@ -64,6 +71,5 @@
     
     return cell;
 }
-
 
 @end

@@ -1,5 +1,5 @@
 //
-//  PTTrail.h
+//  PTTrailSegment.h
 //  PDX Trails
 //
 //  Created by Marc Charbonneau on 6/1/14.
@@ -9,13 +9,12 @@
 @import Foundation;
 @import MapKit;
 
-@interface PTTrail : NSObject <MKOverlay>
+@interface PTTrailSegment : NSObject
 
 @property (strong) NSString *identifier;
 @property (strong) NSString *name;
-@property (strong) NSString *description;
-@property (strong) NSArray *segments;
+@property (strong) NSArray *coordinates;
 
-- (MKPolyline *)polyline;
+- (instancetype)initWithCoordinates:(CLLocationCoordinate2D *)coordinates count:(NSUInteger)count;
 
 @end

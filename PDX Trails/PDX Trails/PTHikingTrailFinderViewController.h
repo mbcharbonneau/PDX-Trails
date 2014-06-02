@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "PTTrailFinderViewControllerProtocol.h"
 
-@interface PTHikingTrailFinderViewController : UIViewController <PTTrailFinderViewControllerProtocol>
+@interface PTHikingTrailFinderViewController : UITableViewController <PTTrailFinderViewControllerProtocol>
 
 @end

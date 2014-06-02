@@ -78,12 +78,12 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor greenColor];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
+        
     self.modeSelectionScrollView = [UIScrollView new];
     self.modeSelectionScrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    NSArray *items = @[PTNameForMode( PTUserModeCycling ), PTNameForMode( PTUserModeWalking ), PTNameForMode( PTUserModeHiking ), PTNameForMode( PTUserModeAccessible ), PTNameForMode( PTUserModeRunning )];
+    NSArray *items = @[PTNameForMode( PTUserModeHiking ), PTNameForMode( PTUserModeWalking ), PTNameForMode( PTUserModeCycling ), PTNameForMode( PTUserModeAccessible ), PTNameForMode( PTUserModeRunning )];
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
     
     segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;

@@ -17,4 +17,6 @@ typedef NS_ENUM( NSUInteger, PTUserMode )
     PTUserModeRunning
 };
 
+static NSString *PTDataImportOperationFinishedNotification;
+
 NSString *PTNameForMode( PTUserMode mode );
