@@ -8,6 +8,9 @@
 
 #import "PTConstants.h"
 
+static NSString *PTDataImportOperationFinishedNotification = @"PTDataImportOperationFinishedNotification";
+static NSString *PTErrorDomain = @"PTErrorDomain";
+
 NSString *PTNameForMode( PTUserMode mode ) {
     
     NSString *name;

@@ -9,6 +9,8 @@
 #import "PTTrailDataProvider.h"
 #import "PTTrail.h"
 #import "PTTrailSegment.h"
+#import "PTPLATSTrailImportOperation.h"
+#import "PTConstants.h"
 
 @interface PTTrailDataProvider()
 
@@ -62,6 +64,8 @@
     trail2.description = @"TEST DATA";
     trail2.segments = @[segment2];
 
+    
+    [self beginAsyncImport];
 
     
     return @[trail, trail2];
@@ -71,17 +75,28 @@
 
 - (void)beginAsyncImport;
 {
-    NSBlockOperation *import = [NSBlockOperation blockOperationWithBlock:^{
-        
-        
-    }];
+    PTPLATSTrailImportOperation *import = [[PTPLATSTrailImportOperation alloc] init];
+    __block PTPLATSTrailImportOperation *weakImport = import;
     
     import.completionBlock = ^{
-        
-        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:PTDataImportOperationFinishedNotification object:weakImport.importedTrails];
+        }];
     };
     
     [self.operationQueue addOperation:import];
+}
+
+#pragma mark NSObject
+
+- (instancetype)init;
+{
+    if ( self = [super init] ) {
+        
+        _operationQueue = [[NSOperationQueue alloc] init];
+    }
+    
+    return self;
 }
 
 @end

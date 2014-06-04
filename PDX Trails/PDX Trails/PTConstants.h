@@ -17,6 +17,12 @@ typedef NS_ENUM( NSUInteger, PTUserMode )
     PTUserModeRunning
 };
 
+typedef NS_ENUM( NSUInteger, PTErrorCode )
+{
+    PTErrorCodeUnknown = 0
+};
+
 static NSString *PTDataImportOperationFinishedNotification;
+static NSString *PTErrorDomain;
 
 NSString *PTNameForMode( PTUserMode mode );
