@@ -630,6 +630,7 @@
 				48E8CEC6193A66C000370D72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		48E8CEC7193A66C000370D72 /* Build configuration list for PBXNativeTarget "PDX TrailsTests" */ = {
 			isa = XCConfigurationList;
@@ -638,6 +639,7 @@
 				48E8CEC9193A66C000370D72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

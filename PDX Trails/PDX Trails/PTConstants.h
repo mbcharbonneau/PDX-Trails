@@ -26,3 +26,10 @@ static NSString *PTDataImportOperationFinishedNotification;
 static NSString *PTErrorDomain;
 
 NSString *PTNameForMode( PTUserMode mode );
+
+@interface UIColor (PTConstants)
+
++ (UIColor *)PTBlueTintColor;
++ (UIColor *)PTGreenTintColor;
+
+@end

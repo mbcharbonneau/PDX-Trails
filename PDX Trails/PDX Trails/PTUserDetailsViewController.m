@@ -82,13 +82,15 @@
         
     self.modeSelectionScrollView = [UIScrollView new];
     self.modeSelectionScrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.modeSelectionScrollView.backgroundColor = [UIColor lightGrayColor];
     
     NSArray *items = @[PTNameForMode( PTUserModeHiking ), PTNameForMode( PTUserModeWalking ), PTNameForMode( PTUserModeCycling ), PTNameForMode( PTUserModeAccessible ), PTNameForMode( PTUserModeRunning )];
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
     
     segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
     segmentedControl.selectedSegmentIndex = 0;
-    segmentedControl.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
+    segmentedControl.tintColor = [UIColor PTBlueTintColor];
+    [segmentedControl setDividerImage:nil forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [segmentedControl addTarget:self action:@selector(chooseMode:) forControlEvents:UIControlEventValueChanged];
     
     UILabel *helpLabel = [UILabel new];

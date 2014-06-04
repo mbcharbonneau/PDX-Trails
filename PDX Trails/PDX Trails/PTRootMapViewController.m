@@ -11,6 +11,7 @@
 #import "PTTrail.h"
 #import "PTTrailDataProvider.h"
 #import "PTTrailInfoViewController.h"
+#import "PTConstants.h"
 
 #define METERS_PER_MILE 1609.344
 #define ADDRESS_OVERLAY_ALPHA 0.4f
@@ -214,7 +215,7 @@
 {
     PTTrail *trail = overlay;
     MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:trail.polyline];
-    renderer.strokeColor = [UIColor redColor];
+    renderer.strokeColor = [UIColor PTBlueTintColor];
     renderer.lineWidth = 4.0;
     return renderer;
 }

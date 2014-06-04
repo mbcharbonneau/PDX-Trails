@@ -35,3 +35,18 @@ NSString *PTNameForMode( PTUserMode mode ) {
     
     return name;
 }
+
+@implementation UIColor (PTConstants)
+
++ (UIColor *)PTBlueTintColor;
+{
+    return [UIColor colorWithRed:0.0f/255.0f green:169.0f/255.0f blue:224.0f/255.0f alpha:1.0f];
+}
+
++ (UIColor *)PTGreenTintColor;
+{
+    return [UIColor colorWithRed:152.0f/255.0f green:199.0f/255.0f blue:61.0f/255.0f alpha:1.0f];
+}
+
+@end
+
