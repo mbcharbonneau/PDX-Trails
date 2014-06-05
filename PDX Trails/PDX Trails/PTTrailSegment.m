@@ -10,6 +10,8 @@
 
 @implementation PTTrailSegment
 
+#pragma mark PTTrailSegment
+
 - (instancetype)initWithCoordinates:(CLLocationCoordinate2D *)coordinates count:(NSUInteger)count;
 {
     if ( self = [super init] ) {
@@ -26,6 +28,25 @@
     }
     
     return self;
+}
+
+#pragma mark NSObject
+
+- (NSString *)description;
+{
+    NSMutableString *string = [[NSMutableString alloc] init];
+    [string appendFormat:@"<%@: %p, coordinates=", NSStringFromClass( [self class] ), self];
+    
+    NSInteger index, count = [self.coordinates count];
+    
+    for ( index = 0; index < count; index++ ) {
+        CLLocationCoordinate2D coordinate;
+        [self.coordinates[index] getValue:&coordinate];
+        [string appendFormat:@"%f %f, ", coordinate.latitude, coordinate.longitude];
+    }
+    
+    [string appendString:@">"];
+    return string;
 }
 
 @end

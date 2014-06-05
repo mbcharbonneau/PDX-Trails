@@ -10,8 +10,8 @@
 
 @class PTTrail;
 
-@interface PTTrailInfoViewController : UIViewController
+@interface PTTrailInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
--(instancetype)initWithTrail:(PTTrail *)trail;
+- (instancetype)initWithTrail:(PTTrail *)trail;
 
 @end

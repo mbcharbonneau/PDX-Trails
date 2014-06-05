@@ -8,11 +8,13 @@
 
 #import "PTTrailInfoViewController.h"
 #import "PTTrail.h"
+#import "PTTrailSegment.h"
 
 @interface PTTrailInfoViewController ()
 
 @property (strong, nonatomic) PTTrail *trail;
 @property (strong, nonatomic) UITapGestureRecognizer *backgroundTapRecognizer;
+@property (strong, nonatomic) UITableView *tableView;
 
 - (void)backgroundTap:(UITapGestureRecognizer *)recognizer;
 
@@ -57,12 +59,22 @@
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.font = [UIFont systemFontOfSize:24.0f];
     
-    [self.view addSubview:titleLabel];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass( [self class] )];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel );
+    [self.view addSubview:titleLabel];
+    [self.view addSubview:self.tableView];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel, _tableView );
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[titleLabel]-(20)-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[titleLabel]" options:0 metrics:nil views:views]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_tableView]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[titleLabel]-(20)-[_tableView]|" options:0 metrics:nil views:views]];
 }
 
 - (void)viewDidAppear:(BOOL)animated;
@@ -82,6 +94,34 @@
     [self.backgroundTapRecognizer.view removeGestureRecognizer:self.backgroundTapRecognizer];
     self.backgroundTapRecognizer = nil;
 }
+
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+{
+    return [self.trail.segments count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass( [self class] ) forIndexPath:indexPath];
+    PTTrailSegment *segment = [self.trail.segments objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = [segment description];
+    cell.textLabel.font = [UIFont systemFontOfSize:10.0f];
+    cell.textLabel.numberOfLines = 3;
+    
+    return cell;
+}
+
+#pragma mark UITableViewDelegate
+
+
 
 /*
 #pragma mark - Navigation
