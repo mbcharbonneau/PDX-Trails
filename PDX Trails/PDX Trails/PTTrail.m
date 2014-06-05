@@ -45,4 +45,15 @@
     return [self polyline].coordinate;
 }
 
+#pragma mark NSObject
+
+- (id)init;
+{
+    if ( self = [super init] ) {
+        self.segments = @[];
+    }
+    
+    return self;
+}
+
 @end

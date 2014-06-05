@@ -9,7 +9,7 @@
 @import Foundation;
 @import MapKit;
 
-@interface PTPLATSTrailImportOperation : NSOperation
+@interface PTPLATSImportOperation : NSOperation
 
 @property (strong) NSArray *importedTrails;
 @property (strong) NSError *error;

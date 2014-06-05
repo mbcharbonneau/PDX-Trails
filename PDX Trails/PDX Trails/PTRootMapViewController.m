@@ -32,6 +32,7 @@
 - (IBAction)trailInfo:(id)sender;
 
 - (void)mapTouch:(UITapGestureRecognizer *)recognizer;
+- (void)importOperationFinished:(NSNotification *)aNotification;
 
 @end
 
@@ -92,6 +93,15 @@
     self.trailInfoButton.hidden = selectedTrail == nil;
 }
 
+- (void)importOperationFinished:(NSNotification *)aNotification;
+{
+    MKCoordinateRegion region;
+    NSArray *trails = [[PTTrailDataProvider sharedDataProvider] trailsForRegion:region];
+    
+    for ( PTTrail *trail in trails )
+        [self.mapView addOverlay:trail];
+}
+
 #pragma mark UIViewController
 
 - (void)viewDidLoad;
@@ -104,12 +114,6 @@
     self.mapView.delegate = self;
     self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.mapView addGestureRecognizer:recognizer];
-
-    MKCoordinateRegion region;
-    NSArray *trails = [[PTTrailDataProvider sharedDataProvider] trailsForRegion:region];
-    
-    for ( PTTrail *trail in trails )
-        [self.mapView addOverlay:trail];
     
     self.mapOverlayView = [UIView new];
     self.mapOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -194,6 +198,8 @@
     [self.addressOverlayView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20.0-[button(44.0)]" options:0 metrics:nil views:views]];
     
     [self zoomToPortland:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(importOperationFinished:) name:PTDataImportOperationFinishedNotification object:nil];
+    [PTTrailDataProvider sharedDataProvider]; // remove later
 }
 
 #pragma mark NSObject
@@ -201,6 +207,11 @@
 - (instancetype)init;
 {
     return [self initWithNibName:nil bundle:nil];
+}
+
+- (void)dealloc;
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:PTDataImportOperationFinishedNotification object:nil];
 }
 
 #pragma mark MKMapViewDelegate

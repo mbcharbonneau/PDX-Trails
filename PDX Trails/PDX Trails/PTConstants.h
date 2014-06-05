@@ -19,11 +19,12 @@ typedef NS_ENUM( NSUInteger, PTUserMode )
 
 typedef NS_ENUM( NSUInteger, PTErrorCode )
 {
-    PTErrorCodeUnknown = 0
+    PTErrorCodeUnknown = 0,
+    PTErrorCodeDataFormatError = 1
 };
 
-static NSString *PTDataImportOperationFinishedNotification;
-static NSString *PTErrorDomain;
+extern NSString *const PTDataImportOperationFinishedNotification;
+extern NSString *const PTErrorDomain;
 
 NSString *PTNameForMode( PTUserMode mode );
 

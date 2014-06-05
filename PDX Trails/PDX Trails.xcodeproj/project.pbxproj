@@ -37,7 +37,7 @@
 		48E8CF0E193C15C200370D72 /* stewards.csv in Resources */ = {isa = PBXBuildFile; fileRef = 48E8CF09193C15C200370D72 /* stewards.csv */; };
 		48E8CF0F193C15C200370D72 /* trail_segments.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 48E8CF0A193C15C200370D72 /* trail_segments.geojson */; };
 		48E8CF10193C15C200370D72 /* trailheads.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 48E8CF0B193C15C200370D72 /* trailheads.geojson */; };
-		48E8CF13193C1BB700370D72 /* PTPLATSTrailImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CF12193C1BB700370D72 /* PTPLATSTrailImportOperation.m */; };
+		48E8CF13193C1BB700370D72 /* PTPLATSImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CF12193C1BB700370D72 /* PTPLATSImportOperation.m */; };
 		48E8CF17193C1E4100370D72 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E8CF16193C1E4100370D72 /* CHCSVParser.m */; };
 /* End PBXBuildFile section */
 
@@ -103,8 +103,8 @@
 		48E8CF09193C15C200370D72 /* stewards.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stewards.csv; sourceTree = "<group>"; };
 		48E8CF0A193C15C200370D72 /* trail_segments.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trail_segments.geojson; sourceTree = "<group>"; };
 		48E8CF0B193C15C200370D72 /* trailheads.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trailheads.geojson; sourceTree = "<group>"; };
-		48E8CF11193C1BB700370D72 /* PTPLATSTrailImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTPLATSTrailImportOperation.h; sourceTree = "<group>"; };
-		48E8CF12193C1BB700370D72 /* PTPLATSTrailImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTPLATSTrailImportOperation.m; sourceTree = "<group>"; };
+		48E8CF11193C1BB700370D72 /* PTPLATSImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTPLATSImportOperation.h; sourceTree = "<group>"; };
+		48E8CF12193C1BB700370D72 /* PTPLATSImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTPLATSImportOperation.m; sourceTree = "<group>"; };
 		48E8CF15193C1E4100370D72 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
 		48E8CF16193C1E4100370D72 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -290,8 +290,8 @@
 				48E8CEF8193B937D00370D72 /* PTTrail.m */,
 				48E8CF04193C0D1E00370D72 /* PTTrailSegment.h */,
 				48E8CF05193C0D1E00370D72 /* PTTrailSegment.m */,
-				48E8CF11193C1BB700370D72 /* PTPLATSTrailImportOperation.h */,
-				48E8CF12193C1BB700370D72 /* PTPLATSTrailImportOperation.m */,
+				48E8CF11193C1BB700370D72 /* PTPLATSImportOperation.h */,
+				48E8CF12193C1BB700370D72 /* PTPLATSImportOperation.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -424,7 +424,7 @@
 				48E8CF06193C0D1E00370D72 /* PTTrailSegment.m in Sources */,
 				48E8CF17193C1E4100370D72 /* CHCSVParser.m in Sources */,
 				48E8CEFF193B9F6200370D72 /* PTTrailDataProvider.m in Sources */,
-				48E8CF13193C1BB700370D72 /* PTPLATSTrailImportOperation.m in Sources */,
+				48E8CF13193C1BB700370D72 /* PTPLATSImportOperation.m in Sources */,
 				48E8CEDD193AADBC00370D72 /* PTConstants.m in Sources */,
 				48E8CED0193A772100370D72 /* PTRootMapViewController.m in Sources */,
 				48E8CEEA193AE98600370D72 /* PTADATrailFinderViewController.m in Sources */,
