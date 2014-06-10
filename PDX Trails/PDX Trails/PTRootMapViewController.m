@@ -15,13 +15,12 @@
 #import "PTTrailRenderer.h"
 
 #define METERS_PER_MILE 1609.344
-#define ADDRESS_OVERLAY_ALPHA 0.4f
 
 @interface PTRootMapViewController ()
 
 @property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic) UIView *mapOverlayView;
-@property (strong, nonatomic) UIView *addressOverlayView;
+@property (strong, nonatomic) UIToolbar *addressOverlayView;
 @property (strong, nonatomic) UIButton *currentLocationButton;
 @property (strong, nonatomic) UIButton *trailInfoButton;
 @property (strong, nonatomic) UILabel *trailTitleLabel;
@@ -119,17 +118,15 @@
     self.mapOverlayView.userInteractionEnabled = NO;
     self.mapOverlayView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5f];
     
-    self.addressOverlayView = [UIView new];
+    self.addressOverlayView = [UIToolbar new];
     self.addressOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.addressOverlayView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
-    self.addressOverlayView.alpha = ADDRESS_OVERLAY_ALPHA;
+    self.addressOverlayView.translucent = YES;
+    self.addressOverlayView.barTintColor = [UIColor PTGreenTintColor];
     
-    UITextField *textField = [UITextField new];
-    textField.translatesAutoresizingMaskIntoConstraints = NO;
-    textField.delegate = self;
-    textField.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.9f];
-    textField.layer.cornerRadius = 4.0f;
-    textField.textColor = [UIColor whiteColor];
+    UISearchBar *searchBar = [UISearchBar new];
+    searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+    searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    searchBar.placeholder = NSLocalizedString( @"Search by Trail or Address", @"" );
     
     SWRevealViewController *revealController = [self revealViewController];
     
@@ -171,10 +168,11 @@
     [self.view addSubview:self.trailInfoButton];
     [self.view addSubview:self.trailTitleLabel];
     [self.view addSubview:self.trailSubtitleLabel];
-    [self.addressOverlayView addSubview:textField];
+    
+    [self.addressOverlayView addSubview:searchBar];
     [self.addressOverlayView addSubview:button];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings( _mapView, _mapOverlayView, _trailTitleLabel, _trailSubtitleLabel, _addressOverlayView, textField, button, _currentLocationButton, _trailInfoButton );
+    NSDictionary *views = NSDictionaryOfVariableBindings( _mapView, _mapOverlayView, _trailTitleLabel, _trailSubtitleLabel, _addressOverlayView, searchBar, button, _currentLocationButton, _trailInfoButton );
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mapView]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView]|" options:0 metrics:nil views:views]];
@@ -182,7 +180,7 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapOverlayView]|" options:0 metrics:nil views:views]];
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_addressOverlayView]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_addressOverlayView(84.0)]" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_addressOverlayView(70.0)]" options:0 metrics:nil views:views]];
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_trailTitleLabel(400.0)]-(10)-[_trailInfoButton(44.0)]-(20.0)-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_trailSubtitleLabel(400.0)]-(10)-[_trailInfoButton(44.0)]" options:0 metrics:nil views:views]];
@@ -192,8 +190,8 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_currentLocationButton(44.0)]" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_currentLocationButton(44.0)]-(20)-|" options:0 metrics:nil views:views]];
 
-    [self.addressOverlayView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-160.0-[textField]-96.0-[button(44.0)]-20.0-|" options:0 metrics:nil views:views]];
-    [self.addressOverlayView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20.0-[textField(44.0)]" options:0 metrics:nil views:views]];
+    [self.addressOverlayView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-160.0-[searchBar]-96.0-[button(44.0)]-20.0-|" options:0 metrics:nil views:views]];
+    [self.addressOverlayView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20.0-[searchBar(44.0)]" options:0 metrics:nil views:views]];
     [self.addressOverlayView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20.0-[button(44.0)]" options:0 metrics:nil views:views]];
     
     [self zoomToPortland:nil];
@@ -232,12 +230,12 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField;
 {
-    self.addressOverlayView.alpha = 1.0f;
+
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField;
 {
-    self.addressOverlayView.alpha = ADDRESS_OVERLAY_ALPHA;
+
 }
 
 @end
