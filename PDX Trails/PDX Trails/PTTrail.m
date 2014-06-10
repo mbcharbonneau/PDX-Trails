@@ -9,40 +9,46 @@
 #import "PTTrail.h"
 #import "PTTrailSegment.h"
 
+@interface PTTrail()
+
+@end
+
 @implementation PTTrail
-
-#pragma mark PTTrail
-
-- (MKPolyline *)polyline;
-{
-    NSMutableArray *linestring = [NSMutableArray new];
-    
-    for ( PTTrailSegment *segment in self.segments ) {
-        [linestring addObjectsFromArray:segment.coordinates];
-    }
-    
-    NSInteger index, count = [linestring count];
-    CLLocationCoordinate2D coordinates[count];
-    
-    for ( index = 0; index < count; index++ ) {
-        CLLocationCoordinate2D coordinate;
-        [linestring[index] getValue:&coordinate];
-        coordinates[index] = coordinate;
-    }
-    
-    return [MKPolyline polylineWithCoordinates:coordinates count:count];
-}
 
 #pragma mark MKOverlay
 
 - (MKMapRect)boundingMapRect;
 {
-    return [self polyline].boundingMapRect;
+    UIBezierPath *path = [UIBezierPath new];
+    
+    for ( PTTrailSegment *segment in self.segments )
+    {
+        NSInteger index, count = [segment.coordinates count];
+        
+        for ( index = 0; index < count; index++ ) {
+            CLLocationCoordinate2D coordinate;
+            [segment.coordinates[index] getValue:&coordinate];
+            
+            MKMapPoint mapPoint = MKMapPointForCoordinate( coordinate );
+            CGPoint point = CGPointMake( mapPoint.x, mapPoint.y );
+            
+            if ( index == 0 )
+                [path moveToPoint:point];
+            else
+                [path addLineToPoint:point];
+        }
+    }
+    
+    CGRect bounds = [path bounds];
+    MKMapRect map = MKMapRectMake( bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height );
+    
+    return map;
 }
 
 - (CLLocationCoordinate2D)coordinate;
 {
-    return [self polyline].coordinate;
+    MKMapRect bounds = [self boundingMapRect];
+    return CLLocationCoordinate2DMake( MKMapRectGetMidX( bounds ), MKMapRectGetMidY( bounds ) );
 }
 
 #pragma mark NSObject
@@ -54,6 +60,18 @@
     }
     
     return self;
+}
+
+#pragma mark KVO Compliance
+
++ (NSSet *)keyPathsForValuesAffectingBoundingMapRect;
+{
+    return [NSSet setWithObjects:@"segments", nil];
+}
+
++ (NSSet *)keyPathsForValuesAffectingCoordinate;
+{
+    return [NSSet setWithObjects:@"segments", nil];
 }
 
 @end

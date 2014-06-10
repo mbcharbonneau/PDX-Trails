@@ -12,6 +12,7 @@
 #import "PTTrailDataProvider.h"
 #import "PTTrailInfoViewController.h"
 #import "PTConstants.h"
+#import "PTTrailRenderer.h"
 
 #define METERS_PER_MILE 1609.344
 #define ADDRESS_OVERLAY_ALPHA 0.4f
@@ -70,16 +71,14 @@
     for ( PTTrail *trail in self.mapView.overlays ) {
         
         MKMapRect boundingBox = [trail boundingMapRect];
-        MKPolylineRenderer *renderer = (MKPolylineRenderer *)[self.mapView rendererForOverlay:trail];
+        PTTrailRenderer *renderer = (PTTrailRenderer *)[self.mapView rendererForOverlay:trail];
 
         if ( MKMapRectContainsPoint( boundingBox, mapPoint ) ) {
             found = trail;
-            renderer.lineWidth = 6.0f;
+            renderer.isSelected = YES;
         } else {
-            renderer.lineWidth = 4.0f;
+            renderer.isSelected = NO;
         }
-        
-        [renderer setNeedsDisplay];
     }
 
     [self setSelectedTrail:found];
@@ -225,9 +224,7 @@
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay;
 {
     PTTrail *trail = overlay;
-    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:trail.polyline];
-    renderer.strokeColor = [UIColor PTBlueTintColor];
-    renderer.lineWidth = 4.0;
+    PTTrailRenderer *renderer = [[PTTrailRenderer alloc] initWithTrail:trail];
     return renderer;
 }
 

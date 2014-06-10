@@ -114,7 +114,7 @@
 
 - (void)parserDidBeginDocument:(CHCSVParser *)parser;
 {
-    NSLog( @"%p began importing data.", self );
+    NSLog( @"%@:%p began importing data.", NSStringFromClass( [self class] ), self );
     self.namedTrails = [[NSMutableArray alloc] init];
 }
 
@@ -123,7 +123,7 @@
     [self willChangeValueForKey:@"isExecuting"];
     [self willChangeValueForKey:@"isFinished"];
 
-    NSLog( @"%p finished import with %ld trails.", self, (long)[self.namedTrails count] );
+    NSLog( @"%@:%p finished import with %ld trails.", NSStringFromClass( [self class] ), self, (long)[self.namedTrails count] );
     self.importedTrails = [self.namedTrails copy];
     self.isParsing = NO;
     

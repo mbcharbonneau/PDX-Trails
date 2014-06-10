@@ -30,6 +30,25 @@
     return self;
 }
 
+- (UIBezierPath *)mapPath;
+{
+    NSInteger index, count = [self.coordinates count];
+    UIBezierPath *path = [[UIBezierPath alloc] init];
+    
+    for ( index = 0; index < count; index++ ) {
+        CLLocationCoordinate2D coordinate;
+        [self.coordinates[index] getValue:&coordinate];
+        MKMapPoint point = MKMapPointForCoordinate( coordinate );
+        
+        if ( [path isEmpty] )
+            [path moveToPoint:CGPointMake( point.x, point.y )];
+        else
+            [path addLineToPoint:CGPointMake( point.x, point.y )];
+    }
+    
+    return path;
+}
+
 #pragma mark NSObject
 
 - (NSString *)description;

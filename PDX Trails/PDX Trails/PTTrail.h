@@ -16,6 +16,4 @@
 @property (strong) NSString *description;
 @property (strong) NSArray *segments;
 
-- (MKPolyline *)polyline;
-
 @end
