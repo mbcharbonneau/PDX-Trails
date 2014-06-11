@@ -10,7 +10,6 @@
 #import "PTTrailSegment.h"
 
 @interface PTTrail()
-
 @end
 
 @implementation PTTrail
@@ -56,7 +55,9 @@
 - (id)init;
 {
     if ( self = [super init] ) {
-        self.segments = @[];
+        _segments = @[];
+        _trailheads = @[];
+        _attributes = @{};
     }
     
     return self;

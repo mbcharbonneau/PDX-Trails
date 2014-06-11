@@ -199,6 +199,11 @@
     [PTTrailDataProvider sharedDataProvider]; // remove later
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle;
+{
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark NSObject
 
 - (instancetype)init;
@@ -224,6 +229,11 @@
     PTTrail *trail = overlay;
     PTTrailRenderer *renderer = [[PTTrailRenderer alloc] initWithTrail:trail];
     return renderer;
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated;
+{
+
 }
 
 #pragma mark UITextFieldDelegate

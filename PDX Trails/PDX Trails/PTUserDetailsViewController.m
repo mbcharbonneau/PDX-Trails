@@ -99,21 +99,23 @@
     helpLabel.numberOfLines = 2;
     helpLabel.textAlignment = NSTextAlignmentCenter;
     helpLabel.font = [UIFont systemFontOfSize:20.0f];
+    helpLabel.textColor = [UIColor grayColor];
     
     [self.modeSelectionScrollView addSubview:segmentedControl];
     [self.view addSubview:self.modeSelectionScrollView];
     [self.view addSubview:helpLabel];
     
     SWRevealViewController *revealController = self.revealViewController;
+    CGFloat margin = revealController.rightViewRevealOverdraw;
     NSDictionary *views = NSDictionaryOfVariableBindings( _modeSelectionScrollView, segmentedControl, helpLabel );
-    NSDictionary *metrics = @{ @"margin" : @( revealController.rightViewRevealOverdraw ), @"height" : @(100.0f), @"width" : @( [items count] * 100.0f ) };
+    NSDictionary *metrics = @{ @"margin_left" : @( margin ), @"padding_left" : @( margin + 20.0f ), @"padding_right" : @( 20.0f ), @"height" : @(100.0f), @"width" : @( [items count] * 100.0f ) };
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segmentedControl(width)]|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segmentedControl(height)]-(20)-[helpLabel]" options:0 metrics:metrics views:views]];
 
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[helpLabel]|" options:0 metrics:metrics views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(padding_left)-[helpLabel]-(padding_right)-|" options:0 metrics:metrics views:views]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[_modeSelectionScrollView]|" options:0 metrics:metrics views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin_left)-[_modeSelectionScrollView]|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_modeSelectionScrollView(height)]" options:0 metrics:metrics views:views]];
     
     [self chooseMode:segmentedControl];

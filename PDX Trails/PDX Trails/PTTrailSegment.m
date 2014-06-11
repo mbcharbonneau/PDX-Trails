@@ -54,7 +54,7 @@
 - (NSString *)description;
 {
     NSMutableString *string = [[NSMutableString alloc] init];
-    [string appendFormat:@"<%@: %p, coordinates=", NSStringFromClass( [self class] ), self];
+    [string appendFormat:@"<%@: %p, name=%@, coordinates=", NSStringFromClass( [self class] ), self, self.name];
     
     NSInteger index, count = [self.coordinates count];
     

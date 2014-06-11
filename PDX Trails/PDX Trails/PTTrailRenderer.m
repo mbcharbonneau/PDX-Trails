@@ -11,6 +11,9 @@
 #import "PTConstants.h"
 #import "PTTrailSegment.h"
 
+@interface PTTrailRenderer()
+@end
+
 @implementation PTTrailRenderer
 
 #pragma mark PTTrailRenderer
@@ -28,7 +31,7 @@
 
 - (void)setIsSelected:(BOOL)isSelected;
 {
-    self.lineWidth = isSelected ? 6.0f : 4.0f;
+    self.strokeColor = isSelected ? [UIColor redColor] : [UIColor PTBlueTintColor];
 
     if ( _isSelected != isSelected )
         [self setNeedsDisplay];
@@ -67,6 +70,13 @@
     }
     
     self.path = path.CGPath;
+}
+
+#pragma mark MKOverlayRenderer
+
+- (void)drawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale inContext:(CGContextRef)context;
+{
+    [super drawMapRect:mapRect zoomScale:zoomScale inContext:context];
 }
 
 @end
