@@ -50,3 +50,16 @@ NSString *PTNameForMode( PTUserMode mode ) {
 
 @end
 
+@implementation UIFont (PTConstants)
+
++ (UIFont *)PTAppFontOfSize:(CGFloat)size;
+{
+    return [self fontWithName:@"Avenir-Light" size:size];
+}
+
++ (UIFont *)PTBoldAppFontOfSize:(CGFloat)size;
+{
+    return [self fontWithName:@"Avenir-Medium" size:size];
+}
+
+@end

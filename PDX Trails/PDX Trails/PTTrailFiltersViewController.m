@@ -1,19 +1,36 @@
 //
-//  PTADAViewController.m
+//  PTTrailFiltersViewController.m
 //  PDX Trails
 //
-//  Created by Marc Charbonneau on 5/31/14.
+//  Created by mbcharbonneau on 6/11/14.
 //  Copyright (c) 2014 Code for Portland. All rights reserved.
 //
 
-#import "PTADATrailFinderViewController.h"
+#import "PTTrailFiltersViewController.h"
 #import "PTFilterCell.h"
+#import "PTTrailFilterSelectionViewController.h"
+#import "PTAttribute.h"
 
-@interface PTADATrailFinderViewController ()
-
+@interface PTTrailFiltersViewController ()
 @end
 
-@implementation PTADATrailFinderViewController
+@implementation PTTrailFiltersViewController
+
+#pragma mark PTTrailFiltersViewController
+
+- (instancetype)initWithFilterAttributes:(NSArray *)attributes;
+{
+    if ( self = [super initWithStyle:UITableViewStylePlain] ) {
+        
+        self.clearsSelectionOnViewWillAppear = YES;
+        
+        _attributes = attributes;
+    }
+    
+    return self;
+}
+
+#pragma mark UIViewController
 
 - (void)viewDidLoad;
 {
@@ -22,6 +39,8 @@
     [self.tableView registerClass:[PTFilterCell class] forCellReuseIdentifier:NSStringFromClass( [self class] )];
     self.tableView.tableFooterView = [UIView new];
 }
+
+#pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
@@ -62,10 +81,18 @@
         default:
             break;
     }
-    
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
+        
     return cell;
+}
+
+#pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    PTAttribute *attribute = self.attributes[indexPath.row];
+    PTTrailFilterSelectionViewController *controller = [[PTTrailFilterSelectionViewController alloc] initWithAttribute:attribute];
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

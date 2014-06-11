@@ -7,6 +7,7 @@
 //
 
 #import "PTFilterCell.h"
+#import "PTConstants.h"
 
 @implementation PTFilterCell
 
@@ -14,6 +15,9 @@
 {
     if ( self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] ) {
         
+        self.textLabel.font = [UIFont PTBoldAppFontOfSize:16.0f];
+        self.detailTextLabel.font = [UIFont PTAppFontOfSize:16.0f];
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     return self;

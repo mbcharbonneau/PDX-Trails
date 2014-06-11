@@ -1,75 +1,46 @@
 //
-//  PTUserDetailsViewController.m
+//  PTSidebarViewController.m
 //  PDX Trails
 //
 //  Created by Marc Charbonneau on 5/31/14.
 //  Copyright (c) 2014 Code for Portland. All rights reserved.
 //
 
-#import "PTUserDetailsViewController.h"
+#import "PTSidebarViewController.h"
 #import "PTConstants.h"
 #import "SWRevealViewController.h"
-#import "PTTrailFinderViewControllerProtocol.h"
-#import "PTCyclingTrailFinderViewController.h"
-#import "PTWalkingTrailFinderViewController.h"
-#import "PTADATrailFinderViewController.h"
-#import "PTHikingTrailFinderViewController.h"
+#import "PTAttribute.h"
+#import "PTTrailFiltersViewController.h"
 
-@interface PTUserDetailsViewController ()
+@interface PTSidebarViewController ()
 
 @property (strong, nonatomic) UIScrollView *modeSelectionScrollView;
-@property (strong, nonatomic) UIViewController<PTTrailFinderViewControllerProtocol> *childViewController;
-@property (strong, nonatomic) NSMutableArray *childViewConstraints;
+@property (strong, nonatomic) UINavigationController *filterNavigationController;
 
 - (IBAction)chooseMode:(id)sender;
 
 @end
 
-@implementation PTUserDetailsViewController
+@implementation PTSidebarViewController
 
 #pragma mark PTUserDetailsViewController
 
 - (IBAction)chooseMode:(id)sender;
 {
-    if ( self.childViewController != nil ) {
-        
-        [self.view removeConstraints:self.childViewConstraints];
-        [self.childViewConstraints removeAllObjects];
-        [self.childViewController.view removeFromSuperview];
-        [self.childViewController removeFromParentViewController];
+    PTAttribute *a = [PTAttribute new];
+    a.key = @"1";
+    a.prompt = @"hello";
+    
+    if ( self.filterNavigationController.topViewController != nil ) {
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.4f;
+        transition.type = kCATransitionMoveIn;
+        transition.subtype = kCATransitionFromTop;
+        [self.filterNavigationController.view.layer addAnimation:transition forKey:kCATransition];
     }
     
-    PTUserMode mode = [sender selectedSegmentIndex];
-    
-    switch ( mode ) {
-        case PTUserModeCycling:
-            self.childViewController = [[PTCyclingTrailFinderViewController alloc] init];
-            break;
-        case PTUserModeAccessible:
-            self.childViewController = [[PTADATrailFinderViewController alloc] init];
-            break;
-        case PTUserModeHiking:
-            self.childViewController = [[PTHikingTrailFinderViewController alloc] init];
-            break;
-        default:
-            self.childViewController = [[PTWalkingTrailFinderViewController alloc] init];
-            break;
-    }
-    
-    self.childViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [self addChildViewController:self.childViewController];
-    [self.view addSubview:self.childViewController.view];
-    
-    SWRevealViewController *revealController = self.revealViewController;
-    UIView *childView = self.childViewController.view;
-    NSDictionary *views = NSDictionaryOfVariableBindings( childView );
-    NSDictionary *metrics = @{ @"margin_left" : @( revealController.rightViewRevealOverdraw ), @"margin_top" : @(186.0f) };
-    
-    [self.childViewConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin_left)-[childView]|" options:0 metrics:metrics views:views]];
-    [self.childViewConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin_top)-[childView]|" options:0 metrics:metrics views:views]];
-    
-    [self.view addConstraints:self.childViewConstraints];
+    PTTrailFiltersViewController *controller = [[PTTrailFiltersViewController alloc] initWithFilterAttributes:@[a]];
+    [self.filterNavigationController setViewControllers:@[controller] animated:NO];
 }
 
 #pragma mark UIViewController
@@ -98,17 +69,26 @@
     helpLabel.text = NSLocalizedString( @"Tell us a little about yourself, and we'll show you trails in your neighborhood.", @"" );
     helpLabel.numberOfLines = 2;
     helpLabel.textAlignment = NSTextAlignmentCenter;
-    helpLabel.font = [UIFont systemFontOfSize:20.0f];
+    helpLabel.font = [UIFont PTAppFontOfSize:18.0f];
     helpLabel.textColor = [UIColor grayColor];
+    
+    self.filterNavigationController = [UINavigationController new];
+    self.filterNavigationController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    self.filterNavigationController.view.backgroundColor = [UIColor blueColor];
+    self.filterNavigationController.navigationBarHidden = YES;
+    self.filterNavigationController.delegate = self;
     
     [self.modeSelectionScrollView addSubview:segmentedControl];
     [self.view addSubview:self.modeSelectionScrollView];
     [self.view addSubview:helpLabel];
-    
+    [self.view addSubview:self.filterNavigationController.view];
+    [self addChildViewController:self.filterNavigationController];
+
     SWRevealViewController *revealController = self.revealViewController;
+    UIView *filterNavControllerView = self.filterNavigationController.view;
     CGFloat margin = revealController.rightViewRevealOverdraw;
-    NSDictionary *views = NSDictionaryOfVariableBindings( _modeSelectionScrollView, segmentedControl, helpLabel );
-    NSDictionary *metrics = @{ @"margin_left" : @( margin ), @"padding_left" : @( margin + 20.0f ), @"padding_right" : @( 20.0f ), @"height" : @(100.0f), @"width" : @( [items count] * 100.0f ) };
+    NSDictionary *views = NSDictionaryOfVariableBindings( _modeSelectionScrollView, segmentedControl, helpLabel, filterNavControllerView );
+    NSDictionary *metrics = @{ @"margin_left" : @( margin ), @"padding_left" : @( margin + 20.0f ), @"padding_right" : @( 20.0f ), @"height" : @(100.0f), @"width" : @( [items count] * 100.0f ), @"margin_top" : @(186.0f) };
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segmentedControl(width)]|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segmentedControl(height)]-(20)-[helpLabel]" options:0 metrics:metrics views:views]];
@@ -117,6 +97,9 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin_left)-[_modeSelectionScrollView]|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_modeSelectionScrollView(height)]" options:0 metrics:metrics views:views]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin_left)-[filterNavControllerView]|" options:0 metrics:metrics views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin_top)-[filterNavControllerView]|" options:0 metrics:metrics views:views]];
     
     [self chooseMode:segmentedControl];
 }
@@ -127,10 +110,18 @@
 {
     if ( self = [super initWithNibName:nil bundle:nil] ) {
         
-        _childViewConstraints = [[NSMutableArray alloc] init];
+//        _childViewConstraints = [[NSMutableArray alloc] init];
     }
     
     return self;
+}
+
+#pragma mark UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
+{
+    // add code to disable / enable buttons to prevent crash
+    NSLog(@"HERE");
 }
 
 @end

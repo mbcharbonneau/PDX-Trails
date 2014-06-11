@@ -9,7 +9,7 @@
 #import "PTAppDelegate.h"
 #import "PTRootMapViewController.h"
 #import "SWRevealViewController.h"
-#import "PTUserDetailsViewController.h"
+#import "PTSidebarViewController.h"
 
 @interface PTAppDelegate()
 
@@ -22,7 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 {
     UIViewController *mapViewController = [[PTRootMapViewController alloc] init];
-    UIViewController *userDetailsViewController = [[PTUserDetailsViewController alloc] init];
+    UIViewController *userDetailsViewController = [[PTSidebarViewController alloc] init];
     
     self.rootViewController = [[SWRevealViewController alloc] init];
     self.rootViewController.delegate = self;

@@ -14,7 +14,7 @@
 @property (strong) NSString *identifier;
 @property (strong) NSString *name;
 @property (strong) NSString *description;
-@property (strong) NSDictionary *attributes;
+@property (strong) NSArray *attributes;
 @property (strong) NSArray *segments;
 @property (strong) NSArray *trailheads;
 

@@ -1,5 +1,5 @@
 //
-//  PTUserDetailsViewController.h
+//  PTSidebarViewController.h
 //  PDX Trails
 //
 //  Created by Marc Charbonneau on 5/31/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PTUserDetailsViewController : UIViewController
+@interface PTSidebarViewController : UIViewController <UINavigationControllerDelegate>
 
 @end

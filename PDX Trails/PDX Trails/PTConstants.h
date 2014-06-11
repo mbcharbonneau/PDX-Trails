@@ -34,3 +34,10 @@ NSString *PTNameForMode( PTUserMode mode );
 + (UIColor *)PTGreenTintColor;
 
 @end
+
+@interface UIFont (PTConstants)
+
++ (UIFont *)PTAppFontOfSize:(CGFloat)size;
++ (UIFont *)PTBoldAppFontOfSize:(CGFloat)size;
+
+@end

@@ -156,7 +156,7 @@
     self.trailTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.trailTitleLabel.textColor = [UIColor grayColor];
     self.trailTitleLabel.textAlignment = NSTextAlignmentRight;
-    self.trailTitleLabel.font = [UIFont systemFontOfSize:20.0f];
+    self.trailTitleLabel.font = [UIFont PTBoldAppFontOfSize:20.0f];
     self.trailTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     
     self.trailSubtitleLabel = [UILabel new];
@@ -164,7 +164,7 @@
     self.trailSubtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.trailSubtitleLabel.textColor = [UIColor lightGrayColor];
     self.trailSubtitleLabel.textAlignment = NSTextAlignmentRight;
-    self.trailSubtitleLabel.font = [UIFont systemFontOfSize:18.0f];
+    self.trailSubtitleLabel.font = [UIFont PTAppFontOfSize:18.0f];
 
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.mapOverlayView];

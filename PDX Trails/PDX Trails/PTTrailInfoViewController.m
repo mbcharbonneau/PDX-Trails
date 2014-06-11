@@ -11,6 +11,7 @@
 #import "PTTrailSegment.h"
 #import "PTTrailhead.h"
 #import "PTTrailRenderer.h"
+#import "PTConstants.h"
 
 @interface PTTrailInfoViewController ()
 
@@ -60,7 +61,7 @@
     UILabel *titleLabel = [UILabel new];
     titleLabel.text = self.trail.name;
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    titleLabel.font = [UIFont systemFontOfSize:24.0f];
+    titleLabel.font = [UIFont PTAppFontOfSize:24.0f];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
@@ -132,7 +133,7 @@
         PTTrailSegment *segment = self.trail.segments[indexPath.row];
         
         cell.textLabel.text = [segment description];
-        cell.textLabel.font = [UIFont systemFontOfSize:10.0f];
+        cell.textLabel.font = [UIFont PTAppFontOfSize:10.0f];
         cell.textLabel.numberOfLines = 3;
         
     } else if ( indexPath.section == 1 ) {
@@ -140,7 +141,7 @@
         PTTrailhead *trailhead = self.trail.trailheads[indexPath.row];
         
         cell.textLabel.text = trailhead.name;
-        cell.textLabel.font = [UIFont systemFontOfSize:10.0f];
+        cell.textLabel.font = [UIFont PTAppFontOfSize:10.0f];
         cell.textLabel.numberOfLines = 1;
     }
     

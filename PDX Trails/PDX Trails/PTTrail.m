@@ -57,7 +57,7 @@
     if ( self = [super init] ) {
         _segments = @[];
         _trailheads = @[];
-        _attributes = @{};
+        _attributes = @[];
     }
     
     return self;
