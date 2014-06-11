@@ -9,10 +9,13 @@
 #import "PTTrailInfoViewController.h"
 #import "PTTrail.h"
 #import "PTTrailSegment.h"
+#import "PTTrailhead.h"
+#import "PTTrailRenderer.h"
 
 @interface PTTrailInfoViewController ()
 
 @property (strong, nonatomic) PTTrail *trail;
+@property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic) UITapGestureRecognizer *backgroundTapRecognizer;
 @property (strong, nonatomic) UITableView *tableView;
 
@@ -65,15 +68,28 @@
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass( [self class] )];
     
+    self.mapView = [MKMapView new];
+    self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.mapView.delegate = self;
+    self.mapView.scrollEnabled = NO;
+    
+    MKMapRect mapRect = self.trail.boundingMapRect;
+    mapRect = MKMapRectInset( mapRect, MKMapRectGetWidth( mapRect ) * -0.1, MKMapRectGetHeight( mapRect ) * -0.1 );
+    
+    [self.mapView addOverlay:self.trail];
+    [self.mapView setRegion:MKCoordinateRegionForMapRect( mapRect ) animated:YES];
+    
     [self.view addSubview:titleLabel];
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.mapView];
+
+    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel, _tableView, _mapView );
     
-    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel, _tableView );
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[titleLabel]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[titleLabel]-(20)-[_mapView(350)]-(20)-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[titleLabel]" options:0 metrics:nil views:views]];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_tableView]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[_mapView(350)]" options:0 metrics:nil views:views]];
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_tableView(==titleLabel)]" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[titleLabel]-(20)-[_tableView]|" options:0 metrics:nil views:views]];
 }
 
@@ -99,28 +115,48 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    return [self.trail.segments count];
+    return section == 0 ? [self.trail.segments count] : [self.trail.trailheads count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass( [self class] ) forIndexPath:indexPath];
-    PTTrailSegment *segment = [self.trail.segments objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = [segment description];
-    cell.textLabel.font = [UIFont systemFontOfSize:10.0f];
-    cell.textLabel.numberOfLines = 3;
+
+    if ( indexPath.section == 0 ) {
+        
+        PTTrailSegment *segment = self.trail.segments[indexPath.row];
+        
+        cell.textLabel.text = [segment description];
+        cell.textLabel.font = [UIFont systemFontOfSize:10.0f];
+        cell.textLabel.numberOfLines = 3;
+        
+    } else if ( indexPath.section == 1 ) {
+        
+        PTTrailhead *trailhead = self.trail.trailheads[indexPath.row];
+        
+        cell.textLabel.text = trailhead.name;
+        cell.textLabel.font = [UIFont systemFontOfSize:10.0f];
+        cell.textLabel.numberOfLines = 1;
+    }
     
     return cell;
 }
 
 #pragma mark UITableViewDelegate
 
+#pragma mark MKMapViewDelegate
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay;
+{
+    PTTrail *trail = overlay;
+    PTTrailRenderer *renderer = [[PTTrailRenderer alloc] initWithTrail:trail];
+    return renderer;
+}
 
 
 /*

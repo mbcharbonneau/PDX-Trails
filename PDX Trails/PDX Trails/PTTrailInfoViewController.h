@@ -6,11 +6,12 @@
 //  Copyright (c) 2014 Code for Portland. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+@import MapKit;
 
 @class PTTrail;
 
-@interface PTTrailInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PTTrailInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
 - (instancetype)initWithTrail:(PTTrail *)trail;
 
