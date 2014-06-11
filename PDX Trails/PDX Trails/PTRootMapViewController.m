@@ -73,14 +73,19 @@
         PTTrailRenderer *renderer = (PTTrailRenderer *)[self.mapView rendererForOverlay:trail];
 
         if ( MKMapRectContainsPoint( boundingBox, mapPoint ) ) {
+            
+            if ( found != nil )
+                ((PTTrailRenderer *)[self.mapView rendererForOverlay:found]).isSelected = NO;
+            
             found = trail;
             renderer.isSelected = YES;
         } else {
+            
             renderer.isSelected = NO;
         }
     }
 
-    [self setSelectedTrail:found];
+    self.selectedTrail = found;
 }
 
 - (void)setSelectedTrail:(PTTrail *)selectedTrail;
