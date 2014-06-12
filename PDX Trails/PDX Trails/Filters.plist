@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>answers</key>
+		<array>
+			<string>Good</string>
+			<string>Poor</string>
+		</array>
+		<key>prompt</key>
+		<string>Condition</string>
+		<key>key</key>
+		<string>condition</string>
+	</dict>
+	<dict>
+		<key>answers</key>
+		<array>
+			<string>High (views, shaded, quiet, historic)</string>
+			<string>Neutral</string>
+			<string>Poor</string>
+		</array>
+		<key>prompt</key>
+		<string>Scenic Quality</string>
+		<key>key</key>
+		<string>scenic</string>
+	</dict>
+	<dict>
+		<key>answers</key>
+		<array>
+			<string>Urban</string>
+			<string>Suburban</string>
+			<string>Rural</string>
+		</array>
+		<key>prompt</key>
+		<string>Trail Setting</string>
+		<key>key</key>
+		<string>setting</string>
+	</dict>
+</array>
+</plist>

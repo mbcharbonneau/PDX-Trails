@@ -11,13 +11,17 @@
 #import "SWRevealViewController.h"
 #import "PTAttribute.h"
 #import "PTTrailFiltersViewController.h"
+#import "PTModeSelectionButton.h"
+#import "PTTrailDataProvider.h"
 
 @interface PTSidebarViewController ()
 
 @property (strong, nonatomic) UIScrollView *modeSelectionScrollView;
 @property (strong, nonatomic) UINavigationController *filterNavigationController;
 
-- (IBAction)chooseMode:(id)sender;
+- (IBAction)chooseMode:(UIButton *)sender;
+
+- (void)loadButtons;
 
 @end
 
@@ -25,11 +29,14 @@
 
 #pragma mark PTUserDetailsViewController
 
-- (IBAction)chooseMode:(id)sender;
+- (IBAction)chooseMode:(UIButton *)sender;
 {
-    PTAttribute *a = [PTAttribute new];
-    a.key = @"1";
-    a.prompt = @"hello";
+    for ( UIButton *button in [self.modeSelectionScrollView subviews] ) {
+        if ( button.tag > 0 ) {
+            button.selected = button == sender;
+            button.userInteractionEnabled = NO;
+        }
+    }
     
     if ( self.filterNavigationController.topViewController != nil ) {
         CATransition *transition = [CATransition animation];
@@ -39,8 +46,43 @@
         [self.filterNavigationController.view.layer addAnimation:transition forKey:kCATransition];
     }
     
-    PTTrailFiltersViewController *controller = [[PTTrailFiltersViewController alloc] initWithFilterAttributes:@[a]];
+    NSArray *filterAttributes = [[PTTrailDataProvider sharedDataProvider] filterQuestionsForMode:sender.tag];
+    PTTrailFiltersViewController *controller = [[PTTrailFiltersViewController alloc] initWithFilterAttributes:filterAttributes];
+    
     [self.filterNavigationController setViewControllers:@[controller] animated:NO];
+}
+
+#pragma mark PTUserDetailsViewController Private
+
+- (void)loadButtons;
+{
+    UIScrollView *container = self.modeSelectionScrollView;
+    
+    PTModeSelectionButton *hiking = [[PTModeSelectionButton alloc] initWithMode:PTUserModeHiking];
+    PTModeSelectionButton *cycling = [[PTModeSelectionButton alloc] initWithMode:PTUserModeCycling];
+    PTModeSelectionButton *walking = [[PTModeSelectionButton alloc] initWithMode:PTUserModeWalking];
+    PTModeSelectionButton *accessible = [[PTModeSelectionButton alloc] initWithMode:PTUserModeAccessible];
+            
+    [hiking addTarget:self action:@selector(chooseMode:) forControlEvents:UIControlEventTouchUpInside];
+    [cycling addTarget:self action:@selector(chooseMode:) forControlEvents:UIControlEventTouchUpInside];
+    [walking addTarget:self action:@selector(chooseMode:) forControlEvents:UIControlEventTouchUpInside];
+    [accessible addTarget:self action:@selector(chooseMode:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [container addSubview:hiking];
+    [container addSubview:cycling];
+    [container addSubview:walking];
+    [container addSubview:accessible];
+    
+    NSDictionary *buttons = NSDictionaryOfVariableBindings( hiking, cycling, walking, accessible );
+    NSDictionary *metrics = @{ @"width" : @(110.0f), @"height" : @(100.0f ) };
+    
+    [container addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[hiking(width)]-(1)-[cycling(width)]-(1)-[walking(width)]-(1)-[accessible(width)]|" options:0 metrics:metrics views:buttons]];
+    [container addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[hiking(height)]|" options:0 metrics:metrics views:buttons]];
+    [container addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cycling(height)]|" options:0 metrics:metrics views:buttons]];
+    [container addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[walking(height)]|" options:0 metrics:metrics views:buttons]];
+    [container addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[accessible(height)]|" options:0 metrics:metrics views:buttons]];
+    
+    container.contentSize = CGSizeMake( [[container subviews] count] * [metrics[@"width"] floatValue], [metrics[@"height"] floatValue] );
 }
 
 #pragma mark UIViewController
@@ -55,14 +97,7 @@
     self.modeSelectionScrollView.translatesAutoresizingMaskIntoConstraints = NO;
     self.modeSelectionScrollView.backgroundColor = [UIColor lightGrayColor];
     
-    NSArray *items = @[PTNameForMode( PTUserModeHiking ), PTNameForMode( PTUserModeWalking ), PTNameForMode( PTUserModeCycling ), PTNameForMode( PTUserModeAccessible ), PTNameForMode( PTUserModeRunning )];
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
-    
-    segmentedControl.translatesAutoresizingMaskIntoConstraints = NO;
-    segmentedControl.selectedSegmentIndex = 0;
-    segmentedControl.tintColor = [UIColor PTBlueTintColor];
-    [segmentedControl setDividerImage:nil forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [segmentedControl addTarget:self action:@selector(chooseMode:) forControlEvents:UIControlEventValueChanged];
+    [self loadButtons];
     
     UILabel *helpLabel = [UILabel new];
     helpLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -78,7 +113,6 @@
     self.filterNavigationController.navigationBarHidden = YES;
     self.filterNavigationController.delegate = self;
     
-    [self.modeSelectionScrollView addSubview:segmentedControl];
     [self.view addSubview:self.modeSelectionScrollView];
     [self.view addSubview:helpLabel];
     [self.view addSubview:self.filterNavigationController.view];
@@ -87,21 +121,21 @@
     SWRevealViewController *revealController = self.revealViewController;
     UIView *filterNavControllerView = self.filterNavigationController.view;
     CGFloat margin = revealController.rightViewRevealOverdraw;
-    NSDictionary *views = NSDictionaryOfVariableBindings( _modeSelectionScrollView, segmentedControl, helpLabel, filterNavControllerView );
-    NSDictionary *metrics = @{ @"margin_left" : @( margin ), @"padding_left" : @( margin + 20.0f ), @"padding_right" : @( 20.0f ), @"height" : @(100.0f), @"width" : @( [items count] * 100.0f ), @"margin_top" : @(186.0f) };
+    NSDictionary *views = NSDictionaryOfVariableBindings( _modeSelectionScrollView, helpLabel, filterNavControllerView );
+    NSDictionary *metrics = @{ @"margin_left" : @( margin ), @"padding_left" : @( margin + 20.0f ), @"padding_right" : @( 20.0f ), @"height" : @(100.0f), @"width" : @( [self.modeSelectionScrollView.subviews count] * 100.0f ), @"margin_top" : @(186.0f) };
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[segmentedControl(width)]|" options:0 metrics:metrics views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[segmentedControl(height)]-(20)-[helpLabel]" options:0 metrics:metrics views:views]];
-
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(padding_left)-[helpLabel]-(padding_right)-|" options:0 metrics:metrics views:views]];
-    
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin_left)-[_modeSelectionScrollView]|" options:0 metrics:metrics views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_modeSelectionScrollView(height)]" options:0 metrics:metrics views:views]];
-    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_modeSelectionScrollView(height)]-(20)-[helpLabel]" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin_left)-[filterNavControllerView]|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin_top)-[filterNavControllerView]|" options:0 metrics:metrics views:views]];
     
-    [self chooseMode:segmentedControl];
+    [self chooseMode:[[self.modeSelectionScrollView subviews] firstObject]];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle;
+{
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark NSObject
@@ -120,8 +154,11 @@
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
 {
-    // add code to disable / enable buttons to prevent crash
-    NSLog(@"HERE");
+    for ( UIView *view in self.modeSelectionScrollView.subviews ) {
+        if ( view.tag > 0 ) {
+            view.userInteractionEnabled = YES;
+        }
+    }
 }
 
 @end

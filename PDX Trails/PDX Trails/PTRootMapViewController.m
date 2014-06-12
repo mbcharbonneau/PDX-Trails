@@ -145,10 +145,10 @@
     self.currentLocationButton.backgroundColor = [UIColor redColor];
     [self.currentLocationButton addTarget:self action:@selector(zoomToCurrentLocation:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.trailInfoButton = [UIButton new];
+    self.trailInfoButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
     self.trailInfoButton.translatesAutoresizingMaskIntoConstraints = NO;
-    self.trailInfoButton.backgroundColor = [UIColor redColor];
     self.trailInfoButton.hidden = YES;
+    self.trailInfoButton.tintColor = [UIColor grayColor];
     [self.trailInfoButton addTarget:self action:@selector(trailInfo:) forControlEvents:UIControlEventTouchUpInside];
 
     self.trailTitleLabel = [UILabel new];

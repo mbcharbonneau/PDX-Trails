@@ -23,6 +23,8 @@
 
 @implementation PTTrailDataProvider
 
+#pragma mark PTTrailDataProvider
+
 + (instancetype)sharedDataProvider;
 {
     static id dataProvider = nil;
@@ -37,6 +39,14 @@
 - (NSArray *)trailsForRegion:(MKCoordinateRegion)region;
 {
     return self.trails;
+}
+
+- (NSArray *)filterQuestionsForMode:(PTUserMode)mode;
+{
+    NSURL *questionsURL = [[NSBundle mainBundle] URLForResource:@"Filters" withExtension:@"plist"];
+    NSArray *questions = [NSArray arrayWithContentsOfURL:questionsURL];
+    
+    return questions;
 }
 
 #pragma mark PTTrailDataProvider Private

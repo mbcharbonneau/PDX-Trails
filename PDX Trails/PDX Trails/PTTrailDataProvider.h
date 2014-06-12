@@ -9,10 +9,13 @@
 @import Foundation;
 @import MapKit;
 
+#import "PTConstants.h"
+
 @interface PTTrailDataProvider : NSObject
 
 + (instancetype)sharedDataProvider;
 
 - (NSArray *)trailsForRegion:(MKCoordinateRegion)region;
+- (NSArray *)filterQuestionsForMode:(PTUserMode)mode;
 
 @end

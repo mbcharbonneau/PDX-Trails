@@ -10,11 +10,11 @@
 
 typedef NS_ENUM( NSUInteger, PTUserMode )
 {
-    PTUserModeWalking,
-    PTUserModeHiking,
-    PTUserModeCycling,
-    PTUserModeAccessible,
-    PTUserModeRunning
+    PTUserModeWalking = 100,
+    PTUserModeHiking = 101,
+    PTUserModeCycling = 102,
+    PTUserModeAccessible = 103,
+    PTUserModeRunning = 104
 };
 
 typedef NS_ENUM( NSUInteger, PTErrorCode )
