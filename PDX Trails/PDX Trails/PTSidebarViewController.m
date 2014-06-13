@@ -40,7 +40,7 @@
     
     if ( self.filterNavigationController.topViewController != nil ) {
         CATransition *transition = [CATransition animation];
-        transition.duration = 0.4f;
+        transition.duration = 0.25f;
         transition.type = kCATransitionMoveIn;
         transition.subtype = kCATransitionFromTop;
         [self.filterNavigationController.view.layer addAnimation:transition forKey:kCATransition];
