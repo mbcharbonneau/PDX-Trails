@@ -33,6 +33,12 @@
 {
     for ( UIButton *button in [self.modeSelectionScrollView subviews] ) {
         if ( button.tag > 0 ) {
+            
+            // Don't reload if the sender is already selected.
+            
+            if ( button.selected && button == sender )
+                return;
+            
             button.selected = button == sender;
             button.userInteractionEnabled = NO;
         }
