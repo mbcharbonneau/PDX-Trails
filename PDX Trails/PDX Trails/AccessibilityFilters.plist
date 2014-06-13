@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>answers</key>
+		<array>
+			<string>All minor streets</string>
+			<string>Minor to moderate traffic</string>
+			<string>Minor to high traffic.</string>
+			<string>Minor to very high traffic.</string>
+		</array>
+		<key>prompt</key>
+		<string>Crossing and Intersection Traffic</string>
+		<key>key</key>
+		<string>crossings</string>
+	</dict>
+	<dict>
+		<key>answers</key>
+		<array>
+			<string>None</string>
+			<string>Minimal (crosswalks only)</string>
+			<string>Adaquate (crosswalks, stop signs, signals)</string>
+		</array>
+		<key>prompt</key>
+		<string>Crossing and Intersection Protection</string>
+		<key>key</key>
+		<string>protection</string>
+	</dict>
+</array>
+</plist>

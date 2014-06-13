@@ -12,7 +12,9 @@
 
 @property (strong) NSString *key;
 @property (strong) NSString *prompt;
-@property (strong) NSString *answerValue;
-@property (strong) NSString *answerDescription;
+@property (strong) NSArray *answers;
+@property (assign) NSInteger selectedAnswer;
+
+- (instancetype)initWithDictionary:(NSDictionary *)attributeData;
 
 @end

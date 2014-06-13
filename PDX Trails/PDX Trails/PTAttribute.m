@@ -10,4 +10,18 @@
 
 @implementation PTAttribute
 
+- (instancetype)initWithDictionary:(NSDictionary *)attributeData;
+{
+    NSParameterAssert( attributeData != nil );
+    
+    if ( self = [super init] ) {
+        
+        self.key = attributeData[@"key"];
+        self.prompt = attributeData[@"prompt"];
+        self.answers = attributeData[@"answers"];
+    }
+    
+    return self;
+}
+
 @end

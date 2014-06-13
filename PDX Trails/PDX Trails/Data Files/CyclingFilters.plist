@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>answers</key>
+		<array>
+			<string>Less than 1 mile</string>
+			<string>1-2 miles</string>
+			<string>2-5 miles</string>
+			<string>5-10 miles</string>
+			<string>Over 10 miles</string>
+			<string>Part of sidewalk system</string>
+		</array>
+		<key>prompt</key>
+		<string>Length of Trail</string>
+		<key>key</key>
+		<string>length</string>
+	</dict>
+	<dict>
+		<key>answers</key>
+		<array>
+			<string>Urban</string>
+			<string>Suburban</string>
+			<string>Rural</string>
+		</array>
+		<key>prompt</key>
+		<string>Trail Setting</string>
+		<key>key</key>
+		<string>setting</string>
+	</dict>
+</array>
+</plist>

@@ -11,6 +11,7 @@
 #import "PTTrailSegment.h"
 #import "PTPLATSImportOperation.h"
 #import "PTConstants.h"
+#import "PTAttribute.h"
 
 @interface PTTrailDataProvider()
 
@@ -43,10 +44,33 @@
 
 - (NSArray *)filterQuestionsForMode:(PTUserMode)mode;
 {
-    NSURL *questionsURL = [[NSBundle mainBundle] URLForResource:@"Filters" withExtension:@"plist"];
-    NSArray *questions = [NSArray arrayWithContentsOfURL:questionsURL];
+    NSString *filename = nil;
     
-    return questions;
+    switch ( mode ) {
+        case PTUserModeHiking:
+            filename = @"HikingFilters";
+            break;
+        case PTUserModeCycling:
+            filename = @"CyclingFilters";
+            break;
+        case PTUserModeWalking:
+            filename = @"WalkingFilters";
+            break;
+        case PTUserModeAccessible:
+            filename = @"AccessibilityFilters";
+            break;
+        default:
+            break;
+    }
+    
+    NSURL *questionsURL = [[NSBundle mainBundle] URLForResource:filename withExtension:@"plist"];
+    NSArray *questions = [NSArray arrayWithContentsOfURL:questionsURL];
+    NSMutableArray *attributes = [[NSMutableArray alloc] initWithCapacity:[questions count]];
+    
+    for ( NSDictionary *data in questions )
+        [attributes addObject:[[PTAttribute alloc] initWithDictionary:data]];
+        
+    return attributes;
 }
 
 #pragma mark PTTrailDataProvider Private

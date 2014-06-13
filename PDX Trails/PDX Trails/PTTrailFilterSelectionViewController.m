@@ -45,39 +45,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    return 5;
+    return [self.attribute.answers count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass( [self class] ) forIndexPath:indexPath];
+    NSString *title = self.attribute.answers[indexPath.row];
     
-    switch ( indexPath.row )
-    {
-        case 0:
-            cell.textLabel.text = NSLocalizedString( @"Nearby parking:", @"" );
-            cell.detailTextLabel.text = NSLocalizedString( @"important", @"" );
-            break;
-        case 1:
-            cell.textLabel.text = NSLocalizedString( @"Hills:", @"" );
-            cell.detailTextLabel.text = NSLocalizedString( @"avoid", @"" );
-            break;
-        case 2:
-            cell.textLabel.text = NSLocalizedString( @"Protected crossings:", @"" );
-            cell.detailTextLabel.text = NSLocalizedString( @"important", @"" );
-            break;
-        case 3:
-            cell.textLabel.text = NSLocalizedString( @"Unpaved trails:", @"" );
-            cell.detailTextLabel.text = NSLocalizedString( @"avoid", @"" );
-            break;
-        case 4:
-            cell.textLabel.text = NSLocalizedString( @"Connected to sidewalks:", @"" );
-            cell.detailTextLabel.text = NSLocalizedString( @"important", @"" );
-            break;
-        default:
-            break;
-    }
-    
+    cell.textLabel.text = title;
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
     return cell;

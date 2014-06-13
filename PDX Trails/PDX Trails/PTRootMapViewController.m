@@ -90,6 +90,7 @@
 
 - (void)setSelectedTrail:(PTTrail *)selectedTrail;
 {
+    selectedTrail.description = @"1 mile away";
     _selectedTrail = selectedTrail;
     self.trailTitleLabel.text = selectedTrail.name ?: @"";
     self.trailSubtitleLabel.text = selectedTrail.description ?: @"";
@@ -189,8 +190,8 @@
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_trailTitleLabel(400.0)]-(10)-[_trailInfoButton(44.0)]-(20.0)-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_trailSubtitleLabel(400.0)]-(10)-[_trailInfoButton(44.0)]" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_trailTitleLabel][_trailSubtitleLabel]-(20)-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_trailInfoButton(44.0)]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_trailSubtitleLabel][_trailTitleLabel]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_trailInfoButton]-(20)-|" options:0 metrics:nil views:views]];
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_currentLocationButton(44.0)]" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_currentLocationButton(44.0)]-(20)-|" options:0 metrics:nil views:views]];
