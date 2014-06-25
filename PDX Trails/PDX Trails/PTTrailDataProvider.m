@@ -7,11 +7,9 @@
 //
 
 #import "PTTrailDataProvider.h"
-#import "PTTrail.h"
-#import "PTTrailSegment.h"
-#import "PTPLATSImportOperation.h"
 #import "PTConstants.h"
 #import "PTAttribute.h"
+#import "OTImportOperation.h"
 
 @interface PTTrailDataProvider()
 
@@ -77,8 +75,20 @@
 
 - (void)beginAsyncImport;
 {
-    PTPLATSImportOperation *import = [[PTPLATSImportOperation alloc] init];
-    __block PTPLATSImportOperation *weakImport = import;
+    NSString *areas = [[NSBundle mainBundle] pathForResource:@"areas" ofType:@"geojson"];
+    NSString *trails = [[NSBundle mainBundle] pathForResource:@"named_trails" ofType:@"csv"];
+    NSString *stewards = [[NSBundle mainBundle] pathForResource:@"stewards" ofType:@"csv"];
+    NSString *segments = [[NSBundle mainBundle] pathForResource:@"trail_segments" ofType:@"geojson"];
+    NSString *trailheads = [[NSBundle mainBundle] pathForResource:@"trailheads" ofType:@"geojson"];
+    
+    NSDictionary *filePaths = @{ OTTrailSegmentsFilePathKey : segments,
+                                 OTNamedTrailsFilePathKey : trails,
+                                 OTTrailheadsFilePathKey : trailheads,
+                                 OTAreasFilePathKey : areas,
+                                 OTStewardsFilePathKey : stewards };
+
+    OTImportOperation *import = [[OTImportOperation alloc] initWithFilePaths:filePaths];
+    __block __typeof(import) weakImport = import;
     
     import.completionBlock = ^{
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{

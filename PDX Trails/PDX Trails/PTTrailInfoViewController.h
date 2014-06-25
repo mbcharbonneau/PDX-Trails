@@ -9,10 +9,10 @@
 @import UIKit;
 @import MapKit;
 
-@class PTTrail;
+@class OTTrail;
 
 @interface PTTrailInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
-- (instancetype)initWithTrail:(PTTrail *)trail;
+- (instancetype)initWithTrail:(OTTrail *)trail;
 
 @end

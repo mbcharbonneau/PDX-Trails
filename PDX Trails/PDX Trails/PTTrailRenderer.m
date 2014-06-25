@@ -7,9 +7,9 @@
 //
 
 #import "PTTrailRenderer.h"
-#import "PTTrail.h"
+#import "PTTrailOverlay.h"
 #import "PTConstants.h"
-#import "PTTrailSegment.h"
+#import "OTTrail.h"
 
 @interface PTTrailRenderer()
 @end
@@ -17,17 +17,6 @@
 @implementation PTTrailRenderer
 
 #pragma mark PTTrailRenderer
-
-- (instancetype)initWithTrail:(PTTrail *)trail;
-{
-    if ( self = [super initWithOverlay:trail] ) {
-        
-        self.strokeColor = [UIColor PTBlueTintColor];
-        self.lineWidth = 4.0;
-    }
-    
-    return self;
-}
 
 - (void)setIsSelected:(BOOL)isSelected;
 {
@@ -39,19 +28,14 @@
     _isSelected = isSelected;
 }
 
-- (PTTrail *)trail;
-{
-    return self.overlay;
-}
-
 #pragma mark MKOverlayPathRenderer
 
 - (void)createPath;
 {
-    PTTrail *trail = (PTTrail *)self.overlay;
+    PTTrailOverlay *overlay = (PTTrailOverlay *)self.overlay;
     UIBezierPath *path = [UIBezierPath new];
     
-    for ( PTTrailSegment *segment in trail.segments )
+    for ( OTTrailSegment *segment in overlay.trail.segments )
     {
         NSInteger index, count = [segment.coordinates count];
         
@@ -73,6 +57,17 @@
 }
 
 #pragma mark MKOverlayRenderer
+
+- (instancetype)initWithOverlay:(id<MKOverlay>)overlay;
+{
+    if ( self = [super initWithOverlay:overlay] ) {
+        
+        self.strokeColor = [UIColor PTBlueTintColor];
+        self.lineWidth = 4.0;
+    }
+
+    return self;
+}
 
 - (void)drawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale inContext:(CGContextRef)context;
 {

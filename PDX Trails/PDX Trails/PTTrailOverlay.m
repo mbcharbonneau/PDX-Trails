@@ -1,18 +1,25 @@
 //
-//  PTTrail.m
+//  PTTrailOverlay.m
 //  PDX Trails
 //
-//  Created by Marc Charbonneau on 6/1/14.
+//  Created by mbcharbonneau on 6/20/14.
 //  Copyright (c) 2014 Code for Portland. All rights reserved.
 //
 
-#import "PTTrail.h"
-#import "PTTrailSegment.h"
+#import "PTTrailOverlay.h"
 
-@interface PTTrail()
-@end
+@implementation PTTrailOverlay
 
-@implementation PTTrail
+- (instancetype)initWithTrail:(OTTrail *)trail;
+{
+    NSParameterAssert( trail != nil );
+    
+    if ( self = [super init] ) {
+        _trail = trail;
+    }
+    
+    return self;
+}
 
 #pragma mark MKOverlay
 
@@ -20,7 +27,7 @@
 {
     UIBezierPath *path = [UIBezierPath new];
     
-    for ( PTTrailSegment *segment in self.segments )
+    for ( OTTrailSegment *segment in self.trail.segments )
     {
         NSInteger index, count = [segment.coordinates count];
         
@@ -50,29 +57,17 @@
     return CLLocationCoordinate2DMake( MKMapRectGetMidX( bounds ), MKMapRectGetMidY( bounds ) );
 }
 
-#pragma mark NSObject
-
-- (id)init;
-{
-    if ( self = [super init] ) {
-        _segments = @[];
-        _trailheads = @[];
-        _attributes = @[];
-    }
-    
-    return self;
-}
-
 #pragma mark KVO Compliance
 
 + (NSSet *)keyPathsForValuesAffectingBoundingMapRect;
 {
-    return [NSSet setWithObjects:@"segments", nil];
+    return [NSSet setWithObjects:@"trail", nil];
 }
 
 + (NSSet *)keyPathsForValuesAffectingCoordinate;
 {
-    return [NSSet setWithObjects:@"segments", nil];
+    return [NSSet setWithObjects:@"trail", nil];
 }
+
 
 @end

@@ -8,14 +8,10 @@
 
 @import MapKit;
 
-@class PTTrail;
+@class PTTrailOverlay;
 
 @interface PTTrailRenderer : MKOverlayPathRenderer
 
 @property (assign, nonatomic) BOOL isSelected;
-
-- (instancetype)initWithTrail:(PTTrail *)trail;
-
-- (PTTrail *)trail;
 
 @end

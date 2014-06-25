@@ -7,15 +7,14 @@
 //
 
 #import "PTTrailInfoViewController.h"
-#import "PTTrail.h"
-#import "PTTrailSegment.h"
-#import "PTTrailhead.h"
-#import "PTTrailRenderer.h"
 #import "PTConstants.h"
+#import "OTOpenTrails.h"
+#import "PTTrailRenderer.h"
+#import "PTTrailOverlay.h"
 
 @interface PTTrailInfoViewController ()
 
-@property (strong, nonatomic) PTTrail *trail;
+@property (strong, nonatomic) OTTrail *trail;
 @property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic) UITapGestureRecognizer *backgroundTapRecognizer;
 @property (strong, nonatomic) UITableView *tableView;
@@ -28,12 +27,11 @@
 
 #pragma mark PTTrailInfoViewController
 
--(instancetype)initWithTrail:(PTTrail *)trail;
+-(instancetype)initWithTrail:(OTTrail *)trail;
 {
     NSParameterAssert( trail != nil );
     
     if ( self = [super initWithNibName:nil bundle:nil] ) {
-        
         _trail = trail;
     }
     
@@ -74,10 +72,11 @@
     self.mapView.delegate = self;
     self.mapView.scrollEnabled = NO;
     
-    MKMapRect mapRect = self.trail.boundingMapRect;
+    PTTrailOverlay *overlay = [[PTTrailOverlay alloc] initWithTrail:self.trail];
+    MKMapRect mapRect = overlay.boundingMapRect;
     mapRect = MKMapRectInset( mapRect, MKMapRectGetWidth( mapRect ) * -0.1, MKMapRectGetHeight( mapRect ) * -0.1 );
     
-    [self.mapView addOverlay:self.trail];
+    [self.mapView addOverlay:overlay];
     [self.mapView setRegion:MKCoordinateRegionForMapRect( mapRect ) animated:YES];
     
     [self.view addSubview:titleLabel];
@@ -130,7 +129,7 @@
 
     if ( indexPath.section == 0 ) {
         
-        PTTrailSegment *segment = self.trail.segments[indexPath.row];
+        OTTrailSegment *segment = self.trail.segments[indexPath.row];
         
         cell.textLabel.text = [segment description];
         cell.textLabel.font = [UIFont PTAppFontOfSize:10.0f];
@@ -138,7 +137,7 @@
         
     } else if ( indexPath.section == 1 ) {
         
-        PTTrailhead *trailhead = self.trail.trailheads[indexPath.row];
+        OTTrailhead *trailhead = self.trail.trailheads[indexPath.row];
         
         cell.textLabel.text = trailhead.name;
         cell.textLabel.font = [UIFont PTAppFontOfSize:10.0f];
@@ -154,21 +153,8 @@
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay;
 {
-    PTTrail *trail = overlay;
-    PTTrailRenderer *renderer = [[PTTrailRenderer alloc] initWithTrail:trail];
+    PTTrailRenderer *renderer = [[PTTrailRenderer alloc] initWithOverlay:overlay];
     return renderer;
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

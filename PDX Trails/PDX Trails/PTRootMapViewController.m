@@ -8,11 +8,12 @@
 
 #import "PTRootMapViewController.h"
 #import "SWRevealViewController.h"
-#import "PTTrail.h"
 #import "PTTrailDataProvider.h"
 #import "PTTrailInfoViewController.h"
 #import "PTConstants.h"
 #import "PTTrailRenderer.h"
+#import "PTTrailOverlay.h"
+#import "OTOpenTrails.h"
 
 #define METERS_PER_MILE 1609.344
 
@@ -25,7 +26,7 @@
 @property (strong, nonatomic) UIButton *trailInfoButton;
 @property (strong, nonatomic) UILabel *trailTitleLabel;
 @property (strong, nonatomic) UILabel *trailSubtitleLabel;
-@property (strong, nonatomic) PTTrail *selectedTrail;
+@property (strong, nonatomic) OTTrail *selectedTrail;
 
 - (IBAction)zoomToCurrentLocation:(id)sender;
 - (IBAction)zoomToPortland:(id)sender;
@@ -65,19 +66,19 @@
     CGPoint location = [recognizer locationInView:self.mapView];
     CLLocationCoordinate2D coordinate = [self.mapView convertPoint:location toCoordinateFromView:self.mapView];
     MKMapPoint mapPoint = MKMapPointForCoordinate( coordinate );
-    PTTrail *found = nil;
+    OTTrail *found = nil;
     
-    for ( PTTrail *trail in self.mapView.overlays ) {
+    for ( PTTrailOverlay *overlay in self.mapView.overlays ) {
         
-        MKMapRect boundingBox = [trail boundingMapRect];
-        PTTrailRenderer *renderer = (PTTrailRenderer *)[self.mapView rendererForOverlay:trail];
+        MKMapRect boundingBox = [overlay boundingMapRect];
+        PTTrailRenderer *renderer = (PTTrailRenderer *)[self.mapView rendererForOverlay:overlay];
 
         if ( MKMapRectContainsPoint( boundingBox, mapPoint ) ) {
             
             if ( found != nil )
-                ((PTTrailRenderer *)[self.mapView rendererForOverlay:found]).isSelected = NO;
+                ((PTTrailRenderer *)[self.mapView rendererForOverlay:overlay]).isSelected = NO;
             
-            found = trail;
+            found = overlay.trail;
             renderer.isSelected = YES;
         } else {
             
@@ -88,12 +89,11 @@
     self.selectedTrail = found;
 }
 
-- (void)setSelectedTrail:(PTTrail *)selectedTrail;
+- (void)setSelectedTrail:(OTTrail *)selectedTrail;
 {
-    selectedTrail.description = @"1 mile away";
     _selectedTrail = selectedTrail;
     self.trailTitleLabel.text = selectedTrail.name ?: @"";
-    self.trailSubtitleLabel.text = selectedTrail.description ?: @"";
+    self.trailSubtitleLabel.text = selectedTrail.trailDescription ?: @"";
     self.trailInfoButton.hidden = selectedTrail == nil;
 }
 
@@ -102,8 +102,8 @@
     MKCoordinateRegion region;
     NSArray *trails = [[PTTrailDataProvider sharedDataProvider] trailsForRegion:region];
     
-    for ( PTTrail *trail in trails )
-        [self.mapView addOverlay:trail];
+    for ( OTTrail *trail in trails )
+        [self.mapView addOverlay:[[PTTrailOverlay alloc] initWithTrail:trail]];
 }
 
 #pragma mark UIViewController
@@ -232,8 +232,7 @@
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay;
 {
-    PTTrail *trail = overlay;
-    PTTrailRenderer *renderer = [[PTTrailRenderer alloc] initWithTrail:trail];
+    PTTrailRenderer *renderer = [[PTTrailRenderer alloc] initWithOverlay:overlay];
     return renderer;
 }
 
