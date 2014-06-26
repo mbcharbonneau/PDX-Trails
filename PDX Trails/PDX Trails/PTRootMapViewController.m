@@ -91,8 +91,10 @@
         renderer.isSelected = NO;
     }
     
-    if ( nearestOverlay != nil )
+    if ( nearestOverlay != nil ) {
+        [self.mapView insertOverlay:nearestOverlay atIndex:[self.mapView.overlays count]];
         ((PTTrailRenderer *)[self.mapView rendererForOverlay:nearestOverlay]).isSelected = YES;
+    }
     
     self.selectedTrail = nearestOverlay.trail;
 }
