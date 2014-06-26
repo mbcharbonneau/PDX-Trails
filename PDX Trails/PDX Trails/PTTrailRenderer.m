@@ -20,11 +20,12 @@
 
 - (void)setIsSelected:(BOOL)isSelected;
 {
-    self.strokeColor = isSelected ? [UIColor redColor] : [UIColor PTBlueTintColor];
-    self.lineWidth = isSelected ? 6.0 : 4.0f;
-    
-    if ( _isSelected != isSelected )
+    if ( _isSelected != isSelected ) {
+        
+        self.strokeColor = isSelected ? [UIColor redColor] : [UIColor PTBlueTintColor];
+        self.lineWidth = isSelected ? 6.0 : 4.0f;
         [self setNeedsDisplay];
+    }
     
     _isSelected = isSelected;
 }
@@ -68,11 +69,6 @@
     }
 
     return self;
-}
-
-- (void)drawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale inContext:(CGContextRef)context;
-{
-    [super drawMapRect:mapRect zoomScale:zoomScale inContext:context];
 }
 
 @end
