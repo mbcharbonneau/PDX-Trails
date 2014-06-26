@@ -63,30 +63,38 @@
 
 - (void)mapTouch:(UITapGestureRecognizer *)recognizer;
 {
+    if ( ( recognizer.state & UIGestureRecognizerStateRecognized ) != UIGestureRecognizerStateRecognized )
+        return;
+    
     CGPoint location = [recognizer locationInView:self.mapView];
     CLLocationCoordinate2D coordinate = [self.mapView convertPoint:location toCoordinateFromView:self.mapView];
     MKMapPoint mapPoint = MKMapPointForCoordinate( coordinate );
-    OTTrail *found = nil;
+    
+    CGFloat maxPixels = 8.0;
+    CGPoint boundryPoint = CGPointMake( location.x + maxPixels, location.y + maxPixels );
+    CLLocationCoordinate2D boundryCoordinate = [self.mapView convertPoint:boundryPoint toCoordinateFromView:self.mapView];
+    double maxMeters = MKMetersBetweenMapPoints( MKMapPointForCoordinate( coordinate ), MKMapPointForCoordinate( boundryCoordinate ) );
+    
+    double nearestDistance = MAXFLOAT;
+    PTTrailOverlay *nearestOverlay = nil;
     
     for ( PTTrailOverlay *overlay in self.mapView.overlays ) {
         
-        MKMapRect boundingBox = [overlay boundingMapRect];
         PTTrailRenderer *renderer = (PTTrailRenderer *)[self.mapView rendererForOverlay:overlay];
-
-        if ( MKMapRectContainsPoint( boundingBox, mapPoint ) ) {
-            
-            if ( found != nil )
-                ((PTTrailRenderer *)[self.mapView rendererForOverlay:overlay]).isSelected = NO;
-            
-            found = overlay.trail;
-            renderer.isSelected = YES;
-        } else {
-            
-            renderer.isSelected = NO;
+        double distance = [overlay metersFromPoint:mapPoint];
+        
+        if ( distance < nearestDistance && distance < maxMeters ) {
+            nearestDistance = distance;
+            nearestOverlay = overlay;
         }
+        
+        renderer.isSelected = NO;
     }
-
-    self.selectedTrail = found;
+    
+    if ( nearestOverlay != nil )
+        ((PTTrailRenderer *)[self.mapView rendererForOverlay:nearestOverlay]).isSelected = YES;
+    
+    self.selectedTrail = nearestOverlay.trail;
 }
 
 - (void)setSelectedTrail:(OTTrail *)selectedTrail;

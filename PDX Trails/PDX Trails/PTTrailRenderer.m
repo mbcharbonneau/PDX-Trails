@@ -21,7 +21,8 @@
 - (void)setIsSelected:(BOOL)isSelected;
 {
     self.strokeColor = isSelected ? [UIColor redColor] : [UIColor PTBlueTintColor];
-
+    self.lineWidth = isSelected ? 6.0 : 4.0f;
+    
     if ( _isSelected != isSelected )
         [self setNeedsDisplay];
     

@@ -15,4 +15,6 @@
 
 - (instancetype)initWithTrail:(OTTrail *)trail;
 
+- (double)metersFromPoint:(MKMapPoint)point;
+
 @end

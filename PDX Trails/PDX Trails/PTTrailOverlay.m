@@ -8,7 +8,15 @@
 
 #import "PTTrailOverlay.h"
 
+@interface PTTrailOverlay()
+
+- (UIBezierPath *)mapPath;
+
+@end
+
 @implementation PTTrailOverlay
+
+#pragma mark PTTrailOverlay
 
 - (instancetype)initWithTrail:(OTTrail *)trail;
 {
@@ -21,14 +29,59 @@
     return self;
 }
 
-#pragma mark MKOverlay
-
-- (MKMapRect)boundingMapRect;
+- (double)metersFromPoint:(MKMapPoint)point;
 {
-    UIBezierPath *path = [UIBezierPath new];
+    double trailDistance = MAXFLOAT;
+
+    for ( OTTrailSegment *segment in self.trail.segments ) {
+        
+        NSUInteger idx;
+        double segmentDistance = MAXFLOAT;
+        
+        for ( idx = 0; idx < [segment.coordinates count] - 1; idx++ ) {
+            
+            CLLocationCoordinate2D coordinateA, coordinateB;
+            MKMapPoint pointA, pointB;
+            
+            [segment.coordinates[idx] getValue:&coordinateA];
+            [segment.coordinates[idx + 1] getValue:&coordinateB];
+
+            pointA = MKMapPointForCoordinate( coordinateA );
+            pointB = MKMapPointForCoordinate( coordinateB );
+            
+            double deltaX = pointB.x - pointA.x;
+            double deltaY = pointB.y - pointA.y;
+            
+            if ( deltaX == 0.0 && deltaY == 0.0 )
+                continue;
+            
+            double u = ( ( point.x - pointA.x ) * deltaX + ( point.y - pointA.y ) * deltaY ) / ( deltaX * deltaX + deltaY * deltaY );
+            MKMapPoint closestPoint;
+            
+            if ( u < 0.0 ) {
+                closestPoint = pointA;
+            }
+            else if (u > 1.0) {
+                closestPoint = pointB;
+            }
+            else {
+                closestPoint = MKMapPointMake( pointA.x + u * deltaX, pointA.y + u * deltaY );
+            }
+            
+            segmentDistance = MIN( segmentDistance, MKMetersBetweenMapPoints( closestPoint, point ) );
+        }
+        
+        trailDistance = MIN( trailDistance, segmentDistance );
+    }
     
-    for ( OTTrailSegment *segment in self.trail.segments )
-    {
+    return trailDistance;
+}
+
+- (UIBezierPath *)mapPath;
+{
+    UIBezierPath *mapPath = [UIBezierPath new];
+    
+    for ( OTTrailSegment *segment in self.trail.segments ) {
         NSInteger index, count = [segment.coordinates count];
         
         for ( index = 0; index < count; index++ ) {
@@ -39,12 +92,27 @@
             CGPoint point = CGPointMake( mapPoint.x, mapPoint.y );
             
             if ( index == 0 )
-                [path moveToPoint:point];
+                [mapPath moveToPoint:point];
             else
-                [path addLineToPoint:point];
+                [mapPath addLineToPoint:point];
         }
     }
     
+    return mapPath;
+}
+
+- (void)setTrail:(OTTrail *)trail;
+{
+    [self willChangeValueForKey:@"trail"];
+    _trail = trail;
+    [self didChangeValueForKey:@"trail"];
+}
+
+#pragma mark MKOverlay
+
+- (MKMapRect)boundingMapRect;
+{
+    UIBezierPath *path = [self mapPath];
     CGRect bounds = [path bounds];
     MKMapRect map = MKMapRectMake( bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height );
     
@@ -68,6 +136,5 @@
 {
     return [NSSet setWithObjects:@"trail", nil];
 }
-
 
 @end
