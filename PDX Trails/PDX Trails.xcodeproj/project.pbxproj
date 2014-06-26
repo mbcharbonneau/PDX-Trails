@@ -25,6 +25,7 @@
 		485B17A5194A054F002AF37A /* CyclingFilters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 485B17A4194A054F002AF37A /* CyclingFilters.plist */; };
 		485B17A7194A055F002AF37A /* WalkingFilters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 485B17A6194A055F002AF37A /* WalkingFilters.plist */; };
 		485B17A9194A056B002AF37A /* AccessibilityFilters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 485B17A8194A056B002AF37A /* AccessibilityFilters.plist */; };
+		48CED191195CC97400B7D5FB /* PTMapOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48CED190195CC97400B7D5FB /* PTMapOverlayView.m */; };
 		48E8CE9C193A66C000370D72 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E8CE9B193A66C000370D72 /* Foundation.framework */; };
 		48E8CE9E193A66C000370D72 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E8CE9D193A66C000370D72 /* CoreGraphics.framework */; };
 		48E8CEA0193A66C000370D72 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E8CE9F193A66C000370D72 /* UIKit.framework */; };
@@ -94,6 +95,8 @@
 		485B17A4194A054F002AF37A /* CyclingFilters.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CyclingFilters.plist; path = "Data Files/CyclingFilters.plist"; sourceTree = "<group>"; };
 		485B17A6194A055F002AF37A /* WalkingFilters.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WalkingFilters.plist; sourceTree = "<group>"; };
 		485B17A8194A056B002AF37A /* AccessibilityFilters.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AccessibilityFilters.plist; sourceTree = "<group>"; };
+		48CED18F195CC97400B7D5FB /* PTMapOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTMapOverlayView.h; sourceTree = "<group>"; };
+		48CED190195CC97400B7D5FB /* PTMapOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTMapOverlayView.m; sourceTree = "<group>"; };
 		48E8CE98193A66C000370D72 /* PDX Trails.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PDX Trails.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48E8CE9B193A66C000370D72 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		48E8CE9D193A66C000370D72 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -340,6 +343,8 @@
 				482D707119412F8100E1FD63 /* PTTrailRenderer.m */,
 				485B17A119491EE5002AF37A /* PTModeSelectionButton.h */,
 				485B17A219491EE5002AF37A /* PTModeSelectionButton.m */,
+				48CED18F195CC97400B7D5FB /* PTMapOverlayView.h */,
+				48CED190195CC97400B7D5FB /* PTMapOverlayView.m */,
 			);
 			name = "User Interface";
 			sourceTree = "<group>";
@@ -491,6 +496,7 @@
 				48E8CED3193A773700370D72 /* PTTrailInfoViewController.m in Sources */,
 				484249F01954FE27006E9ACF /* OTImportOperation.m in Sources */,
 				485B179919490BFD002AF37A /* PTTrailFilterSelectionViewController.m in Sources */,
+				48CED191195CC97400B7D5FB /* PTMapOverlayView.m in Sources */,
 				48E8CF03193BE05400370D72 /* PTFilterCell.m in Sources */,
 				48E8CED6193A810200370D72 /* PTSidebarViewController.m in Sources */,
 				484249F21954FE27006E9ACF /* OTTrail.m in Sources */,

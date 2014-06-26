@@ -14,13 +14,14 @@
 #import "PTTrailRenderer.h"
 #import "PTTrailOverlay.h"
 #import "OTOpenTrails.h"
+#import "PTMapOverlayView.h"
 
 #define METERS_PER_MILE 1609.344
 
 @interface PTRootMapViewController ()
 
 @property (strong, nonatomic) MKMapView *mapView;
-@property (strong, nonatomic) UIView *mapOverlayView;
+@property (strong, nonatomic) PTMapOverlayView *mapOverlayView;
 @property (strong, nonatomic) UIToolbar *addressOverlayView;
 @property (strong, nonatomic) UIButton *currentLocationButton;
 @property (strong, nonatomic) UIButton *trailInfoButton;
@@ -129,10 +130,9 @@
     self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.mapView addGestureRecognizer:recognizer];
     
-    self.mapOverlayView = [UIView new];
+    self.mapOverlayView = [PTMapOverlayView new];
     self.mapOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.mapOverlayView.userInteractionEnabled = NO;
-    self.mapOverlayView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5f];
+    [self.mapOverlayView.zoomButton addTarget:self action:@selector(zoomToPortland:) forControlEvents:UIControlEventTouchUpInside];
     
     self.addressOverlayView = [UIToolbar new];
     self.addressOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -248,7 +248,20 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated;
 {
-
+    if ( [self.mapView.overlays count] == 0 )
+        return;
+    
+    BOOL areOverlaysVisible = NO;
+    
+    for ( id<MKOverlay> overlay in self.mapView.overlays ) {
+        
+        areOverlaysVisible = MKMapRectIntersectsRect( self.mapView.visibleMapRect, [overlay boundingMapRect] );
+        
+        if ( areOverlaysVisible )
+            break;
+    }
+    
+    self.mapOverlayView.showsNoTrailsMessage = !areOverlaysVisible;
 }
 
 #pragma mark UITextFieldDelegate
