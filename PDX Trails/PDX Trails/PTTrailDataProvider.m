@@ -11,6 +11,8 @@
 #import "PTAttribute.h"
 #import "OTImportOperation.h"
 
+#import "PTRLISImporter.h"
+
 @interface PTTrailDataProvider()
 
 @property (strong, nonatomic) NSOperationQueue *operationQueue;
@@ -75,19 +77,29 @@
 
 - (void)beginAsyncImport;
 {
-    NSString *areas = [[NSBundle mainBundle] pathForResource:@"areas" ofType:@"geojson"];
-    NSString *trails = [[NSBundle mainBundle] pathForResource:@"named_trails" ofType:@"csv"];
-    NSString *stewards = [[NSBundle mainBundle] pathForResource:@"stewards" ofType:@"csv"];
-    NSString *segments = [[NSBundle mainBundle] pathForResource:@"trail_segments" ofType:@"geojson"];
-    NSString *trailheads = [[NSBundle mainBundle] pathForResource:@"trailheads" ofType:@"geojson"];
+//    NSString *areas = [[NSBundle mainBundle] pathForResource:@"areas" ofType:@"geojson"];
+//    NSString *trails = [[NSBundle mainBundle] pathForResource:@"named_trails" ofType:@"csv"];
+//    NSString *stewards = [[NSBundle mainBundle] pathForResource:@"stewards" ofType:@"csv"];
+//    NSString *segments = [[NSBundle mainBundle] pathForResource:@"trail_segments" ofType:@"geojson"];
+//    NSString *trailheads = [[NSBundle mainBundle] pathForResource:@"trailheads" ofType:@"geojson"];
+//    
+//    NSDictionary *filePaths = @{ OTTrailSegmentsFilePathKey : segments,
+//                                 OTNamedTrailsFilePathKey : trails,
+//                                 OTTrailheadsFilePathKey : trailheads,
+//                                 OTAreasFilePathKey : areas,
+//                                 OTStewardsFilePathKey : stewards };
+//
+//    OTImportOperation *import = [[OTImportOperation alloc] initWithFilePaths:filePaths];
+//    __block __typeof(import) weakImport = import;
+//    
+//    import.completionBlock = ^{
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            [self.trails addObjectsFromArray:weakImport.importedTrails];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:PTDataImportOperationFinishedNotification object:self];
+//        }];
+//    };
     
-    NSDictionary *filePaths = @{ OTTrailSegmentsFilePathKey : segments,
-                                 OTNamedTrailsFilePathKey : trails,
-                                 OTTrailheadsFilePathKey : trailheads,
-                                 OTAreasFilePathKey : areas,
-                                 OTStewardsFilePathKey : stewards };
-
-    OTImportOperation *import = [[OTImportOperation alloc] initWithFilePaths:filePaths];
+    PTRLISImporter *import = [[PTRLISImporter alloc] init];
     __block __typeof(import) weakImport = import;
     
     import.completionBlock = ^{
@@ -96,6 +108,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:PTDataImportOperationFinishedNotification object:self];
         }];
     };
+
     
     [self.operationQueue addOperation:import];
 }
