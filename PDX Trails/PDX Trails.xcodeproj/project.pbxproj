@@ -192,13 +192,6 @@
 			name = "OpenTrails Importer";
 			sourceTree = "<group>";
 		};
-		485B17AF1950D68B002AF37A /* Terraformer */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Terraformer;
-			sourceTree = "<group>";
-		};
 		48E8CE8F193A66C000370D72 = {
 			isa = PBXGroup;
 			children = (
@@ -296,7 +289,6 @@
 		48E8CED7193A9F9C00370D72 /* OSS External Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				485B17AF1950D68B002AF37A /* Terraformer */,
 				485B17AB1950D378002AF37A /* OpenTrails Importer */,
 				48E8CF14193C1E0000370D72 /* CHCSVParser */,
 				48E8CEF0193B8EC900370D72 /* SWRevealViewController */,

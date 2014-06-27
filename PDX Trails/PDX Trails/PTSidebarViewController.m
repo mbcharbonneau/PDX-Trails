@@ -107,11 +107,19 @@
     
     UILabel *helpLabel = [UILabel new];
     helpLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    helpLabel.text = NSLocalizedString( @"Tell us a little about yourself, and we'll show you trails in your neighborhood.", @"" );
+    helpLabel.text = NSLocalizedString( @"Describe the trails you're looking for, we'll highlight the best choices on the map.", @"" );
     helpLabel.numberOfLines = 2;
     helpLabel.textAlignment = NSTextAlignmentCenter;
     helpLabel.font = [UIFont PTAppFontOfSize:18.0f];
     helpLabel.textColor = [UIColor grayColor];
+    
+    UILabel *dataLabel = [UILabel new];
+    dataLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    dataLabel.text = NSLocalizedString( @"Trail data provided by Oregon Metro and OpenStreetMap.", @"" );
+    dataLabel.numberOfLines = 2;
+    dataLabel.textAlignment = NSTextAlignmentCenter;
+    dataLabel.font = [UIFont PTAppFontOfSize:14.0f];
+    dataLabel.textColor = [UIColor lightGrayColor];
     
     self.filterNavigationController = [UINavigationController new];
     self.filterNavigationController.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -122,19 +130,21 @@
     [self.view addSubview:self.modeSelectionScrollView];
     [self.view addSubview:helpLabel];
     [self.view addSubview:self.filterNavigationController.view];
+    [self.view addSubview:dataLabel];
     [self addChildViewController:self.filterNavigationController];
 
     SWRevealViewController *revealController = self.revealViewController;
     UIView *filterNavControllerView = self.filterNavigationController.view;
     CGFloat margin = revealController.rightViewRevealOverdraw;
-    NSDictionary *views = NSDictionaryOfVariableBindings( _modeSelectionScrollView, helpLabel, filterNavControllerView );
+    NSDictionary *views = NSDictionaryOfVariableBindings( _modeSelectionScrollView, helpLabel, filterNavControllerView, dataLabel );
     NSDictionary *metrics = @{ @"margin_left" : @( margin ), @"padding_left" : @( margin + 20.0f ), @"padding_right" : @( 20.0f ), @"height" : @(100.0f), @"width" : @( [self.modeSelectionScrollView.subviews count] * 100.0f ), @"margin_top" : @(186.0f) };
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(padding_left)-[helpLabel]-(padding_right)-|" options:0 metrics:metrics views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(padding_left)-[dataLabel]-(padding_right)-|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin_left)-[_modeSelectionScrollView]|" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_modeSelectionScrollView(height)]-(20)-[helpLabel]" options:0 metrics:metrics views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin_left)-[filterNavControllerView]|" options:0 metrics:metrics views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin_top)-[filterNavControllerView]|" options:0 metrics:metrics views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin_top)-[filterNavControllerView][dataLabel]-(20)-|" options:0 metrics:metrics views:views]];
     
     [self chooseMode:[[self.modeSelectionScrollView subviews] firstObject]];
 }

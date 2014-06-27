@@ -5,6 +5,39 @@
 	<dict>
 		<key>answers</key>
 		<array>
+			<string>Yes</string>
+			<string>No</string>
+		</array>
+		<key>prompt</key>
+		<string>Parking near Trailhead</string>
+		<key>key</key>
+		<string>parking</string>
+	</dict>
+	<dict>
+		<key>answers</key>
+		<array>
+			<string>Yes</string>
+			<string>No</string>
+		</array>
+		<key>prompt</key>
+		<string>Share with Bikes</string>
+		<key>key</key>
+		<string>cycling</string>
+	</dict>
+	<dict>
+		<key>answers</key>
+		<array>
+			<string>Paved</string>
+			<string>Dirt</string>
+		</array>
+		<key>prompt</key>
+		<string>Surface</string>
+		<key>key</key>
+		<string>surface</string>
+	</dict>
+	<dict>
+		<key>answers</key>
+		<array>
 			<string>Good</string>
 			<string>Poor</string>
 		</array>
@@ -16,7 +49,7 @@
 	<dict>
 		<key>answers</key>
 		<array>
-			<string>High (views, shaded, quiet, historic)</string>
+			<string>Great</string>
 			<string>Neutral</string>
 			<string>Poor</string>
 		</array>
