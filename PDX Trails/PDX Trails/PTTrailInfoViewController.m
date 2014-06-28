@@ -142,6 +142,7 @@
         cell.textLabel.text = trailhead.name;
         cell.textLabel.font = [UIFont PTAppFontOfSize:10.0f];
         cell.textLabel.numberOfLines = 1;
+    
     }
     
     return cell;

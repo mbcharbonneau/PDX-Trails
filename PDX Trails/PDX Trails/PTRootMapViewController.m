@@ -246,8 +246,19 @@
     return renderer;
 }
 
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated;
+{
+    [UIView animateWithDuration:0.1 animations:^{
+        self.addressOverlayView.alpha = 0.6f;
+    }];
+}
+
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated;
 {
+    [UIView animateWithDuration:0.1 animations:^{
+        self.addressOverlayView.alpha = 1.0f;
+    }];
+    
     if ( [self.mapView.overlays count] == 0 )
         return;
     
