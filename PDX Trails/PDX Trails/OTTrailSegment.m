@@ -72,6 +72,28 @@ OTTrailPolicy OTTrailPolicyFromString(NSString *aString) {
     return self;
 }
 
+- (double)distance;
+{
+    double meters = 0.0;
+    NSUInteger idx;
+    
+    for ( idx = 0; idx < [self.coordinates count] - 1; idx++ ) {
+        
+        CLLocationCoordinate2D first, second;
+        CLLocation *firstLocation, *secondLocation;
+        
+        [self.coordinates[idx] getValue:&first];
+        [self.coordinates[idx + 1] getValue:&second];
+
+        firstLocation = [[CLLocation alloc] initWithLatitude:first.latitude longitude:first.longitude];
+        secondLocation = [[CLLocation alloc] initWithLatitude:second.latitude longitude:second.longitude];
+        
+        meters += [firstLocation distanceFromLocation:secondLocation];
+    }
+    
+    return meters;
+}
+
 #pragma mark NSObject
 
 - (NSString *)description;
@@ -79,11 +101,11 @@ OTTrailPolicy OTTrailPolicyFromString(NSString *aString) {
     NSMutableString *string = [[NSMutableString alloc] init];
     [string appendFormat:@"<%@: %p, name=%@, coordinates=", NSStringFromClass( [self class] ), self, self.name];
     
-    NSInteger index, count = [self.coordinates count];
+    NSInteger idx, count = [self.coordinates count];
     
-    for ( index = 0; index < count; index++ ) {
+    for ( idx = 0; idx < count; idx++ ) {
         CLLocationCoordinate2D coordinate;
-        [self.coordinates[index] getValue:&coordinate];
+        [self.coordinates[idx] getValue:&coordinate];
         [string appendFormat:@"%f %f, ", coordinate.latitude, coordinate.longitude];
     }
     

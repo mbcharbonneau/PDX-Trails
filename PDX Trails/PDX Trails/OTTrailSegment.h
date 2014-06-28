@@ -57,4 +57,6 @@ extern OTTrailPolicy OTTrailPolicyFromString(NSString *);
 
 - (instancetype)initWithIdentifier:(NSString *)identifier coordinates:(CLLocationCoordinate2D *)coordinates count:(NSUInteger)count;
 
+- (double)distance;
+
 @end

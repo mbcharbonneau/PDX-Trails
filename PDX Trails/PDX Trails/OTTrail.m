@@ -40,6 +40,13 @@
     return self;
 }
 
+- (double)distance;
+{
+    NSNumber *meters = [self.segments valueForKeyPath:@"@sum.distance"];
+    
+    return [meters doubleValue];
+}
+
 - (NSString *)description;
 {
     return [NSString stringWithFormat:@"<%@: %p, name=%@>", NSStringFromClass( [self class] ), self, self.name];

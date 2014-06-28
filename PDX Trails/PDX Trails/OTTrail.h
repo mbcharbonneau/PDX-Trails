@@ -38,4 +38,6 @@
 
 - (instancetype)initWithIdentifier:(NSString *)identifier;
 
+- (double)distance;
+
 @end
