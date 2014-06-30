@@ -17,4 +17,6 @@
 
 - (instancetype)initWithDictionary:(NSDictionary *)attributeData;
 
+- (NSPredicate *)trailPredicate;
+
 @end

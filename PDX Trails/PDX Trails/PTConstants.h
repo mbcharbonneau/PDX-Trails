@@ -24,6 +24,7 @@ typedef NS_ENUM( NSUInteger, PTErrorCode )
 };
 
 extern NSString *const PTDataImportOperationFinishedNotification;
+extern NSString *const PTTrailSelectionChangedNotification;
 extern NSString *const PTErrorDomain;
 
 NSString *PTNameForMode( PTUserMode mode );

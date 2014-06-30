@@ -9,6 +9,7 @@
 #import "PTConstants.h"
 
 NSString *const PTDataImportOperationFinishedNotification = @"PTDataImportOperationFinishedNotification";
+NSString *const PTTrailSelectionChangedNotification = @"PTTrailSelectionChangedNotification";
 NSString *const PTErrorDomain = @"PTErrorDomain";
 
 NSString *PTNameForMode( PTUserMode mode ) {

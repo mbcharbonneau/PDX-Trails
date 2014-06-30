@@ -13,10 +13,13 @@
 
 #import "PTRLISImporter.h"
 
+#define MIN_SUITABILITY 0.2f
+
 @interface PTTrailDataProvider()
 
 @property (strong, nonatomic) NSOperationQueue *operationQueue;
-@property (strong, nonatomic) NSMutableArray *trails;
+@property (strong, nonatomic) NSMutableSet *trails;
+@property (strong, nonatomic) NSMutableSet *answers;
 
 - (void)beginAsyncImport;
 
@@ -39,7 +42,7 @@
 
 - (NSArray *)trailsForRegion:(MKCoordinateRegion)region;
 {
-    return self.trails;
+    return [self.trails allObjects];
 }
 
 - (NSArray *)filterQuestionsForMode:(PTUserMode)mode;
@@ -71,6 +74,29 @@
         [attributes addObject:[[PTAttribute alloc] initWithDictionary:data]];
         
     return attributes;
+}
+
+- (CGFloat)suitabilityOfTrail:(OTTrail *)trail;
+{
+    if ( [self.answers count] == 0 )
+        return 1.0;
+    
+    CGFloat result = 0.0f;
+    
+    for ( PTAttribute *attribute in self.answers ) {
+        
+        if ( [attribute.trailPredicate evaluateWithObject:trail] )
+            result += 1.0f;
+    }
+    
+    return MAX( MIN_SUITABILITY, result / [self.answers count] );
+}
+
+- (void)userSelectedAnswer:(PTAttribute *)attribute;
+{
+    [self.answers addObject:attribute];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:PTTrailSelectionChangedNotification object:attribute];
 }
 
 #pragma mark PTTrailDataProvider Private
@@ -120,7 +146,8 @@
     if ( self = [super init] ) {
         
         _operationQueue = [[NSOperationQueue alloc] init];
-        _trails = [[NSMutableArray alloc] init];
+        _answers = [[NSMutableSet alloc] init];
+        _trails = [[NSMutableSet alloc] init];
         
         [self beginAsyncImport];
     }

@@ -35,6 +35,7 @@
 
 - (void)mapTouch:(UITapGestureRecognizer *)recognizer;
 - (void)importOperationFinished:(NSNotification *)aNotification;
+- (void)userChoicesChanged:(NSNotification *)aNotification;
 
 @end
 
@@ -113,8 +114,21 @@
     MKCoordinateRegion region;
     NSArray *trails = [[PTTrailDataProvider sharedDataProvider] trailsForRegion:region];
     
-    for ( OTTrail *trail in trails )
+    for ( OTTrail *trail in trails ) {
         [self.mapView addOverlay:[[PTTrailOverlay alloc] initWithTrail:trail]];
+    }
+}
+
+- (void)userChoicesChanged:(NSNotification *)aNotification;
+{
+    for ( PTTrailOverlay *overlay in self.mapView.overlays ) {
+        
+        OTTrail *trail = overlay.trail;
+        CGFloat suitability = [[PTTrailDataProvider sharedDataProvider] suitabilityOfTrail:trail];
+        PTTrailRenderer *renderer = (PTTrailRenderer *)[self.mapView rendererForOverlay:overlay];
+        
+        renderer.alpha = suitability;
+    }
 }
 
 #pragma mark UIViewController
@@ -212,6 +226,7 @@
     
     [self zoomToPortland:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(importOperationFinished:) name:PTDataImportOperationFinishedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userChoicesChanged:) name:PTTrailSelectionChangedNotification object:nil];
     [PTTrailDataProvider sharedDataProvider]; // remove later
 }
 
@@ -230,6 +245,7 @@
 - (void)dealloc;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:PTDataImportOperationFinishedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:PTTrailSelectionChangedNotification object:nil];
 }
 
 #pragma mark MKMapViewDelegate
@@ -243,6 +259,7 @@
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay;
 {
     PTTrailRenderer *renderer = [[PTTrailRenderer alloc] initWithOverlay:overlay];
+    renderer.alpha = [[PTTrailDataProvider sharedDataProvider] suitabilityOfTrail:[(PTTrailOverlay *)overlay trail]];
     return renderer;
 }
 

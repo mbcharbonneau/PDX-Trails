@@ -8,6 +8,7 @@
 
 #import "PTTrailFilterSelectionViewController.h"
 #import "PTAttribute.h"
+#import "PTTrailDataProvider.h"
 
 @interface PTTrailFilterSelectionViewController ()
 @end
@@ -65,6 +66,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     self.attribute.selectedAnswer = indexPath.row;
+    [[PTTrailDataProvider sharedDataProvider] userSelectedAnswer:self.attribute];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

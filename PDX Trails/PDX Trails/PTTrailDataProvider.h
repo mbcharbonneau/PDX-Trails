@@ -9,6 +9,9 @@
 @import Foundation;
 @import MapKit;
 
+@class OTTrail;
+@class PTAttribute;
+
 #import "PTConstants.h"
 
 @interface PTTrailDataProvider : NSObject
@@ -17,5 +20,9 @@
 
 - (NSArray *)trailsForRegion:(MKCoordinateRegion)region;
 - (NSArray *)filterQuestionsForMode:(PTUserMode)mode;
+
+- (CGFloat)suitabilityOfTrail:(OTTrail *)trail;
+
+- (void)userSelectedAnswer:(PTAttribute *)attribute;
 
 @end
