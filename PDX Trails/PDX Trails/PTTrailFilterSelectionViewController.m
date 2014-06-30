@@ -51,10 +51,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass( [self class] ) forIndexPath:indexPath];
-    NSString *title = self.attribute.answers[indexPath.row];
+    NSUInteger row = indexPath.row;
+    NSString *title = self.attribute.answers[row];
     
     cell.textLabel.text = title;
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    cell.accessoryType = self.attribute.selectedAnswer == row ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
 }
@@ -63,6 +64,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
+    self.attribute.selectedAnswer = indexPath.row;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

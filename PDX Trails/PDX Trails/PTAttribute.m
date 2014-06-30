@@ -19,6 +19,7 @@
         self.key = attributeData[@"key"];
         self.prompt = attributeData[@"prompt"];
         self.answers = attributeData[@"answers"];
+        self.selectedAnswer = 0;
     }
     
     return self;

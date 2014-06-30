@@ -38,6 +38,13 @@
     
     [self.tableView registerClass:[PTFilterCell class] forCellReuseIdentifier:NSStringFromClass( [self class] )];
     self.tableView.tableFooterView = [UIView new];
+    self.clearsSelectionOnViewWillAppear = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated;
+{
+    [super viewDidAppear:animated];
+    [self.tableView reloadData];
 }
 
 #pragma mark UITableViewDataSource
@@ -58,7 +65,7 @@
     PTAttribute *attribute = self.attributes[indexPath.row];
         
     cell.textLabel.text = attribute.prompt;
-    cell.detailTextLabel.text = [attribute.answers firstObject];
+    cell.detailTextLabel.text = [attribute.answers objectAtIndex:attribute.selectedAnswer];
     
     return cell;
 }

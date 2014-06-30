@@ -5,6 +5,19 @@
 	<dict>
 		<key>answers</key>
 		<array>
+			<string>Under 2 miles</string>
+			<string>2 miles - 5 miles</string>
+			<string>5 miles - 10 miles</string>
+			<string>Over 10 miles</string>
+		</array>
+		<key>prompt</key>
+		<string>Trail Length</string>
+		<key>key</key>
+		<string>distance</string>
+	</dict>
+	<dict>
+		<key>answers</key>
+		<array>
 			<string>Yes</string>
 			<string>No</string>
 		</array>
