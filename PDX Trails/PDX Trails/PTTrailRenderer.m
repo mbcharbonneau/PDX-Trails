@@ -35,7 +35,7 @@
 - (void)createPath;
 {
     PTTrailOverlay *overlay = (PTTrailOverlay *)self.overlay;
-    UIBezierPath *path = [UIBezierPath new];
+    CGMutablePathRef path = CGPathCreateMutable();
     
     for ( OTTrailSegment *segment in overlay.trail.segments )
     {
@@ -49,13 +49,13 @@
             CGPoint point = [self pointForMapPoint:mapPoint];
             
             if ( index == 0 )
-                [path moveToPoint:point];
+                CGPathMoveToPoint( path, NULL, point.x, point.y );
             else
-                [path addLineToPoint:point];
+                CGPathAddLineToPoint( path, NULL, point.x, point.y );
         }
     }
     
-    self.path = path.CGPath;
+    self.path = path;
 }
 
 #pragma mark MKOverlayRenderer

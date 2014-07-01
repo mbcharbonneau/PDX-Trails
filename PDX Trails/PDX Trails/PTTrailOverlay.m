@@ -10,6 +10,8 @@
 
 @interface PTTrailOverlay()
 
+@property (strong, nonatomic) UIBezierPath *cachedPath;
+
 - (UIBezierPath *)mapPath;
 
 @end
@@ -79,31 +81,35 @@
 
 - (UIBezierPath *)mapPath;
 {
-    UIBezierPath *mapPath = [UIBezierPath new];
-    
-    for ( OTTrailSegment *segment in self.trail.segments ) {
-        NSInteger index, count = [segment.coordinates count];
+    if ( self.cachedPath == nil ) {
         
-        for ( index = 0; index < count; index++ ) {
-            CLLocationCoordinate2D coordinate;
-            [segment.coordinates[index] getValue:&coordinate];
+        self.cachedPath = [UIBezierPath new];
+        
+        for ( OTTrailSegment *segment in self.trail.segments ) {
+            NSInteger index, count = [segment.coordinates count];
             
-            MKMapPoint mapPoint = MKMapPointForCoordinate( coordinate );
-            CGPoint point = CGPointMake( mapPoint.x, mapPoint.y );
-            
-            if ( index == 0 )
-                [mapPath moveToPoint:point];
-            else
-                [mapPath addLineToPoint:point];
+            for ( index = 0; index < count; index++ ) {
+                CLLocationCoordinate2D coordinate;
+                [segment.coordinates[index] getValue:&coordinate];
+                
+                MKMapPoint mapPoint = MKMapPointForCoordinate( coordinate );
+                CGPoint point = CGPointMake( mapPoint.x, mapPoint.y );
+                
+                if ( index == 0 )
+                    [self.cachedPath moveToPoint:point];
+                else
+                    [self.cachedPath addLineToPoint:point];
+            }
         }
     }
     
-    return mapPath;
+    return self.cachedPath;
 }
 
 - (void)setTrail:(OTTrail *)trail;
 {
     [self willChangeValueForKey:@"trail"];
+    _cachedPath = nil;
     _trail = trail;
     [self didChangeValueForKey:@"trail"];
 }
