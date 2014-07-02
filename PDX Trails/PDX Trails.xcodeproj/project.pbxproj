@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		482D707219412F8100E1FD63 /* PTTrailRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 482D707119412F8100E1FD63 /* PTTrailRenderer.m */; };
+		483EF62E1962130600AF7A63 /* PTOSMFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 483EF62D1962130600AF7A63 /* PTOSMFormatter.m */; };
 		484249EF1954FE27006E9ACF /* OTArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 484249E31954FE27006E9ACF /* OTArea.m */; };
 		484249F01954FE27006E9ACF /* OTImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 484249E51954FE27006E9ACF /* OTImportOperation.m */; };
 		484249F11954FE27006E9ACF /* OTSteward.m in Sources */ = {isa = PBXBuildFile; fileRef = 484249E81954FE27006E9ACF /* OTSteward.m */; };
@@ -68,6 +69,8 @@
 /* Begin PBXFileReference section */
 		482D707019412F8100E1FD63 /* PTTrailRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTrailRenderer.h; sourceTree = "<group>"; };
 		482D707119412F8100E1FD63 /* PTTrailRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTrailRenderer.m; sourceTree = "<group>"; };
+		483EF62C1962130600AF7A63 /* PTOSMFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTOSMFormatter.h; sourceTree = "<group>"; };
+		483EF62D1962130600AF7A63 /* PTOSMFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTOSMFormatter.m; sourceTree = "<group>"; };
 		484249E21954FE27006E9ACF /* OTArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTArea.h; sourceTree = "<group>"; };
 		484249E31954FE27006E9ACF /* OTArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTArea.m; sourceTree = "<group>"; };
 		484249E41954FE27006E9ACF /* OTImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OTImportOperation.h; sourceTree = "<group>"; };
@@ -343,6 +346,8 @@
 				485B17A219491EE5002AF37A /* PTModeSelectionButton.m */,
 				48CED18F195CC97400B7D5FB /* PTMapOverlayView.h */,
 				48CED190195CC97400B7D5FB /* PTMapOverlayView.m */,
+				483EF62C1962130600AF7A63 /* PTOSMFormatter.h */,
+				483EF62D1962130600AF7A63 /* PTOSMFormatter.m */,
 			);
 			name = "User Interface";
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 				48E8CF17193C1E4100370D72 /* CHCSVParser.m in Sources */,
 				48E8CEFF193B9F6200370D72 /* PTTrailDataProvider.m in Sources */,
 				484249F41954FE27006E9ACF /* OTTrailSegment.m in Sources */,
+				483EF62E1962130600AF7A63 /* PTOSMFormatter.m in Sources */,
 				485B17961948F66B002AF37A /* PTTrailFiltersViewController.m in Sources */,
 				48E8CEDD193AADBC00370D72 /* PTConstants.m in Sources */,
 				484249F31954FE27006E9ACF /* OTTrailhead.m in Sources */,

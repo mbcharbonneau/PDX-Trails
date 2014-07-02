@@ -11,6 +11,7 @@
 #import "OTOpenTrails.h"
 #import "PTTrailRenderer.h"
 #import "PTTrailOverlay.h"
+#import "PTOSMFormatter.h"
 
 @interface PTTrailInfoViewController ()
 
@@ -61,7 +62,15 @@
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.font = [UIFont PTAppFontOfSize:24.0f];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    PTOSMFormatter *formatter = [PTOSMFormatter new];
+    
+    UILabel *infoLabel = [UILabel new];
+    infoLabel.text = [formatter stringForTags:[self.trail.segments[0] openStreetMapTags]];
+    infoLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    infoLabel.font = [UIFont PTAppFontOfSize:14.0f];
+    infoLabel.numberOfLines = 0;
+
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -82,15 +91,16 @@
     [self.view addSubview:titleLabel];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.mapView];
+    [self.view addSubview:infoLabel];
 
-    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel, _tableView, _mapView );
+    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel, _tableView, _mapView, infoLabel );
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[titleLabel]-(20)-[_mapView(350)]-(20)-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[titleLabel]" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[_mapView(350)]" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mapView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView(350)]-(20)-[titleLabel][_tableView][infoLabel]-(20)-|" options:0 metrics:nil views:views]];
 
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_tableView(==titleLabel)]" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[titleLabel]-(20)-[_tableView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[titleLabel]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[infoLabel]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_tableView]-(20)-|" options:0 metrics:nil views:views]];
 }
 
 - (void)viewDidAppear:(BOOL)animated;
@@ -101,6 +111,19 @@
     self.backgroundTapRecognizer.cancelsTouchesInView = NO;
     
     [self.view.window addGestureRecognizer:self.backgroundTapRecognizer];
+    
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    annotation.coordinate = [[self.trail.segments firstObject] midpoint];
+    annotation.title = [[self.trail.segments firstObject] name] ?: NSLocalizedString( @"Trail", @"" );
+    
+    [self.mapView addAnnotation:annotation];
+    [self.mapView selectAnnotation:annotation animated:YES];
+}
+
+- (void)viewWillLayoutSubviews;
+{
+    [super viewWillLayoutSubviews];
+    self.view.superview.bounds = CGRectMake( 0.0f, 0.0f, 500.0f, 748.0f );
 }
 
 #pragma mark NSObject
@@ -156,6 +179,13 @@
 {
     PTTrailRenderer *renderer = [[PTTrailRenderer alloc] initWithOverlay:overlay];
     return renderer;
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation;
+{
+    MKAnnotationView *view = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:NSStringFromClass( [self class] )];
+    view.canShowCallout = YES;
+    return view;
 }
 
 @end
