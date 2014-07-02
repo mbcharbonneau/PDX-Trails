@@ -16,7 +16,9 @@
 @interface PTTrailInfoViewController ()
 
 @property (strong, nonatomic) OTTrail *trail;
+@property (strong, nonatomic) OTTrailSegment *selectedSegment;
 @property (strong, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) UILabel *infoLabel;
 @property (strong, nonatomic) UITapGestureRecognizer *backgroundTapRecognizer;
 @property (strong, nonatomic) UITableView *tableView;
 
@@ -49,6 +51,28 @@
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
+- (void)setSelectedSegment:(OTTrailSegment *)selectedSegment;
+{
+    if ( _selectedSegment == selectedSegment )
+        return;
+    
+    BOOL isShowingAnnotation = [self.mapView.annotations count] != 0;
+    
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    annotation.coordinate = [selectedSegment midpoint];
+    annotation.title = selectedSegment.name ?: NSLocalizedString( @"Trail", @"" );
+    
+    [self.mapView addAnnotation:annotation];
+    [self.mapView selectAnnotation:annotation animated:!isShowingAnnotation];
+    
+    PTOSMFormatter *formatter = [PTOSMFormatter new];
+    self.infoLabel.text = [formatter stringForTags:[selectedSegment openStreetMapTags]];
+    
+    _selectedSegment = selectedSegment;
+}
+
 #pragma mark UIViewController
 
 - (void)viewDidLoad;
@@ -62,13 +86,10 @@
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.font = [UIFont PTAppFontOfSize:24.0f];
     
-    PTOSMFormatter *formatter = [PTOSMFormatter new];
-    
-    UILabel *infoLabel = [UILabel new];
-    infoLabel.text = [formatter stringForTags:[self.trail.segments[0] openStreetMapTags]];
-    infoLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    infoLabel.font = [UIFont PTAppFontOfSize:14.0f];
-    infoLabel.numberOfLines = 0;
+    self.infoLabel = [UILabel new];
+    self.infoLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.infoLabel.font = [UIFont PTAppFontOfSize:14.0f];
+    self.infoLabel.numberOfLines = 0;
 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
@@ -91,15 +112,15 @@
     [self.view addSubview:titleLabel];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.mapView];
-    [self.view addSubview:infoLabel];
+    [self.view addSubview:self.infoLabel];
 
-    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel, _tableView, _mapView, infoLabel );
+    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel, _tableView, _mapView, _infoLabel );
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mapView]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView(350)]-(20)-[titleLabel][_tableView][infoLabel]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView(350)]-(20)-[titleLabel][_tableView(44.0)][_infoLabel]" options:0 metrics:nil views:views]];
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[titleLabel]-(20)-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[infoLabel]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_infoLabel]-(20)-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_tableView]-(20)-|" options:0 metrics:nil views:views]];
 }
 
@@ -111,13 +132,7 @@
     self.backgroundTapRecognizer.cancelsTouchesInView = NO;
     
     [self.view.window addGestureRecognizer:self.backgroundTapRecognizer];
-    
-    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-    annotation.coordinate = [[self.trail.segments firstObject] midpoint];
-    annotation.title = [[self.trail.segments firstObject] name] ?: NSLocalizedString( @"Trail", @"" );
-    
-    [self.mapView addAnnotation:annotation];
-    [self.mapView selectAnnotation:annotation animated:YES];
+    self.selectedSegment = [self.trail.segments firstObject];
 }
 
 - (void)viewWillLayoutSubviews;
@@ -172,6 +187,12 @@
 }
 
 #pragma mark UITableViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+{
+    NSIndexPath *currentItemIndex = [[(UITableView *)scrollView indexPathsForVisibleRows] firstObject];
+    self.selectedSegment = self.trail.segments[currentItemIndex.row];
+}
 
 #pragma mark MKMapViewDelegate
 
