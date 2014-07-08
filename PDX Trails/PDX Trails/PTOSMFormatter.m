@@ -25,7 +25,7 @@
     
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         
-        [string appendFormat:@"%@ == %@\n", key, obj];
+        [string appendFormat:@"%@ == %@, ", key, obj];
     }];
     
     return string;

@@ -13,6 +13,8 @@
 #import "PTTrailOverlay.h"
 #import "PTOSMFormatter.h"
 
+#define DEFAULT_SEGMENT_NAME NSLocalizedString( @"Trailway", @"" );
+
 @interface PTTrailInfoViewController ()
 
 @property (strong, nonatomic) OTTrail *trail;
@@ -20,7 +22,9 @@
 @property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic) UILabel *infoLabel;
 @property (strong, nonatomic) UITapGestureRecognizer *backgroundTapRecognizer;
-@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UIPickerView *segmentSelectionView;
+@property (strong, nonatomic) UIButton *trailInfoTabButton;
+@property (strong, nonatomic) UIButton *segmentsTabButton;
 
 - (void)backgroundTap:(UITapGestureRecognizer *)recognizer;
 
@@ -62,7 +66,7 @@
     
     MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     annotation.coordinate = [selectedSegment midpoint];
-    annotation.title = selectedSegment.name ?: NSLocalizedString( @"Trail", @"" );
+    annotation.title = selectedSegment.name ?: DEFAULT_SEGMENT_NAME;
     
     [self.mapView addAnnotation:annotation];
     [self.mapView selectAnnotation:annotation animated:!isShowingAnnotation];
@@ -90,12 +94,12 @@
     self.infoLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.infoLabel.font = [UIFont PTAppFontOfSize:14.0f];
     self.infoLabel.numberOfLines = 0;
-
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass( [self class] )];
+    
+    self.segmentSelectionView = [UIPickerView new];
+    self.segmentSelectionView.dataSource = self;
+    self.segmentSelectionView.delegate = self;
+    self.segmentSelectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.segmentSelectionView.backgroundColor = [UIColor lightGrayColor];
     
     self.mapView = [MKMapView new];
     self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -110,18 +114,18 @@
     [self.mapView setRegion:MKCoordinateRegionForMapRect( mapRect ) animated:YES];
     
     [self.view addSubview:titleLabel];
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.segmentSelectionView];
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.infoLabel];
 
-    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel, _tableView, _mapView, _infoLabel );
+    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel, _segmentSelectionView, _mapView, _infoLabel );
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mapView]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView(350)]-(20)-[titleLabel][_tableView(44.0)][_infoLabel]" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView(350)]-(20)-[titleLabel][_segmentSelectionView][_infoLabel]" options:0 metrics:nil views:views]];
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[titleLabel]-(20)-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_infoLabel]-(20)-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_tableView]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(40)-[_segmentSelectionView]-(40)-|" options:0 metrics:nil views:views]];
 }
 
 - (void)viewDidAppear:(BOOL)animated;
@@ -188,10 +192,40 @@
 
 #pragma mark UITableViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+
+#pragma mark UIPickerViewDelegate
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
 {
-    NSIndexPath *currentItemIndex = [[(UITableView *)scrollView indexPathsForVisibleRows] firstObject];
-    self.selectedSegment = self.trail.segments[currentItemIndex.row];
+    self.selectedSegment = self.trail.segments[row];
+}
+
+#pragma mark UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
+{
+    return [self.trail.segments count];
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view;
+{
+    OTTrailSegment *segment = self.trail.segments[row];
+    UILabel *label = [UILabel new];
+    
+    label.font = [UIFont PTAppFontOfSize:18.0f];
+    label.text = segment.name ?: DEFAULT_SEGMENT_NAME;
+    
+    return label;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component;
+{
+    return 28.0f;
 }
 
 #pragma mark MKMapViewDelegate

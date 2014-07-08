@@ -16,6 +16,12 @@
 		484249F31954FE27006E9ACF /* OTTrailhead.m in Sources */ = {isa = PBXBuildFile; fileRef = 484249EC1954FE27006E9ACF /* OTTrailhead.m */; };
 		484249F41954FE27006E9ACF /* OTTrailSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 484249EE1954FE27006E9ACF /* OTTrailSegment.m */; };
 		484249F71954FF45006E9ACF /* PTTrailOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 484249F61954FF45006E9ACF /* PTTrailOverlay.m */; };
+		485076F8196B70B000F9A0A4 /* location_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 485076F6196B70B000F9A0A4 /* location_disabled.png */; };
+		485076F9196B70B000F9A0A4 /* location_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 485076F7196B70B000F9A0A4 /* location_disabled@2x.png */; };
+		485076FC196B71AC00F9A0A4 /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 485076FA196B71AC00F9A0A4 /* info@2x.png */; };
+		485076FD196B71AC00F9A0A4 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 485076FB196B71AC00F9A0A4 /* info.png */; };
+		48507704196B788D00F9A0A4 /* drawer.png in Resources */ = {isa = PBXBuildFile; fileRef = 48507702196B788D00F9A0A4 /* drawer.png */; };
+		48507705196B788D00F9A0A4 /* drawer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48507703196B788D00F9A0A4 /* drawer@2x.png */; };
 		485B17901948E42A002AF37A /* PTAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 485B178F1948E42A002AF37A /* PTAttribute.m */; };
 		485B17961948F66B002AF37A /* PTTrailFiltersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485B17951948F66B002AF37A /* PTTrailFiltersViewController.m */; };
 		485B179919490BFD002AF37A /* PTTrailFilterSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485B179819490BFD002AF37A /* PTTrailFilterSelectionViewController.m */; };
@@ -86,6 +92,12 @@
 		484249EE1954FE27006E9ACF /* OTTrailSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OTTrailSegment.m; sourceTree = "<group>"; };
 		484249F51954FF45006E9ACF /* PTTrailOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTrailOverlay.h; sourceTree = "<group>"; };
 		484249F61954FF45006E9ACF /* PTTrailOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTrailOverlay.m; sourceTree = "<group>"; };
+		485076F6196B70B000F9A0A4 /* location_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_disabled.png; sourceTree = "<group>"; };
+		485076F7196B70B000F9A0A4 /* location_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location_disabled@2x.png"; sourceTree = "<group>"; };
+		485076FA196B71AC00F9A0A4 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
+		485076FB196B71AC00F9A0A4 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		48507702196B788D00F9A0A4 /* drawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drawer.png; sourceTree = "<group>"; };
+		48507703196B788D00F9A0A4 /* drawer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drawer@2x.png"; sourceTree = "<group>"; };
 		485B178E1948E42A002AF37A /* PTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTAttribute.h; sourceTree = "<group>"; };
 		485B178F1948E42A002AF37A /* PTAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTAttribute.m; sourceTree = "<group>"; };
 		485B17941948F66B002AF37A /* PTTrailFiltersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTrailFiltersViewController.h; sourceTree = "<group>"; };
@@ -174,6 +186,12 @@
 		485B179C19491D6E002AF37A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				48507702196B788D00F9A0A4 /* drawer.png */,
+				48507703196B788D00F9A0A4 /* drawer@2x.png */,
+				485076FA196B71AC00F9A0A4 /* info@2x.png */,
+				485076FB196B71AC00F9A0A4 /* info.png */,
+				485076F6196B70B000F9A0A4 /* location_disabled.png */,
+				485076F7196B70B000F9A0A4 /* location_disabled@2x.png */,
 				485B179D19491D76002AF37A /* Power.png */,
 				485B179E19491D76002AF37A /* Power@2x.png */,
 			);
@@ -465,11 +483,17 @@
 				485B17A7194A055F002AF37A /* WalkingFilters.plist in Resources */,
 				485B179B1949153A002AF37A /* HikingFilters.plist in Resources */,
 				48E8CF0F193C15C200370D72 /* trail_segments.geojson in Resources */,
+				485076F8196B70B000F9A0A4 /* location_disabled.png in Resources */,
 				48E8CEA6193A66C000370D72 /* InfoPlist.strings in Resources */,
+				485076FC196B71AC00F9A0A4 /* info@2x.png in Resources */,
+				485076F9196B70B000F9A0A4 /* location_disabled@2x.png in Resources */,
+				48507705196B788D00F9A0A4 /* drawer@2x.png in Resources */,
 				485B179F19491D76002AF37A /* Power.png in Resources */,
+				48507704196B788D00F9A0A4 /* drawer.png in Resources */,
 				48E8CF0D193C15C200370D72 /* named_trails.csv in Resources */,
 				48E8CF10193C15C200370D72 /* trailheads.geojson in Resources */,
 				485B17A5194A054F002AF37A /* CyclingFilters.plist in Resources */,
+				485076FD196B71AC00F9A0A4 /* info.png in Resources */,
 				485B17A019491D76002AF37A /* Power@2x.png in Resources */,
 				485B17A9194A056B002AF37A /* AccessibilityFilters.plist in Resources */,
 				48E8CEAE193A66C000370D72 /* Images.xcassets in Resources */,

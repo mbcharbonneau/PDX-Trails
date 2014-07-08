@@ -158,22 +158,29 @@
     searchBar.searchBarStyle = UISearchBarStyleMinimal;
     searchBar.placeholder = NSLocalizedString( @"Search by Trail or Address", @"" );
     
+    UIImage *locationDisabledIcon = [[UIImage imageNamed:@"location_disabled.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *infoIcon = [[UIImage imageNamed:@"info.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *drawerIcon = [[UIImage imageNamed:@"drawer.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
     SWRevealViewController *revealController = [self revealViewController];
     
     UIButton *button = [UIButton new];
     button.translatesAutoresizingMaskIntoConstraints = NO;
-    button.backgroundColor = [UIColor redColor];
+    button.tintColor = [UIColor whiteColor];
+    [button setImage:drawerIcon forState:UIControlStateNormal];
     [button addTarget:revealController action:@selector(rightRevealToggle:) forControlEvents:UIControlEventTouchUpInside];
     
     self.currentLocationButton = [UIButton new];
     self.currentLocationButton.translatesAutoresizingMaskIntoConstraints = NO;
-    self.currentLocationButton.backgroundColor = [UIColor redColor];
+    self.currentLocationButton.tintColor = [UIColor grayColor];
+    [self.currentLocationButton setImage:locationDisabledIcon forState:UIControlStateNormal];
     [self.currentLocationButton addTarget:self action:@selector(zoomToCurrentLocation:) forControlEvents:UIControlEventTouchUpInside];
-
-    self.trailInfoButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    
+    self.trailInfoButton = [UIButton new];
     self.trailInfoButton.translatesAutoresizingMaskIntoConstraints = NO;
     self.trailInfoButton.hidden = YES;
     self.trailInfoButton.tintColor = [UIColor grayColor];
+    [self.trailInfoButton setImage:infoIcon forState:UIControlStateNormal];
     [self.trailInfoButton addTarget:self action:@selector(trailInfo:) forControlEvents:UIControlEventTouchUpInside];
 
     self.trailTitleLabel = [UILabel new];
@@ -214,8 +221,8 @@
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_trailTitleLabel(400.0)]-(10)-[_trailInfoButton(44.0)]-(20.0)-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_trailSubtitleLabel(400.0)]-(10)-[_trailInfoButton(44.0)]" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_trailSubtitleLabel][_trailTitleLabel]-(20)-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_trailInfoButton]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_trailTitleLabel]-(26)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_trailInfoButton(44.0)]-(20)-|" options:0 metrics:nil views:views]];
 
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_currentLocationButton(44.0)]" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_currentLocationButton(44.0)]-(20)-|" options:0 metrics:nil views:views]];
