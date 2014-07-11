@@ -20,8 +20,6 @@
 		485076F9196B70B000F9A0A4 /* location_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 485076F7196B70B000F9A0A4 /* location_disabled@2x.png */; };
 		485076FC196B71AC00F9A0A4 /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 485076FA196B71AC00F9A0A4 /* info@2x.png */; };
 		485076FD196B71AC00F9A0A4 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 485076FB196B71AC00F9A0A4 /* info.png */; };
-		48507704196B788D00F9A0A4 /* drawer.png in Resources */ = {isa = PBXBuildFile; fileRef = 48507702196B788D00F9A0A4 /* drawer.png */; };
-		48507705196B788D00F9A0A4 /* drawer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48507703196B788D00F9A0A4 /* drawer@2x.png */; };
 		485B17901948E42A002AF37A /* PTAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 485B178F1948E42A002AF37A /* PTAttribute.m */; };
 		485B17961948F66B002AF37A /* PTTrailFiltersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485B17951948F66B002AF37A /* PTTrailFiltersViewController.m */; };
 		485B179919490BFD002AF37A /* PTTrailFilterSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485B179819490BFD002AF37A /* PTTrailFilterSelectionViewController.m */; };
@@ -32,6 +30,16 @@
 		485B17A5194A054F002AF37A /* CyclingFilters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 485B17A4194A054F002AF37A /* CyclingFilters.plist */; };
 		485B17A7194A055F002AF37A /* WalkingFilters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 485B17A6194A055F002AF37A /* WalkingFilters.plist */; };
 		485B17A9194A056B002AF37A /* AccessibilityFilters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 485B17A8194A056B002AF37A /* AccessibilityFilters.plist */; };
+		4892D09F19706C04009C4400 /* drawer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D09D19706C04009C4400 /* drawer@2x.png */; };
+		4892D0A019706C04009C4400 /* drawer.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D09E19706C04009C4400 /* drawer.png */; };
+		4892D0A71970787D009C4400 /* isa.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0A51970787D009C4400 /* isa.png */; };
+		4892D0A81970787D009C4400 /* isa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0A61970787D009C4400 /* isa@2x.png */; };
+		4892D0AB1970790D009C4400 /* walking.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0A91970790D009C4400 /* walking.png */; };
+		4892D0AC1970790D009C4400 /* walking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0AA1970790D009C4400 /* walking@2x.png */; };
+		4892D0AF19707969009C4400 /* cycling@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0AD19707969009C4400 /* cycling@2x.png */; };
+		4892D0B019707969009C4400 /* cycling.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0AE19707969009C4400 /* cycling.png */; };
+		4892D0B3197079D7009C4400 /* hiking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0B1197079D7009C4400 /* hiking@2x.png */; };
+		4892D0B4197079D7009C4400 /* hiking.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0B2197079D7009C4400 /* hiking.png */; };
 		48CED191195CC97400B7D5FB /* PTMapOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48CED190195CC97400B7D5FB /* PTMapOverlayView.m */; };
 		48CED1A5195E1E7000B7D5FB /* rlis.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 48CED1A4195E1E7000B7D5FB /* rlis.geojson */; };
 		48CED1A8195E1EF900B7D5FB /* PTRLISImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 48CED1A7195E1EF900B7D5FB /* PTRLISImporter.m */; };
@@ -96,8 +104,6 @@
 		485076F7196B70B000F9A0A4 /* location_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location_disabled@2x.png"; sourceTree = "<group>"; };
 		485076FA196B71AC00F9A0A4 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
 		485076FB196B71AC00F9A0A4 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
-		48507702196B788D00F9A0A4 /* drawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drawer.png; sourceTree = "<group>"; };
-		48507703196B788D00F9A0A4 /* drawer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drawer@2x.png"; sourceTree = "<group>"; };
 		485B178E1948E42A002AF37A /* PTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTAttribute.h; sourceTree = "<group>"; };
 		485B178F1948E42A002AF37A /* PTAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTAttribute.m; sourceTree = "<group>"; };
 		485B17941948F66B002AF37A /* PTTrailFiltersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTrailFiltersViewController.h; sourceTree = "<group>"; };
@@ -112,6 +118,16 @@
 		485B17A4194A054F002AF37A /* CyclingFilters.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CyclingFilters.plist; path = "Data Files/CyclingFilters.plist"; sourceTree = "<group>"; };
 		485B17A6194A055F002AF37A /* WalkingFilters.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WalkingFilters.plist; sourceTree = "<group>"; };
 		485B17A8194A056B002AF37A /* AccessibilityFilters.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AccessibilityFilters.plist; sourceTree = "<group>"; };
+		4892D09D19706C04009C4400 /* drawer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drawer@2x.png"; sourceTree = "<group>"; };
+		4892D09E19706C04009C4400 /* drawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drawer.png; sourceTree = "<group>"; };
+		4892D0A51970787D009C4400 /* isa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = isa.png; sourceTree = "<group>"; };
+		4892D0A61970787D009C4400 /* isa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "isa@2x.png"; sourceTree = "<group>"; };
+		4892D0A91970790D009C4400 /* walking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = walking.png; sourceTree = "<group>"; };
+		4892D0AA1970790D009C4400 /* walking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "walking@2x.png"; sourceTree = "<group>"; };
+		4892D0AD19707969009C4400 /* cycling@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cycling@2x.png"; sourceTree = "<group>"; };
+		4892D0AE19707969009C4400 /* cycling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cycling.png; sourceTree = "<group>"; };
+		4892D0B1197079D7009C4400 /* hiking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hiking@2x.png"; sourceTree = "<group>"; };
+		4892D0B2197079D7009C4400 /* hiking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hiking.png; sourceTree = "<group>"; };
 		48CED18F195CC97400B7D5FB /* PTMapOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTMapOverlayView.h; sourceTree = "<group>"; };
 		48CED190195CC97400B7D5FB /* PTMapOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTMapOverlayView.m; sourceTree = "<group>"; };
 		48CED1A4195E1E7000B7D5FB /* rlis.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rlis.geojson; sourceTree = "<group>"; };
@@ -186,8 +202,16 @@
 		485B179C19491D6E002AF37A /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				48507702196B788D00F9A0A4 /* drawer.png */,
-				48507703196B788D00F9A0A4 /* drawer@2x.png */,
+				4892D0B1197079D7009C4400 /* hiking@2x.png */,
+				4892D0B2197079D7009C4400 /* hiking.png */,
+				4892D0AD19707969009C4400 /* cycling@2x.png */,
+				4892D0AE19707969009C4400 /* cycling.png */,
+				4892D0A91970790D009C4400 /* walking.png */,
+				4892D0AA1970790D009C4400 /* walking@2x.png */,
+				4892D0A51970787D009C4400 /* isa.png */,
+				4892D0A61970787D009C4400 /* isa@2x.png */,
+				4892D09D19706C04009C4400 /* drawer@2x.png */,
+				4892D09E19706C04009C4400 /* drawer.png */,
 				485076FA196B71AC00F9A0A4 /* info@2x.png */,
 				485076FB196B71AC00F9A0A4 /* info.png */,
 				485076F6196B70B000F9A0A4 /* location_disabled.png */,
@@ -480,24 +504,32 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4892D0AF19707969009C4400 /* cycling@2x.png in Resources */,
 				485B17A7194A055F002AF37A /* WalkingFilters.plist in Resources */,
 				485B179B1949153A002AF37A /* HikingFilters.plist in Resources */,
 				48E8CF0F193C15C200370D72 /* trail_segments.geojson in Resources */,
 				485076F8196B70B000F9A0A4 /* location_disabled.png in Resources */,
 				48E8CEA6193A66C000370D72 /* InfoPlist.strings in Resources */,
+				4892D0B3197079D7009C4400 /* hiking@2x.png in Resources */,
+				4892D0B4197079D7009C4400 /* hiking.png in Resources */,
 				485076FC196B71AC00F9A0A4 /* info@2x.png in Resources */,
+				4892D0A81970787D009C4400 /* isa@2x.png in Resources */,
+				4892D0A019706C04009C4400 /* drawer.png in Resources */,
+				4892D0AC1970790D009C4400 /* walking@2x.png in Resources */,
 				485076F9196B70B000F9A0A4 /* location_disabled@2x.png in Resources */,
-				48507705196B788D00F9A0A4 /* drawer@2x.png in Resources */,
 				485B179F19491D76002AF37A /* Power.png in Resources */,
-				48507704196B788D00F9A0A4 /* drawer.png in Resources */,
 				48E8CF0D193C15C200370D72 /* named_trails.csv in Resources */,
 				48E8CF10193C15C200370D72 /* trailheads.geojson in Resources */,
 				485B17A5194A054F002AF37A /* CyclingFilters.plist in Resources */,
 				485076FD196B71AC00F9A0A4 /* info.png in Resources */,
 				485B17A019491D76002AF37A /* Power@2x.png in Resources */,
+				4892D0AB1970790D009C4400 /* walking.png in Resources */,
 				485B17A9194A056B002AF37A /* AccessibilityFilters.plist in Resources */,
+				4892D0A71970787D009C4400 /* isa.png in Resources */,
 				48E8CEAE193A66C000370D72 /* Images.xcassets in Resources */,
 				48E8CF0E193C15C200370D72 /* stewards.csv in Resources */,
+				4892D09F19706C04009C4400 /* drawer@2x.png in Resources */,
+				4892D0B019707969009C4400 /* cycling.png in Resources */,
 				48E8CF0C193C15C200370D72 /* areas.geojson in Resources */,
 				48CED1A5195E1E7000B7D5FB /* rlis.geojson in Resources */,
 			);

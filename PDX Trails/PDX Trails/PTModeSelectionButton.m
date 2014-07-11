@@ -15,33 +15,34 @@
 {
     if ( self = [super init] ) {
         
-        UIImage *temp = [[UIImage imageNamed:@"Power.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-
         self.tag = mode;
         self.titleLabel.font = [UIFont PTBoldAppFontOfSize:18.0f];
         self.translatesAutoresizingMaskIntoConstraints = NO;
         self.tintColor = [UIColor whiteColor];
-        self.backgroundColor = [UIColor grayColor];
-
-        [self setTitle:PTNameForMode( mode ) forState:UIControlStateNormal];
+        self.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
+        
         [self setTitleColor:[UIColor PTBlueTintColor] forState:UIControlStateSelected];
 
+        UIImage *icon = nil;
+        
         switch ( mode ) {
             case PTUserModeHiking:
-                [self setImage:temp forState:UIControlStateNormal];
+                icon = [UIImage imageNamed:@"hiking.png"];
                 break;
             case PTUserModeCycling:
-                [self setImage:temp forState:UIControlStateNormal];
+                icon = [UIImage imageNamed:@"cycling.png"];
                 break;
             case PTUserModeWalking:
-                [self setImage:temp forState:UIControlStateNormal];
+                icon = [UIImage imageNamed:@"walking.png"];
                 break;
             case PTUserModeAccessible:
-                [self setImage:temp forState:UIControlStateNormal];
+                icon = [UIImage imageNamed:@"isa.png"];
                 break;
             case PTUserModeRunning:
                 break;
-        }        
+        }
+        
+        [self setImage:[icon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     }
     
     return self;
