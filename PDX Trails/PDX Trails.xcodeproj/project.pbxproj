@@ -40,6 +40,7 @@
 		4892D0B019707969009C4400 /* cycling.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0AE19707969009C4400 /* cycling.png */; };
 		4892D0B3197079D7009C4400 /* hiking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0B1197079D7009C4400 /* hiking@2x.png */; };
 		4892D0B4197079D7009C4400 /* hiking.png in Resources */ = {isa = PBXBuildFile; fileRef = 4892D0B2197079D7009C4400 /* hiking.png */; };
+		48B1A0D71977299F001E0DEF /* PTSegmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48B1A0D61977299F001E0DEF /* PTSegmentTableViewCell.m */; };
 		48CED191195CC97400B7D5FB /* PTMapOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48CED190195CC97400B7D5FB /* PTMapOverlayView.m */; };
 		48CED1A5195E1E7000B7D5FB /* rlis.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 48CED1A4195E1E7000B7D5FB /* rlis.geojson */; };
 		48CED1A8195E1EF900B7D5FB /* PTRLISImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 48CED1A7195E1EF900B7D5FB /* PTRLISImporter.m */; };
@@ -128,6 +129,8 @@
 		4892D0AE19707969009C4400 /* cycling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cycling.png; sourceTree = "<group>"; };
 		4892D0B1197079D7009C4400 /* hiking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hiking@2x.png"; sourceTree = "<group>"; };
 		4892D0B2197079D7009C4400 /* hiking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hiking.png; sourceTree = "<group>"; };
+		48B1A0D51977299F001E0DEF /* PTSegmentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTSegmentTableViewCell.h; sourceTree = "<group>"; };
+		48B1A0D61977299F001E0DEF /* PTSegmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTSegmentTableViewCell.m; sourceTree = "<group>"; };
 		48CED18F195CC97400B7D5FB /* PTMapOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTMapOverlayView.h; sourceTree = "<group>"; };
 		48CED190195CC97400B7D5FB /* PTMapOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTMapOverlayView.m; sourceTree = "<group>"; };
 		48CED1A4195E1E7000B7D5FB /* rlis.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rlis.geojson; sourceTree = "<group>"; };
@@ -390,6 +393,8 @@
 				48CED190195CC97400B7D5FB /* PTMapOverlayView.m */,
 				483EF62C1962130600AF7A63 /* PTOSMFormatter.h */,
 				483EF62D1962130600AF7A63 /* PTOSMFormatter.m */,
+				48B1A0D51977299F001E0DEF /* PTSegmentTableViewCell.h */,
+				48B1A0D61977299F001E0DEF /* PTSegmentTableViewCell.m */,
 			);
 			name = "User Interface";
 			sourceTree = "<group>";
@@ -575,6 +580,7 @@
 				48E8CED0193A772100370D72 /* PTRootMapViewController.m in Sources */,
 				48E8CEA8193A66C000370D72 /* main.m in Sources */,
 				48E8CEDA193A9FA600370D72 /* SWRevealViewController.m in Sources */,
+				48B1A0D71977299F001E0DEF /* PTSegmentTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

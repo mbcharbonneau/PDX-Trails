@@ -12,18 +12,50 @@
 #import "PTTrailRenderer.h"
 #import "PTTrailOverlay.h"
 #import "PTOSMFormatter.h"
+#import "PTSegmentTableViewCell.h"
 
 #define DEFAULT_SEGMENT_NAME NSLocalizedString( @"Trailway", @"" );
+
+static NSString *const PTTrailInfoCellIdentifier = @"PTTrailInfoCellIdentifier";
+static NSString *const PTTrailSegmentCellIdentifier = @"PTTrailSegmentCellIdentifier";
+
+@interface NSCountedSet(PTTrailInfoViewController)
+- (id)mostFrequentElement;
+@end
+
+@implementation NSCountedSet(PTTrailInfoViewController)
+
+- (id)mostFrequentElement;
+{
+    id best = nil;
+    NSUInteger count = 0;
+    
+    for ( id element in self ) {
+        if ( best == nil || [self countForObject:element] > count ) {
+            best = element;
+            count = [self countForObject:element];
+        }
+    }
+    
+    return best;
+}
+
+@end
 
 @interface PTTrailInfoViewController ()
 
 @property (strong, nonatomic) OTTrail *trail;
 @property (strong, nonatomic) OTTrailSegment *selectedSegment;
+@property (strong, nonatomic) NSArray *trailAttributes;
 @property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic) UISegmentedControl *detailModeControl;
 @property (strong, nonatomic) UITableView *detailsTableView;
+@property (strong, nonatomic) UITapGestureRecognizer *backgroundTapRecognizer;
+
++ (NSArray *)buildAttributes:(OTTrail *)trail;
 
 - (void)changeMode:(UISegmentedControl *)sender;
+- (void)backgroundTap:(UITapGestureRecognizer *)recognizer;
 
 @end
 
@@ -37,6 +69,7 @@
     
     if ( self = [super initWithNibName:nil bundle:nil] ) {
         _trail = trail;
+        _trailAttributes = [[self class] buildAttributes:trail];
     }
     
     return self;
@@ -44,9 +77,42 @@
 
 #pragma mark PTTrailInfoViewController Private
 
++ (NSArray *)buildAttributes:(OTTrail *)trail;
+{
+    NSParameterAssert( trail!= nil );
+    
+    NSCountedSet *surfaceTags = [NSCountedSet new];
+    
+    for ( OTTrailSegment *segment in trail.segments ) {
+        
+        NSString *surface = segment.openStreetMapTags[@"surface"];
+        
+        if ( [surface length] > 0 )
+            [surfaceTags addObject:surface];
+    }
+    
+    NSMutableArray *strings = [NSMutableArray new];
+
+    [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"%.0f meters long.", @"" ), trail.distance]];
+    [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"Surface is mostly %@.", @"" ), [surfaceTags mostFrequentElement]]];
+    
+    return strings;
+}
+
 - (void)changeMode:(UISegmentedControl *)sender;
 {
-    NSLog( @"HERE" );
+    [self.detailsTableView reloadData];
+}
+
+- (void)backgroundTap:(UITapGestureRecognizer *)recognizer;
+{
+    if ( recognizer.state != UIGestureRecognizerStateEnded )
+        return;
+    
+    CGPoint location = [recognizer locationInView:self.view];
+    
+    if ( !CGRectContainsPoint( self.view.frame, location) )
+        [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)setSelectedSegment:(OTTrailSegment *)selectedSegment;
@@ -104,7 +170,8 @@
     self.detailsTableView.dataSource = self;
     self.detailsTableView.sectionHeaderHeight = 30.0f;
     self.detailsTableView.sectionFooterHeight = 20.0f;
-    [self.detailsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass( [self class] )];
+    [self.detailsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:PTTrailInfoCellIdentifier];
+    [self.detailsTableView registerClass:[PTSegmentTableViewCell class] forCellReuseIdentifier:PTTrailSegmentCellIdentifier];
     
     [self.view addSubview:self.detailModeControl];
     [self.view addSubview:self.mapView];
@@ -122,12 +189,11 @@
 {
     [super viewDidAppear:animated];
     
+    self.backgroundTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTap:)];
+    self.backgroundTapRecognizer.cancelsTouchesInView = NO;
     
-//    self.backgroundTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTap:)];
-//    self.backgroundTapRecognizer.cancelsTouchesInView = NO;
-//    
-//    [self.view.window addGestureRecognizer:self.backgroundTapRecognizer];
-//    self.selectedSegment = [self.trail.segments firstObject];
+    [self.view.window addGestureRecognizer:self.backgroundTapRecognizer];
+    self.selectedSegment = [self.trail.segments firstObject];
 }
 
 - (void)viewWillLayoutSubviews;
@@ -140,8 +206,8 @@
 
 - (void)dealloc;
 {
-//    [self.backgroundTapRecognizer.view removeGestureRecognizer:self.backgroundTapRecognizer];
-//    self.backgroundTapRecognizer = nil;
+    [self.backgroundTapRecognizer.view removeGestureRecognizer:self.backgroundTapRecognizer];
+    self.backgroundTapRecognizer = nil;
 }
 
 #pragma mark UITableViewDataSource
@@ -153,25 +219,33 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    return [self.trail.segments count];
+    BOOL infoMode = self.detailModeControl.selectedSegmentIndex == 0;
+    return infoMode ? [self.trailAttributes count] : [self.trail.segments count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass( [self class] ) forIndexPath:indexPath];
+    BOOL infoMode = self.detailModeControl.selectedSegmentIndex == 0;
+    NSInteger row = indexPath.row;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:infoMode ? PTTrailInfoCellIdentifier : PTTrailSegmentCellIdentifier forIndexPath:indexPath];
 
-    if ( indexPath.section == 0 ) {
+    if ( infoMode ) {
         
-        OTTrailSegment *segment = self.trail.segments[indexPath.row];
+        cell.textLabel.text = self.trailAttributes[row];
+        cell.textLabel.font = [UIFont PTAppFontOfSize:14.0f];
+        cell.textLabel.numberOfLines = 1;
         
-        cell.textLabel.text = [segment description];
-        cell.textLabel.font = [UIFont PTAppFontOfSize:10.0f];
-        cell.textLabel.numberOfLines = 3;
+    } else {
         
+        OTTrailSegment *segment = self.trail.segments[row];
+        PTSegmentTableViewCell *real = cell;
+        real.segment = segment;
     }
     
     return cell;
 }
+
+#pragma mark UITableViewDelegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
 {
@@ -189,6 +263,22 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section;
 {
     return [UIView new];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    self.selectedSegment = self.trail.segments[indexPath.row];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+{
+    if ( self.detailModeControl.selectedSegmentIndex != 1 )
+        return;
+    
+    NSArray *cells = [self.detailsTableView visibleCells];
+    PTSegmentTableViewCell *cell = [cells firstObject];
+    self.selectedSegment = cell.segment;
 }
 
 #pragma mark MKMapViewDelegate
