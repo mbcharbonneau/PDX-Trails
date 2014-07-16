@@ -11,7 +11,7 @@
 
 @class OTTrail;
 
-@interface PTTrailInfoViewController : UIViewController <MKMapViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface PTTrailInfoViewController : UIViewController <MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 - (instancetype)initWithTrail:(OTTrail *)trail;
 

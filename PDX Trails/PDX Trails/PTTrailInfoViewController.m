@@ -20,13 +20,10 @@
 @property (strong, nonatomic) OTTrail *trail;
 @property (strong, nonatomic) OTTrailSegment *selectedSegment;
 @property (strong, nonatomic) MKMapView *mapView;
-@property (strong, nonatomic) UILabel *infoLabel;
-@property (strong, nonatomic) UITapGestureRecognizer *backgroundTapRecognizer;
-@property (strong, nonatomic) UIPickerView *segmentSelectionView;
-@property (strong, nonatomic) UIButton *trailInfoTabButton;
-@property (strong, nonatomic) UIButton *segmentsTabButton;
+@property (strong, nonatomic) UISegmentedControl *detailModeControl;
+@property (strong, nonatomic) UITableView *detailsTableView;
 
-- (void)backgroundTap:(UITapGestureRecognizer *)recognizer;
+- (void)changeMode:(UISegmentedControl *)sender;
 
 @end
 
@@ -47,12 +44,9 @@
 
 #pragma mark PTTrailInfoViewController Private
 
-- (void)backgroundTap:(UITapGestureRecognizer *)recognizer;
+- (void)changeMode:(UISegmentedControl *)sender;
 {
-    if ( recognizer.state != UIGestureRecognizerStateEnded )
-        return;
-    
-    [self dismissViewControllerAnimated:YES completion:^{}];
+    NSLog( @"HERE" );
 }
 
 - (void)setSelectedSegment:(OTTrailSegment *)selectedSegment;
@@ -71,8 +65,8 @@
     [self.mapView addAnnotation:annotation];
     [self.mapView selectAnnotation:annotation animated:!isShowingAnnotation];
     
-    PTOSMFormatter *formatter = [PTOSMFormatter new];
-    self.infoLabel.text = [formatter stringForTags:[selectedSegment openStreetMapTags]];
+//    PTOSMFormatter *formatter = [PTOSMFormatter new];
+//    self.infoLabel.text = [formatter stringForTags:[selectedSegment openStreetMapTags]];
     
     _selectedSegment = selectedSegment;
 }
@@ -85,21 +79,12 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.text = self.trail.name;
-    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    titleLabel.font = [UIFont PTAppFontOfSize:24.0f];
-    
-    self.infoLabel = [UILabel new];
-    self.infoLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.infoLabel.font = [UIFont PTAppFontOfSize:14.0f];
-    self.infoLabel.numberOfLines = 0;
-    
-    self.segmentSelectionView = [UIPickerView new];
-    self.segmentSelectionView.dataSource = self;
-    self.segmentSelectionView.delegate = self;
-    self.segmentSelectionView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.segmentSelectionView.backgroundColor = [UIColor lightGrayColor];
+    NSArray *labels = @[NSLocalizedString( @"Trail Info", @"" ), NSLocalizedString( @"Segments", @"" )];
+    self.detailModeControl = [[UISegmentedControl alloc] initWithItems:labels];
+    self.detailModeControl.translatesAutoresizingMaskIntoConstraints = NO;
+    self.detailModeControl.tintColor = [UIColor PTBlueTintColor];
+    self.detailModeControl.selectedSegmentIndex = 0;
+    [self.detailModeControl addTarget:self action:@selector(changeMode:) forControlEvents:UIControlEventValueChanged];
     
     self.mapView = [MKMapView new];
     self.mapView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -113,30 +98,36 @@
     [self.mapView addOverlay:overlay];
     [self.mapView setRegion:MKCoordinateRegionForMapRect( mapRect ) animated:YES];
     
-    [self.view addSubview:titleLabel];
-    [self.view addSubview:self.segmentSelectionView];
+    self.detailsTableView = [UITableView new];
+    self.detailsTableView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.detailsTableView.delegate = self;
+    self.detailsTableView.dataSource = self;
+    self.detailsTableView.sectionHeaderHeight = 30.0f;
+    self.detailsTableView.sectionFooterHeight = 20.0f;
+    [self.detailsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass( [self class] )];
+    
+    [self.view addSubview:self.detailModeControl];
     [self.view addSubview:self.mapView];
-    [self.view addSubview:self.infoLabel];
+    [self.view addSubview:self.detailsTableView];
 
-    NSDictionary *views = NSDictionaryOfVariableBindings( titleLabel, _segmentSelectionView, _mapView, _infoLabel );
+    NSDictionary *views = NSDictionaryOfVariableBindings( _mapView, _detailModeControl, _detailsTableView );
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_mapView]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView(350)]-(20)-[titleLabel][_segmentSelectionView][_infoLabel]" options:0 metrics:nil views:views]];
-
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[titleLabel]-(20)-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_infoLabel]-(20)-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(40)-[_segmentSelectionView]-(40)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_mapView(350)]-(20)-[_detailModeControl]-(20)-[_detailsTableView]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(20)-[_detailsTableView]-(20)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(60)-[_detailModeControl]-(60)-|" options:0 metrics:nil views:views]];
 }
 
 - (void)viewDidAppear:(BOOL)animated;
 {
     [super viewDidAppear:animated];
     
-    self.backgroundTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTap:)];
-    self.backgroundTapRecognizer.cancelsTouchesInView = NO;
     
-    [self.view.window addGestureRecognizer:self.backgroundTapRecognizer];
-    self.selectedSegment = [self.trail.segments firstObject];
+//    self.backgroundTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTap:)];
+//    self.backgroundTapRecognizer.cancelsTouchesInView = NO;
+//    
+//    [self.view.window addGestureRecognizer:self.backgroundTapRecognizer];
+//    self.selectedSegment = [self.trail.segments firstObject];
 }
 
 - (void)viewWillLayoutSubviews;
@@ -149,20 +140,20 @@
 
 - (void)dealloc;
 {
-    [self.backgroundTapRecognizer.view removeGestureRecognizer:self.backgroundTapRecognizer];
-    self.backgroundTapRecognizer = nil;
+//    [self.backgroundTapRecognizer.view removeGestureRecognizer:self.backgroundTapRecognizer];
+//    self.backgroundTapRecognizer = nil;
 }
 
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    return section == 0 ? [self.trail.segments count] : [self.trail.trailheads count];
+    return [self.trail.segments count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -177,55 +168,27 @@
         cell.textLabel.font = [UIFont PTAppFontOfSize:10.0f];
         cell.textLabel.numberOfLines = 3;
         
-    } else if ( indexPath.section == 1 ) {
-        
-        OTTrailhead *trailhead = self.trail.trailheads[indexPath.row];
-        
-        cell.textLabel.text = trailhead.name;
-        cell.textLabel.font = [UIFont PTAppFontOfSize:10.0f];
-        cell.textLabel.numberOfLines = 1;
-    
     }
     
     return cell;
 }
 
-#pragma mark UITableViewDelegate
-
-
-#pragma mark UIPickerViewDelegate
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
 {
-    self.selectedSegment = self.trail.segments[row];
-}
-
-#pragma mark UIPickerViewDataSource
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView;
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
-{
-    return [self.trail.segments count];
-}
-
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view;
-{
-    OTTrailSegment *segment = self.trail.segments[row];
     UILabel *label = [UILabel new];
-    
-    label.font = [UIFont PTAppFontOfSize:18.0f];
-    label.text = segment.name ?: DEFAULT_SEGMENT_NAME;
+    label.font = [UIFont PTBoldAppFontOfSize:12.0f];
+    label.backgroundColor = [UIColor lightGrayColor];
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = self.trail.name ?: NSLocalizedString( @"Trail", @"" );
+    label.text = [label.text uppercaseString];
     
     return label;
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component;
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section;
 {
-    return 28.0f;
+    return [UIView new];
 }
 
 #pragma mark MKMapViewDelegate
