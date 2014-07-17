@@ -82,19 +82,35 @@ static NSString *const PTTrailSegmentCellIdentifier = @"PTTrailSegmentCellIdenti
     NSParameterAssert( trail!= nil );
     
     NSCountedSet *surfaceTags = [NSCountedSet new];
+    NSCountedSet *mtbTags = [NSCountedSet new];
+    NSCountedSet *litTags = [NSCountedSet new];
     
     for ( OTTrailSegment *segment in trail.segments ) {
         
         NSString *surface = segment.openStreetMapTags[@"surface"];
+        NSString *mtb = segment.openStreetMapTags[@"mtb"];
+        NSString *lit = segment.openStreetMapTags[@"lit"];
         
         if ( [surface length] > 0 )
             [surfaceTags addObject:surface];
+        
+        if ( [mtb length] > 0 )
+            [mtbTags addObject:mtb];
+
+        if ( [lit length] > 0 )
+            [litTags addObject:lit];
     }
     
     NSMutableArray *strings = [NSMutableArray new];
 
     [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"%.0f meters long.", @"" ), trail.distance]];
     [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"Surface is mostly %@.", @"" ), [surfaceTags pt_mostFrequentElement]]];
+    
+    if ( [mtbTags countForObject:@"yes"] > 0 )
+        [strings addObject:NSLocalizedString( @"Mountain biking allowed.", @"" )];
+    
+    if ( [litTags countForObject:@"yes"] > 0 )
+        [strings addObject:NSLocalizedString( @"Has lamplights.", @"" )];
     
     return strings;
 }
@@ -134,6 +150,8 @@ static NSString *const PTTrailSegmentCellIdentifier = @"PTTrailSegmentCellIdenti
     
 //    PTOSMFormatter *formatter = [PTOSMFormatter new];
 //    self.infoLabel.text = [formatter stringForTags:[selectedSegment openStreetMapTags]];
+    
+    NSLog( @"%@", [selectedSegment openStreetMapTags] );
     
     _selectedSegment = selectedSegment;
 }
