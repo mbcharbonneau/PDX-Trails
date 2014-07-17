@@ -20,12 +20,12 @@ static NSString *const PTTrailInfoCellIdentifier = @"PTTrailInfoCellIdentifier";
 static NSString *const PTTrailSegmentCellIdentifier = @"PTTrailSegmentCellIdentifier";
 
 @interface NSCountedSet(PTTrailInfoViewController)
-- (id)mostFrequentElement;
+- (id)pt_mostFrequentElement;
 @end
 
 @implementation NSCountedSet(PTTrailInfoViewController)
 
-- (id)mostFrequentElement;
+- (id)pt_mostFrequentElement;
 {
     id best = nil;
     NSUInteger count = 0;
@@ -94,13 +94,14 @@ static NSString *const PTTrailSegmentCellIdentifier = @"PTTrailSegmentCellIdenti
     NSMutableArray *strings = [NSMutableArray new];
 
     [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"%.0f meters long.", @"" ), trail.distance]];
-    [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"Surface is mostly %@.", @"" ), [surfaceTags mostFrequentElement]]];
+    [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"Surface is mostly %@.", @"" ), [surfaceTags pt_mostFrequentElement]]];
     
     return strings;
 }
 
 - (void)changeMode:(UISegmentedControl *)sender;
 {
+    self.detailsTableView.allowsSelection = [sender selectedSegmentIndex] == 1;
     [self.detailsTableView reloadData];
 }
 
@@ -170,6 +171,7 @@ static NSString *const PTTrailSegmentCellIdentifier = @"PTTrailSegmentCellIdenti
     self.detailsTableView.dataSource = self;
     self.detailsTableView.sectionHeaderHeight = 30.0f;
     self.detailsTableView.sectionFooterHeight = 20.0f;
+    self.detailsTableView.allowsSelection = NO;
     [self.detailsTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:PTTrailInfoCellIdentifier];
     [self.detailsTableView registerClass:[PTSegmentTableViewCell class] forCellReuseIdentifier:PTTrailSegmentCellIdentifier];
     
@@ -267,6 +269,9 @@ static NSString *const PTTrailSegmentCellIdentifier = @"PTTrailSegmentCellIdenti
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
+    if ( self.detailModeControl.selectedSegmentIndex != 1 )
+        return;
+    
     self.selectedSegment = self.trail.segments[indexPath.row];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
