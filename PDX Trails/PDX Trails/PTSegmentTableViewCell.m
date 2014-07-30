@@ -25,9 +25,14 @@
 
 - (void)setSegment:(OTTrailSegment *)segment;
 {
+    static MKDistanceFormatter *formatter = nil;
+    
+    if ( formatter == nil )
+        formatter = [[MKDistanceFormatter alloc] init];
+    
     _segment = segment;
     self.textLabel.text = segment.name ?: NSLocalizedString( @"Trail Segment", @"" );
-    self.detailTextLabel.text = [NSString stringWithFormat:@"%f meters", self.segment.distance];
+    self.detailTextLabel.text = [formatter stringFromDistance:self.segment.distance];
 }
 
 @end

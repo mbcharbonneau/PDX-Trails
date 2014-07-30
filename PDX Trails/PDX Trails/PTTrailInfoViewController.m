@@ -102,8 +102,9 @@ static NSString *const PTTrailSegmentCellIdentifier = @"PTTrailSegmentCellIdenti
     }
     
     NSMutableArray *strings = [NSMutableArray new];
+    MKDistanceFormatter *formatter = [[MKDistanceFormatter alloc] init];
 
-    [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"%.0f meters long.", @"" ), trail.distance]];
+    [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"%@ long.", @"" ), [formatter stringFromDistance:trail.distance]]];
     [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"Surface is mostly %@.", @"" ), [surfaceTags pt_mostFrequentElement]]];
     
     if ( [mtbTags countForObject:@"yes"] > 0 )
