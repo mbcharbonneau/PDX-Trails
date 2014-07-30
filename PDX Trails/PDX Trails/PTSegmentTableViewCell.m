@@ -31,8 +31,16 @@
         formatter = [[MKDistanceFormatter alloc] init];
     
     _segment = segment;
+    
+    NSString *detail = [formatter stringFromDistance:self.segment.distance];
+    NSString *surface = segment.openStreetMapTags[@"surface"];
+    
+    if ( [surface length] > 0 ) {
+        detail = [detail stringByAppendingFormat:NSLocalizedString( @", %@", @"" ), surface];
+    }
+    
     self.textLabel.text = segment.name ?: NSLocalizedString( @"Trail Segment", @"" );
-    self.detailTextLabel.text = [formatter stringFromDistance:self.segment.distance];
+    self.detailTextLabel.text = detail;
 }
 
 @end
