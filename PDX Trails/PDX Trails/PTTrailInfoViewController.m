@@ -105,7 +105,12 @@ static NSString *const PTTrailSegmentCellIdentifier = @"PTTrailSegmentCellIdenti
     MKDistanceFormatter *formatter = [[MKDistanceFormatter alloc] init];
 
     [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"%@ long.", @"" ), [formatter stringFromDistance:trail.distance]]];
-    [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"Surface is mostly %@.", @"" ), [surfaceTags pt_mostFrequentElement]]];
+    
+    if ( [surfaceTags count] == 1 ) {
+        [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"Surface is %@.", @"" ), [surfaceTags pt_mostFrequentElement]]];
+    } else if ( [surfaceTags count] > 1 ) {
+        [strings addObject:[NSString stringWithFormat:NSLocalizedString( @"Surface is mostly %@.", @"" ), [surfaceTags pt_mostFrequentElement]]];
+    }
     
     if ( [mtbTags countForObject:@"yes"] > 0 )
         [strings addObject:NSLocalizedString( @"Mountain biking allowed.", @"" )];
