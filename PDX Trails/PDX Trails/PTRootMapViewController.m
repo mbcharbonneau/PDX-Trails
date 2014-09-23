@@ -156,7 +156,7 @@
     UISearchBar *searchBar = [UISearchBar new];
     searchBar.translatesAutoresizingMaskIntoConstraints = NO;
     searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    searchBar.placeholder = NSLocalizedString( @"Search by Trail or Address", @"" );
+    searchBar.placeholder = NSLocalizedString( @"Search for a Trail", @"" );
     
     UIImage *locationDisabledIcon = [[UIImage imageNamed:@"location_disabled.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     UIImage *infoIcon = [[UIImage imageNamed:@"info.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
