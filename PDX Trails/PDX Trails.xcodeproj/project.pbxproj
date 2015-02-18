@@ -433,9 +433,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		48E8CE97193A66C000370D72 /* PDX Trails */ = {
+		48E8CE97193A66C000370D72 /* PDX TrailFinder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 48E8CEC4193A66C000370D72 /* Build configuration list for PBXNativeTarget "PDX Trails" */;
+			buildConfigurationList = 48E8CEC4193A66C000370D72 /* Build configuration list for PBXNativeTarget "PDX TrailFinder" */;
 			buildPhases = (
 				48E8CE94193A66C000370D72 /* Sources */,
 				48E8CE95193A66C000370D72 /* Frameworks */,
@@ -445,7 +445,7 @@
 			);
 			dependencies = (
 			);
-			name = "PDX Trails";
+			name = "PDX TrailFinder";
 			productName = "PDX Trails";
 			productReference = 48E8CE98193A66C000370D72 /* PDX Trails.app */;
 			productType = "com.apple.product-type.application";
@@ -498,7 +498,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				48E8CE97193A66C000370D72 /* PDX Trails */,
+				48E8CE97193A66C000370D72 /* PDX TrailFinder */,
 				48E8CEB2193A66C000370D72 /* PDX TrailsTests */,
 			);
 		};
@@ -597,7 +597,7 @@
 /* Begin PBXTargetDependency section */
 		48E8CEB9193A66C000370D72 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 48E8CE97193A66C000370D72 /* PDX Trails */;
+			target = 48E8CE97193A66C000370D72 /* PDX TrailFinder */;
 			targetProxy = 48E8CEB8193A66C000370D72 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -778,7 +778,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		48E8CEC4193A66C000370D72 /* Build configuration list for PBXNativeTarget "PDX Trails" */ = {
+		48E8CEC4193A66C000370D72 /* Build configuration list for PBXNativeTarget "PDX TrailFinder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				48E8CEC5193A66C000370D72 /* Debug */,
